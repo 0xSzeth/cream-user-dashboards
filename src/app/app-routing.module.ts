@@ -4,6 +4,9 @@ import { HomeComponent } from './home/home.component';
 import { IceCREAMComponent } from './ice-cream/ice-cream.component';
 import { EthV1Component } from './eth-v1/eth-v1.component';
 import { IronBankComponent } from './iron-bank/iron-bank.component';
+import { BinanceSmartChainComponent } from './binance-smart-chain/binance-smart-chain.component';
+import { PolygonComponent } from './polygon/polygon.component';
+import { FantomComponent } from './fantom/fantom.component';
 
 const routes: Routes = [
   {
@@ -22,6 +25,18 @@ const routes: Routes = [
   {
     path: 'ironBank',
     component: IronBankComponent,
+  },
+  {
+    path: 'bsc',
+    component: BinanceSmartChainComponent,
+  },
+  {
+    path: 'polygon',
+    component: PolygonComponent,
+  },
+  {
+    path: 'fantom',
+    component: FantomComponent,
   },
 ];
 
