@@ -8,6 +8,9 @@ import { EthV1Component } from './eth-v1/eth-v1.component';
 import { IronBankComponent } from './iron-bank/iron-bank.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
+import { BinanceSmartChainComponent } from './binance-smart-chain/binance-smart-chain.component';
+import { PolygonComponent } from './polygon/polygon.component';
+import { FantomComponent } from './fantom/fantom.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { HomeComponent } from './home/home.component';
     EthV1Component,
     IronBankComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    BinanceSmartChainComponent,
+    PolygonComponent,
+    FantomComponent
   ],
   imports: [
     NgbModule,
