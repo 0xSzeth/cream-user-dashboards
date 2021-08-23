@@ -7,6 +7,7 @@ import { IceCREAMComponent } from './ice-cream/ice-cream.component';
 import { EthV1Component } from './eth-v1/eth-v1.component';
 import { IronBankComponent } from './iron-bank/iron-bank.component';
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { HeaderComponent } from './header/header.component';
     IceCREAMComponent,
     EthV1Component,
     IronBankComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     NgbModule,
