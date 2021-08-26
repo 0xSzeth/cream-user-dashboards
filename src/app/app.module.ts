@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { BinanceSmartChainComponent } from './binance-smart-chain/binance-smart-chain.component';
 import { PolygonComponent } from './polygon/polygon.component';
 import { FantomComponent } from './fantom/fantom.component';
+import { TotalValueLockedComponent } from './polygon/charts/total-value-locked/total-value-locked.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FantomComponent } from './fantom/fantom.component';
     HomeComponent,
     BinanceSmartChainComponent,
     PolygonComponent,
-    FantomComponent
+    FantomComponent,
+    TotalValueLockedComponent
   ],
   imports: [
     NgbModule,
