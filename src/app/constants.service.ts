@@ -5,8 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class ConstantsService {
   // tokens
+  WETH = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
   CREAM = "0x2ba592f78db6436527729929aaf6c908497cb200";
   ICE_CREAM = "0x3986425b96F11972d31C78ff340908832C5c0043";
+  ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
   // subgraph endpoints
   GRAPHQL_MAINNET = "https://api.thegraph.com/subgraphs/name/creamfinancedev/cream-portfolio-mainnet";

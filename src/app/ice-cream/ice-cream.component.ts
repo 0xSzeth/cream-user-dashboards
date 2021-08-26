@@ -3,6 +3,7 @@ import { HelpersService } from '../helpers.service';
 import { ConstantsService } from '../constants.service';
 import { ethers } from 'ethers';
 import detectEthereumProvider from '@metamask/detect-provider';
+import { request, gql } from 'graphql-request';
 
 @Component({
   selector: 'app-ice-cream',
@@ -12,6 +13,12 @@ import detectEthereumProvider from '@metamask/detect-provider';
 export class IceCREAMComponent implements OnInit {
   creamPriceUSD: number = 0;
   iceCreamTotalSupply: number = 0;
+
+  activeUsersMainnet: number = 0;
+  activeUsersIronBank: number = 0;
+  activeUsersPolygon: number = 0;
+  activeUsersFantom: number = 0;
+  activeUsersBSC: number = 0;
 
   constructor(
     public helpers: HelpersService,
@@ -33,8 +40,220 @@ export class IceCREAMComponent implements OnInit {
     const iceCreamAbi = require(`src/assets/abis/iceCREAM.json`);
     const iceCreamAddress = this.constants.ICE_CREAM;
     const iceCreamContract = new ethers.Contract(iceCreamAddress, iceCreamAbi, ethereum);
-    const iceCreamTotalSupply = ethers.utils.formatUnits(await iceCreamContract.supply({gasLimit: 100000}), 'ether');
+    const iceCreamTotalSupply = ethers.utils.formatUnits(
+      await iceCreamContract.supply({gasLimit: 100000}).catch((error: any) => {console.log(error);}),
+      'ether'
+    );
     this.iceCreamTotalSupply = parseFloat(iceCreamTotalSupply);
+
+    // fetch total active users on each chain
+    this.loadMainnet();
+    this.loadIronBank();
+    this.loadPolygon();
+    this.loadFantom();
+    this.loadBSC();
+
   }
 
+  async loadMainnet() {
+    let activeUsersMainnet: number = 0;
+
+    let skip: boolean = true;
+    let lastID: string = "";
+
+    while (skip) {
+      let queryString = `query ActiveUsers {`;
+      queryString += `accounts (
+        first: 1000,
+        where: {
+          id_gt: "${lastID}"
+        }
+      ) {
+          id
+        }`;
+      queryString += `}`;
+      const query = gql`
+        ${queryString}
+      `;
+
+      let result = await request(this.constants.GRAPHQL_MAINNET, query).then(
+        (data: QueryResult) => {
+          return data;
+        });
+
+      if (result.accounts.length < 1000) {
+        skip = false;
+        activeUsersMainnet += result.accounts.length;
+      } else {
+        lastID = result.accounts[999].id;
+        activeUsersMainnet += 1000;
+      }
+
+    }
+
+    this.activeUsersMainnet = activeUsersMainnet;
+  }
+
+  async loadIronBank() {
+    let activeUsersIronBank: number = 0;
+
+    let skip: boolean = true;
+    let lastID: string = "";
+
+    while (skip) {
+      let queryString = `query ActiveUsers {`;
+      queryString += `accounts (
+        first: 1000,
+        where: {
+          id_gt: "${lastID}"
+        }
+      ) {
+          id
+        }`;
+      queryString += `}`;
+      const query = gql`
+        ${queryString}
+      `;
+
+      let result = await request(this.constants.GRAPHQL_IRONBANK, query).then(
+        (data: QueryResult) => {
+          return data;
+        });
+
+      if (result.accounts.length < 1000) {
+        skip = false;
+        activeUsersIronBank += result.accounts.length;
+      } else {
+        lastID = result.accounts[999].id;
+        activeUsersIronBank += 1000;
+      }
+
+    }
+
+    this.activeUsersIronBank = activeUsersIronBank;
+  }
+
+  async loadPolygon() {
+    let activeUsersPolygon: number = 0;
+
+    let skip: boolean = true;
+    let lastID: string = "";
+
+    while (skip) {
+      let queryString = `query ActiveUsers {`;
+      queryString += `accounts (
+        first: 1000,
+        where: {
+          id_gt: "${lastID}"
+        }
+      ) {
+          id
+        }`;
+      queryString += `}`;
+      const query = gql`
+        ${queryString}
+      `;
+
+      let result = await request(this.constants.GRAPHQL_POLYGON, query).then(
+        (data: QueryResult) => {
+          return data;
+        });
+
+      if (result.accounts.length < 1000) {
+        skip = false;
+        activeUsersPolygon += result.accounts.length;
+      } else {
+        lastID = result.accounts[999].id;
+        activeUsersPolygon += 1000;
+      }
+
+    }
+
+    this.activeUsersPolygon = activeUsersPolygon;
+  }
+
+  async loadFantom() {
+    let activeUsersFantom: number = 0;
+
+    let skip: boolean = true;
+    let lastID: string = "";
+
+    while (skip) {
+      let queryString = `query ActiveUsers {`;
+      queryString += `accounts (
+        first: 1000,
+        where: {
+          id_gt: "${lastID}"
+        }
+      ) {
+          id
+        }`;
+      queryString += `}`;
+      const query = gql`
+        ${queryString}
+      `;
+
+      let result = await request(this.constants.GRAPHQL_FANTOM, query).then(
+        (data: QueryResult) => {
+          return data;
+        });
+
+      if (result.accounts.length < 1000) {
+        skip = false;
+        activeUsersFantom += result.accounts.length;
+      } else {
+        lastID = result.accounts[999].id;
+        activeUsersFantom += 1000;
+      }
+
+    }
+
+    this.activeUsersFantom = activeUsersFantom;
+  }
+
+  async loadBSC() {
+    let activeUsersBSC: number = 0;
+
+    let skip: boolean = true;
+    let lastID: string = "";
+
+    while (skip) {
+      let queryString = `query ActiveUsers {`;
+      queryString += `accounts (
+        first: 1000,
+        where: {
+          id_gt: "${lastID}"
+        }
+      ) {
+          id
+        }`;
+      queryString += `}`;
+      const query = gql`
+        ${queryString}
+      `;
+
+      let result = await request(this.constants.GRAPHQL_BSC, query).then(
+        (data: QueryResult) => {
+          return data;
+        });
+
+      if (result.accounts.length < 1000) {
+        skip = false;
+        activeUsersBSC += result.accounts.length;
+      } else {
+        lastID = result.accounts[999].id;
+        activeUsersBSC += 1000;
+      }
+
+    }
+
+    this.activeUsersBSC = activeUsersBSC;
+  }
+
+}
+
+interface QueryResult {
+  accounts: {
+    id: string;
+  }[];
 }
