@@ -12,6 +12,7 @@ import { BinanceSmartChainComponent } from './binance-smart-chain/binance-smart-
 import { PolygonComponent } from './polygon/polygon.component';
 import { FantomComponent } from './fantom/fantom.component';
 import { TotalValueLockedComponent } from './polygon/charts/total-value-locked/total-value-locked.component';
+import { CreamTokenHoldersComponent } from './ice-cream/charts/cream-token-holders/cream-token-holders.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TotalValueLockedComponent } from './polygon/charts/total-value-locked/t
     BinanceSmartChainComponent,
     PolygonComponent,
     FantomComponent,
-    TotalValueLockedComponent
+    TotalValueLockedComponent,
+    CreamTokenHoldersComponent
   ],
   imports: [
     NgbModule,
