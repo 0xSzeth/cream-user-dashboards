@@ -23,9 +23,10 @@
     "@ng-bootstrap/ng-bootstrap": "^9.0.0",
     "bignumber.js": "^9.0.1",
     "bootstrap": "^4.5.0",
-    "chart.js": "^3.5.1",
+    "chart.js": "^2.9.3",
     "ethers": "^5.4.4",
     "graphql-request": "^3.5.0",
+    "ng2-charts": "^2.4.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
