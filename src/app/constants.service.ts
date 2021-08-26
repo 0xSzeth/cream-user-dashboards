@@ -131,6 +131,14 @@ export class ConstantsService {
   GRAPHQL_UNISWAP_V3 = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3';
   GRAPHQL_SUSHISWAP = 'https://api.thegraph.com/subgraphs/name/sushiswap/exchange';
 
+  GRAPHQL_BLOCKS = {
+    [this.CHAIN_ID.MAINNET]: "https://api.thegraph.com/subgraphs/name/blocklytics/ethereum-blocks",
+    [this.CHAIN_ID.POLYGON]: "https://api.thegraph.com/subgraphs/name/elkfinance/matic-blocks",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+
+
   // utils
   PRECISION = 1e18;
 }
