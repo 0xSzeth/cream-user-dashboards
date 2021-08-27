@@ -10,7 +10,7 @@ export class HelpersService {
     public constants: ConstantsService,
   ) { }
 
-  async getTokenPriceUSD(address: string, chainID: number, days: number): Promise<number> {
+  async getTokenPriceUSD(address: string, chainID: number, days: number): Promise<any> {
     if (address.toLowerCase() === this.constants.AAVE[chainID].toLowerCase()) {
       address = this.constants.AAVE[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.CREAM[chainID].toLowerCase()) {

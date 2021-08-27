@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import BigNumber from 'bignumber.js';
+import { request, gql } from 'graphql-request';
+import { ConstantsService } from '../constants.service';
+import { HelpersService } from '../helpers.service';
 
 @Component({
   selector: 'app-polygon',
@@ -7,9 +11,69 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PolygonComponent implements OnInit {
 
-  constructor() { }
+  totalValueLockedUSD: BigNumber = new BigNumber(0);
 
-  ngOnInit(): void {
+  constructor(
+    public helpers: HelpersService,
+    public constants: ConstantsService,
+  ) { }
+
+  async ngOnInit() {
+    // const provider = (await detectEthereumProvider()) as any;
+    // let e = new ethers.providers.Web3Provider(provider);
+    this.loadData();
   }
 
+  loadData() {
+    const queryString = gql`
+      {
+        markets {
+          id
+          symbol
+          underlyingAddress
+          underlyingSymbol
+          cash
+        }
+      }
+    `;
+    request(
+      this.constants.GRAPHQL_POLYGON,
+      queryString
+    ).then((data: QueryResult) => this.handleData(data));
+  }
+
+  handleData(data: QueryResult) {
+    console.log(data);
+    const markets = data.markets;
+
+    let totalValueLockedUSD = new BigNumber(0);
+
+    Promise.all(
+      markets.map(async (market) => {
+
+        // fetch the price of the underlying asset in USD
+        let assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON, 0);
+
+        // calculate total value locked in USD
+        const assetTotalValueLockedUSD = new BigNumber(market.cash).times(assetPriceUSD);
+
+        // add to the total amount of total value locked USD
+        totalValueLockedUSD = totalValueLockedUSD.plus(assetTotalValueLockedUSD);
+      })
+    ).then(() => {
+      this.totalValueLockedUSD = totalValueLockedUSD;
+      console.log(this.totalValueLockedUSD.toString());
+    });
+  }
+
+}
+
+interface QueryResult {
+  markets: {
+    id: string;
+    symbol: string;
+    underlyingAddress: string;
+    underlyingSymbol: string;
+    cash: string;
+  }[];
 }

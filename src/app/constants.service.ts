@@ -54,7 +54,7 @@ export class ConstantsService {
   };
   IBBTC = {
     [this.CHAIN_ID.MAINNET]: "0xc4e15973e6ff2a35cc804c2cf9d2a1b817a8b40f",
-    [this.CHAIN_ID.POLYGON]: "0x4eac4c4e9050464067d673102f8e24b2fcceb350", // @dev check this
+    [this.CHAIN_ID.POLYGON]: "0x4eac4c4e9050464067d673102f8e24b2fcceb350",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
@@ -141,4 +141,8 @@ export class ConstantsService {
 
   // utils
   PRECISION = 1e18;
+  YEAR_IN_SEC = 31556952;
+  MONTH_IN_SEC = 30 * 24 * 60 * 60;
+  WEEK_IN_SEC = 7 * 24 * 60 * 60;
+  DAY_IN_SEC = 24 * 60 * 60;
 }
