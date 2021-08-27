@@ -19,25 +19,25 @@ export class ConstantsService {
   AAVE = {
     [this.CHAIN_ID.MAINNET]: "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
     [this.CHAIN_ID.POLYGON]: "0xd6df932a45c0f255f85145f286ea0b292b21c90b",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0x6a07A792ab2965C72a5B8088d3a069A7aC3a993B",
     [this.CHAIN_ID.BSC]: ""
   };
   CREAM = {
     [this.CHAIN_ID.MAINNET]: "0x2ba592f78db6436527729929aaf6c908497cb200",
-    [this.CHAIN_ID.POLYGON]: "",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.POLYGON]: "0x8b407562b34eb832834eb57c7e1cf7e3bf45b0d9",
+    [this.CHAIN_ID.FANTOM]: "0x657A1861c15A3deD9AF0B6799a195a249ebdCbc6",
     [this.CHAIN_ID.BSC]: ""
   };
   CRV = {
     [this.CHAIN_ID.MAINNET]: "0xD533a949740bb3306d119CC777fa900bA034cd52",
     [this.CHAIN_ID.POLYGON]: "0x172370d5cd63279efa6d502dab29171933a610af",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0x1E4F97b9f9F913c46F1632781732927B9019C68b",
     [this.CHAIN_ID.BSC]: ""
   };
   DAI = {
     [this.CHAIN_ID.MAINNET]: "0x6b175474e89094c44da98b954eedeac495271d0f",
     [this.CHAIN_ID.POLYGON]: "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e",
     [this.CHAIN_ID.BSC]: ""
   };
   DPI = {
@@ -49,7 +49,7 @@ export class ConstantsService {
   FXS = {
     [this.CHAIN_ID.MAINNET]: "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0",
     [this.CHAIN_ID.POLYGON]: "0x3e121107f6f22da4911079845a470757af4e1a1b",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0x82F8Cb20c14F134fe6Ebf7aC3B903B2117aAfa62",
     [this.CHAIN_ID.BSC]: ""
   };
   IBBTC = {
@@ -61,7 +61,7 @@ export class ConstantsService {
   LINK = {
     [this.CHAIN_ID.MAINNET]: "0x514910771af9ca656af840dff83e8264ecf986ca",
     [this.CHAIN_ID.POLYGON]: "0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0xb3654dc3d10ea7645f8319668e8f54d2574fbdc8",
     [this.CHAIN_ID.BSC]: ""
   };
   QUICK = {
@@ -73,13 +73,13 @@ export class ConstantsService {
   SNX = {
     [this.CHAIN_ID.MAINNET]: "0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f",
     [this.CHAIN_ID.POLYGON]: "0x50b728d8d964fd00c2d0aad81718b71311fef68a",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0x56ee926bD8c72B2d5fa1aF4d9E4Cbb515a1E3Adc",
     [this.CHAIN_ID.BSC]: ""
   };
   SUSHI = {
     [this.CHAIN_ID.MAINNET]: "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
     [this.CHAIN_ID.POLYGON]: "0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0xae75A438b2E0cB8Bb01Ec1E1e376De11D44477CC",
     [this.CHAIN_ID.BSC]: ""
   };
   UNI = {
@@ -91,7 +91,7 @@ export class ConstantsService {
   USDC = {
     [this.CHAIN_ID.MAINNET]: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
     [this.CHAIN_ID.POLYGON]: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0x04068da6c83afcfa0e13ba15a6696662335d5b75",
     [this.CHAIN_ID.BSC]: ""
   };
   USDT = {
@@ -103,13 +103,13 @@ export class ConstantsService {
   WBTC = {
     [this.CHAIN_ID.MAINNET]: "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
     [this.CHAIN_ID.POLYGON]: "0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0x321162Cd933E2Be498Cd2267a90534A804051b11",
     [this.CHAIN_ID.BSC]: ""
   };
   WETH = {
     [this.CHAIN_ID.MAINNET]: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
     [this.CHAIN_ID.POLYGON]: "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "0x74b23882a30290451A17c44f4F05243b6b58C76d",
     [this.CHAIN_ID.BSC]: ""
   };
   WMATIC = {

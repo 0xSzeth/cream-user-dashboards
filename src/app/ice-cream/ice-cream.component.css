@@ -120,3 +120,7 @@
   text-align: center;
   margin-top: 0;
 }
+
+.mb-5 {
+  margin-bottom: 2.25rem !important;
+}

@@ -4,6 +4,7 @@ import { ConstantsService } from '../constants.service';
 import { ethers } from 'ethers';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { request, gql } from 'graphql-request';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-ice-cream',
@@ -13,6 +14,7 @@ import { request, gql } from 'graphql-request';
 export class IceCREAMComponent implements OnInit {
   creamPriceUSD: number = 0;
   iceCreamTotalSupply: number = 0;
+  creamHolders: number = 0;
 
   activeUsersMainnet: number = 0;
   activeUsersIronBank: number = 0;
@@ -30,7 +32,7 @@ export class IceCREAMComponent implements OnInit {
   }
 
   async loadData() {
-    this.creamPriceUSD = await this.helpers.getTokenPriceUSD(this.constants.CREAM);
+    this.creamPriceUSD = await this.helpers.getTokenPriceUSD(this.constants.CREAM[this.constants.CHAIN_ID.MAINNET], this.constants.CHAIN_ID.MAINNET, 0);
 
     // provider @dev make a service for this
     const provider = (await detectEthereumProvider()) as any;
@@ -45,6 +47,46 @@ export class IceCREAMComponent implements OnInit {
       'ether'
     );
     this.iceCreamTotalSupply = parseFloat(iceCreamTotalSupply);
+
+    let creamHolders: number = 0;
+    let skip: boolean = true;
+    let lastID: string = "";
+
+    while (skip) {
+      let queryString = `query CreamSupplyDistribution {`;
+      queryString += `creamholders (
+        first: 1000,
+        where: {
+          creamBalance_gt: "0",
+          id_gt: "${lastID}"
+        },
+      ) {
+        id
+        address
+        creamBalance
+      }`;
+      queryString += `}`;
+      const query = gql`
+        ${queryString}
+      `;
+
+      let result = await request(
+        this.constants.GRAPHQL_CREAM_TOKEN,
+        query
+      ).then((data: QueryResult) => {
+        return data;
+      });
+
+      if (result.creamholders.length < 1000) {
+        skip = false;
+        creamHolders += result.creamholders.length;
+      } else {
+        lastID = result.creamholders[999].id;
+        creamHolders += 1000;
+      }
+    }
+
+    this.creamHolders = creamHolders;
 
     // fetch total active users on each chain
     this.loadMainnet();
@@ -255,5 +297,10 @@ export class IceCREAMComponent implements OnInit {
 interface QueryResult {
   accounts: {
     id: string;
+  }[];
+  creamholders: {
+    id: string;
+    address: string;
+    creamBalance: string;
   }[];
 }
