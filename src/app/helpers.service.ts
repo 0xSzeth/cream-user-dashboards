@@ -10,11 +10,7 @@ export class HelpersService {
     public constants: ConstantsService,
   ) { }
 
-  // coingecko
-  async getTokenPriceUSD(address: string, chainID: number): Promise<number> {
-
-    console.log(address);
-
+  async getTokenPriceUSD(address: string, chainID: number, days: number): Promise<number> {
     if (address.toLowerCase() === this.constants.AAVE[chainID].toLowerCase()) {
       address = this.constants.AAVE[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.CREAM[chainID].toLowerCase()) {
@@ -51,9 +47,9 @@ export class HelpersService {
       address = this.constants.WMATIC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     }
 
-    const apiStr = `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}/market_chart/?vs_currency=usd&days=0`;
+    const apiStr = `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}/market_chart/?vs_currency=usd&days=${days}`;
     const rawResult = await this.httpsGet(apiStr, 300);
-    return rawResult.prices[0][1];
+    return days === 0 ? rawResult.prices[0][1] : rawResult.prices;
   }
 
   // 1inch
@@ -70,12 +66,6 @@ export class HelpersService {
     }
 
 
-  }
-
-  async getHistoricalTokenPriceUSD(address: string, days: string): Promise<Array<any>> {
-    const apiStr = `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}/market_chart/?vs_currency=usd&days=${days}`;
-    const rawResult = await this.httpsGet(apiStr, 300);
-    return rawResult.prices;
   }
 
   async httpsGet(apiStr: string, cacheMaxAge: number = 3) {
