@@ -42,10 +42,7 @@ export class IceCREAMComponent implements OnInit {
     const iceCreamAbi = require(`src/assets/abis/iceCREAM.json`);
     const iceCreamAddress = this.constants.ICE_CREAM;
     const iceCreamContract = new ethers.Contract(iceCreamAddress, iceCreamAbi, ethereum);
-    const iceCreamTotalSupply = ethers.utils.formatUnits(
-      await iceCreamContract.supply({gasLimit: 100000}).catch((error: any) => {console.log(error);}),
-      'ether'
-    );
+    const iceCreamTotalSupply = ethers.utils.formatUnits(await iceCreamContract.supply({gasLimit: 100000}), 'ether');
     this.iceCreamTotalSupply = parseFloat(iceCreamTotalSupply);
 
     let creamHolders: number = 0;

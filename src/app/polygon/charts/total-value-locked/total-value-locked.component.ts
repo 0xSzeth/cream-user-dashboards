@@ -107,10 +107,6 @@ export class TotalValueLockedComponent implements OnInit {
     }
     this.readable = readable;
 
-    console.log(this.timestamps);
-    console.log(this.blocks);
-    console.log(this.readable);
-
     // then generate the query
     let queryString = `query HistoricalAssetTVL {`;
     queryString += `markets {
@@ -142,8 +138,6 @@ export class TotalValueLockedComponent implements OnInit {
     request(this.constants.GRAPHQL_POLYGON, query).then(
       (data: QueryResult) => this.handleData(data)
     );
-
-    console.log(this.data);
 
   }
 

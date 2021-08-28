@@ -19,8 +19,6 @@ export class PolygonComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    // const provider = (await detectEthereumProvider()) as any;
-    // let e = new ethers.providers.Web3Provider(provider);
     this.loadData();
   }
 
@@ -43,7 +41,6 @@ export class PolygonComponent implements OnInit {
   }
 
   handleData(data: QueryResult) {
-    console.log(data);
     const markets = data.markets;
 
     let totalValueLockedUSD = new BigNumber(0);
@@ -62,7 +59,6 @@ export class PolygonComponent implements OnInit {
       })
     ).then(() => {
       this.totalValueLockedUSD = totalValueLockedUSD;
-      console.log(this.totalValueLockedUSD.toString());
     });
   }
 
