@@ -14,6 +14,8 @@ import { FantomComponent } from './fantom/fantom.component';
 import { TotalValueLockedComponent } from './polygon/charts/total-value-locked/total-value-locked.component';
 import { CreamTokenHoldersComponent } from './ice-cream/charts/cream-token-holders/cream-token-holders.component';
 import { ChartsModule } from 'ng2-charts';
+import { TotalSupplyComponent } from './polygon/charts/total-supply/total-supply.component';
+import { TotalBorrowedComponent } from './polygon/charts/total-borrowed/total-borrowed.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ChartsModule } from 'ng2-charts';
     PolygonComponent,
     FantomComponent,
     TotalValueLockedComponent,
-    CreamTokenHoldersComponent
+    CreamTokenHoldersComponent,
+    TotalSupplyComponent,
+    TotalBorrowedComponent
   ],
   imports: [
     NgbModule,
