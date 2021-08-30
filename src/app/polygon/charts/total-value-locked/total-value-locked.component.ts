@@ -73,6 +73,9 @@ export class TotalValueLockedComponent implements OnInit {
               display: true,
               color: '#242526',
             },
+            ticks: {
+              min: 0,
+            },
           },
         ],
       },
