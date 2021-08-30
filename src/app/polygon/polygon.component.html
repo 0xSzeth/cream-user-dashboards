@@ -11,18 +11,18 @@
       </div>
       <div class="card">
         <h4 class="card-label">
-          🍦 CREAM token price
+          🍦 Total Supply
         </h4>
         <h1 class="card-content">
-          $USD
+          ${{ totalSupplyUSD.toFixed(2) }}
         </h1>
       </div>
       <div class="card">
         <h4 class="card-label">
-          CREAM token price
+          🍦 Total Borrowed
         </h4>
         <h1 class="card-content">
-          $USD
+          ${{ totalBorrowedUSD.toFixed(2) }}
         </h1>
       </div>
     </div>
@@ -36,10 +36,20 @@
         <app-total-value-locked class="w-50"></app-total-value-locked>
       </div>
       <div class="card col-6">
+        <app-total-supply></app-total-supply>
       </div>
     </div>
   </div>
 </div>
-
-
+<div class="row">
+  <div class="col-12">
+    <div class="card-deck my-5 justify-content-around">
+      <div class="card col-6">
+        <app-total-borrowed></app-total-borrowed>
+      </div>
+      <div class="card col-6">
+      </div>
+    </div>
+  </div>
+</div>
 <!-- End Charts -->
