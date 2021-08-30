@@ -12,8 +12,8 @@ import { HelpersService } from '../helpers.service';
 export class PolygonComponent implements OnInit {
 
   totalValueLockedUSD: BigNumber = new BigNumber(0);
-  totalSupplyUSD: BigNumber = new BigNumber(0);
-  totalBorrowedUSD: BigNumber = new BigNumber(0);
+  totalValueSuppliedUSD: BigNumber = new BigNumber(0);
+  totalValueBorrowedUSD: BigNumber = new BigNumber(0);
 
   constructor(
     public helpers: HelpersService,
@@ -34,6 +34,7 @@ export class PolygonComponent implements OnInit {
           underlyingSymbol
           cash
           totalSupply
+          exchangeRate
           totalBorrows
         }
       }
@@ -59,17 +60,18 @@ export class PolygonComponent implements OnInit {
 
         // calculate total value locked in USD
         const assetTotalValueLockedUSD = new BigNumber(market.cash).times(assetPriceUSD);
+        const assetTotalValueSuppliedUSD = new BigNumber(market.totalSupply).times(market.exchangeRate).times(assetPriceUSD);
         const assetTotalValueBorrowedUSD = new BigNumber(market.totalBorrows).times(assetPriceUSD);
 
         // add to the total amount of total value locked USD
         totalValueLockedUSD = totalValueLockedUSD.plus(assetTotalValueLockedUSD);
-
+        totalValueSuppliedUSD = totalValueSuppliedUSD.plus(assetTotalValueSuppliedUSD);
         totalValueBorrowedUSD = totalValueBorrowedUSD.plus(assetTotalValueBorrowedUSD);
       })
     ).then(() => {
       this.totalValueLockedUSD = totalValueLockedUSD;
-
-      this.totalBorrowedUSD = totalValueBorrowedUSD;
+      this.totalValueSuppliedUSD = totalValueSuppliedUSD;
+      this.totalValueBorrowedUSD = totalValueBorrowedUSD;
     });
   }
 
@@ -83,6 +85,7 @@ interface QueryResult {
     underlyingSymbol: string;
     cash: string;
     totalSupply: string;
+    exchangeRate: string;
     totalBorrows: string;
   }[];
 }
