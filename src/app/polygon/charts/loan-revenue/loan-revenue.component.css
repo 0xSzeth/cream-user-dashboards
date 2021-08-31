@@ -114,13 +114,20 @@
 
 .card-label {
   margin-top: 0;
+  color: white;
 }
 
 .card-content {
   text-align: center;
   margin-top: 0;
+  color: white;
 }
 
 .mb-5 {
   margin-bottom: 2.25rem !important;
+}
+
+.chart-label {
+  text-align: center;
+  margin-top: 5px;
 }

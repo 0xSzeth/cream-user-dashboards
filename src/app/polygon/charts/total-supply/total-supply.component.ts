@@ -64,6 +64,9 @@ export class TotalSupplyComponent implements OnInit {
             gridLines: {
               display: false,
             },
+            ticks: {
+              fontColor: 'white',
+            },
           },
         ],
         yAxes: [
@@ -71,10 +74,11 @@ export class TotalSupplyComponent implements OnInit {
             stacked: true,
             gridLines: {
               display: true,
-              color: '#242526',
+              color: 'grey',
             },
             ticks: {
               min: 0,
+              fontColor: 'white',
             },
           },
         ],
