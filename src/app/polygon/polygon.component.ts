@@ -14,6 +14,7 @@ export class PolygonComponent implements OnInit {
   totalValueLockedUSD: BigNumber = new BigNumber(0);
   totalValueSuppliedUSD: BigNumber = new BigNumber(0);
   totalValueBorrowedUSD: BigNumber = new BigNumber(0);
+  totalLoanOrigination: BigNumber = new BigNumber(0);
 
   constructor(
     public helpers: HelpersService,
@@ -36,6 +37,7 @@ export class PolygonComponent implements OnInit {
           totalSupply
           exchangeRate
           totalBorrows
+          totalInterestAccumulated
         }
       }
     `;
@@ -46,11 +48,13 @@ export class PolygonComponent implements OnInit {
   }
 
   handleData(data: QueryResult) {
+    console.log(data);
     const markets = data.markets;
 
     let totalValueLockedUSD = new BigNumber(0);
     let totalValueSuppliedUSD = new BigNumber(0);
     let totalValueBorrowedUSD = new BigNumber(0);
+    let totalLoanOrigination = new BigNumber(0);
 
     Promise.all(
       markets.map(async (market) => {
@@ -62,16 +66,20 @@ export class PolygonComponent implements OnInit {
         const assetTotalValueLockedUSD = new BigNumber(market.cash).times(assetPriceUSD);
         const assetTotalValueSuppliedUSD = new BigNumber(market.totalSupply).times(market.exchangeRate).times(assetPriceUSD);
         const assetTotalValueBorrowedUSD = new BigNumber(market.totalBorrows).times(assetPriceUSD);
+        const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
+        console.log(assetTotalLoanOriginationUSD);
 
         // add to the total amount of total value locked USD
         totalValueLockedUSD = totalValueLockedUSD.plus(assetTotalValueLockedUSD);
         totalValueSuppliedUSD = totalValueSuppliedUSD.plus(assetTotalValueSuppliedUSD);
         totalValueBorrowedUSD = totalValueBorrowedUSD.plus(assetTotalValueBorrowedUSD);
+        totalLoanOrigination = totalLoanOrigination.plus(assetTotalLoanOriginationUSD);
       })
     ).then(() => {
       this.totalValueLockedUSD = totalValueLockedUSD;
       this.totalValueSuppliedUSD = totalValueSuppliedUSD;
       this.totalValueBorrowedUSD = totalValueBorrowedUSD;
+      this.totalLoanOrigination = totalLoanOrigination;
     });
   }
 
@@ -87,5 +95,6 @@ interface QueryResult {
     totalSupply: string;
     exchangeRate: string;
     totalBorrows: string;
+    totalInterestAccumulated: string;
   }[];
 }
