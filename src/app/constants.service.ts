@@ -22,10 +22,64 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "0x6a07A792ab2965C72a5B8088d3a069A7aC3a993B",
     [this.CHAIN_ID.BSC]: ""
   };
+  ADA = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  ALPHA = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  ATOM = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  AUTO = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   BAND = {
     [this.CHAIN_ID.MAINNET]: "0xba11d00c5f74255f56a5e366f4f77f5a186d7f55",
     [this.CHAIN_ID.POLYGON]: "0xa8b1e0764f85f53dfe21760e8afe5446d82606ac",
     [this.CHAIN_ID.FANTOM]: "0x46E7628E8b4350b2716ab470eE0bA1fa9e76c6C5",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  BAT = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  BCH = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  BNB = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  BUSD = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  CAKE = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
   COVER = {
@@ -52,9 +106,27 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e",
     [this.CHAIN_ID.BSC]: ""
   };
+  DOT = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   DPI = {
     [this.CHAIN_ID.MAINNET]: "0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b",
     [this.CHAIN_ID.POLYGON]: "0x85955046df4668e1dd369d2de9f3aeb98dd2a369",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  EOS = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  FIL = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
@@ -76,15 +148,39 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
+  IOTX = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   LINK = {
     [this.CHAIN_ID.MAINNET]: "0x514910771af9ca656af840dff83e8264ecf986ca",
     [this.CHAIN_ID.POLYGON]: "0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39",
     [this.CHAIN_ID.FANTOM]: "0xb3654dc3d10ea7645f8319668e8f54d2574fbdc8",
     [this.CHAIN_ID.BSC]: ""
   };
+  LTC = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   QUICK = {
     [this.CHAIN_ID.MAINNET]: "0x6c28AeF8977c9B773996d0e8376d2EE379446F2f",
     [this.CHAIN_ID.POLYGON]: "0x831753dd7087cac61ab5644b308642cc1c33dc13",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  RENBTC = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  RENZEC = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
@@ -98,6 +194,18 @@ export class ConstantsService {
     [this.CHAIN_ID.MAINNET]: "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
     [this.CHAIN_ID.POLYGON]: "0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a",
     [this.CHAIN_ID.FANTOM]: "0xae75A438b2E0cB8Bb01Ec1E1e376De11D44477CC",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  SXP = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  TWT = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
   UNI = {
@@ -118,10 +226,22 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
+  VAI = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   WBTC = {
     [this.CHAIN_ID.MAINNET]: "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
     [this.CHAIN_ID.POLYGON]: "0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6",
     [this.CHAIN_ID.FANTOM]: "0x321162Cd933E2Be498Cd2267a90534A804051b11",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  WBNB = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
   WETH = {
@@ -139,6 +259,18 @@ export class ConstantsService {
   WMATIC = {
     [this.CHAIN_ID.MAINNET]: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
     [this.CHAIN_ID.POLYGON]: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  XRP = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  XTZ = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
