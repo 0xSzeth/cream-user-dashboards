@@ -22,6 +22,18 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "0x6a07A792ab2965C72a5B8088d3a069A7aC3a993B",
     [this.CHAIN_ID.BSC]: ""
   };
+  BAND = {
+    [this.CHAIN_ID.MAINNET]: "0xba11d00c5f74255f56a5e366f4f77f5a186d7f55",
+    [this.CHAIN_ID.POLYGON]: "0xa8b1e0764f85f53dfe21760e8afe5446d82606ac",
+    [this.CHAIN_ID.FANTOM]: "0x46E7628E8b4350b2716ab470eE0bA1fa9e76c6C5",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  COVER = {
+    [this.CHAIN_ID.MAINNET]: "0x4688a8b1f292fdab17e9a90c8bc379dc1dbd8713",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "0xB01E8419d842beebf1b70A7b5f7142abbaf7159D",
+    [this.CHAIN_ID.BSC]: ""
+  };
   CREAM = {
     [this.CHAIN_ID.MAINNET]: "0x2ba592f78db6436527729929aaf6c908497cb200",
     [this.CHAIN_ID.POLYGON]: "0x8b407562b34eb832834eb57c7e1cf7e3bf45b0d9",
@@ -50,6 +62,12 @@ export class ConstantsService {
     [this.CHAIN_ID.MAINNET]: "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0",
     [this.CHAIN_ID.POLYGON]: "0x3e121107f6f22da4911079845a470757af4e1a1b",
     [this.CHAIN_ID.FANTOM]: "0x82F8Cb20c14F134fe6Ebf7aC3B903B2117aAfa62",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  HEGIC = {
+    [this.CHAIN_ID.MAINNET]: "0x584bc13c7d411c00c01a62e8019472de68768430",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "0x44b26e839eb3572c5e959f994804a5de66600349",
     [this.CHAIN_ID.BSC]: ""
   };
   IBBTC = {
@@ -112,10 +130,22 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "0x74b23882a30290451A17c44f4F05243b6b58C76d",
     [this.CHAIN_ID.BSC]: ""
   };
+  WFTM = {
+    [this.CHAIN_ID.MAINNET]: "0x4e15361fd6b4bb609fa63c81a2be19d873717870",
+    [this.CHAIN_ID.POLYGON]: "0xc9c1c1c20b3658f8787cc2fd702267791f224ce1",
+    [this.CHAIN_ID.FANTOM]: "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
+    [this.CHAIN_ID.BSC]: ""
+  };
   WMATIC = {
     [this.CHAIN_ID.MAINNET]: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
     [this.CHAIN_ID.POLYGON]: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
     [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  YFI = {
+    [this.CHAIN_ID.MAINNET]: "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e",
+    [this.CHAIN_ID.POLYGON]: "0xda537104d6a5edd53c6fbba9a898708e465260b6",
+    [this.CHAIN_ID.FANTOM]: "0x29b0Da86e484E1C0029B56e817912d778aC0EC69",
     [this.CHAIN_ID.BSC]: ""
   };
 
