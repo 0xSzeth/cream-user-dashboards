@@ -50,7 +50,6 @@ export class PolygonComponent implements OnInit {
   }
 
   handleData(data: QueryResult) {
-    console.log(data);
     const markets = data.markets;
 
     let totalValueLockedUSD = new BigNumber(0);
@@ -71,9 +70,6 @@ export class PolygonComponent implements OnInit {
         const assetTotalValueBorrowedUSD = new BigNumber(market.totalBorrows).times(assetPriceUSD);
         const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
         const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
-        console.log(market.symbol);
-        console.log(assetTotalLoanRevenueUSD.toString());
-        console.log(new BigNumber(market.totalInterestAccumulated).times(market.reserveFactor).div(1e18).toString());
 
         // add to the total amount of total value locked USD
         totalValueLockedUSD = totalValueLockedUSD.plus(assetTotalValueLockedUSD);
