@@ -14,6 +14,7 @@ export class PolygonComponent implements OnInit {
   totalValueLockedUSD: BigNumber = new BigNumber(0);
   totalValueSuppliedUSD: BigNumber = new BigNumber(0);
   totalValueBorrowedUSD: BigNumber = new BigNumber(0);
+  totalUtilizationRate: BigNumber = new BigNumber(0);
   totalLoanOrigination: BigNumber = new BigNumber(0);
   totalLoanRevenue: BigNumber = new BigNumber(0);
 
@@ -83,6 +84,7 @@ export class PolygonComponent implements OnInit {
       this.totalValueLockedUSD = totalValueLockedUSD;
       this.totalValueSuppliedUSD = totalValueSuppliedUSD;
       this.totalValueBorrowedUSD = totalValueBorrowedUSD;
+      this.totalUtilizationRate = totalValueBorrowedUSD.div(totalValueSuppliedUSD).times(100);
       this.totalLoanOrigination = totalLoanOriginationUSD;
       this.totalLoanRevenue = totalLoanRevenueUSD;
     });
