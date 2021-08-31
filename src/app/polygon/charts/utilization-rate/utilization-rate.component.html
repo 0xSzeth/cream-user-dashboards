@@ -1,0 +1,16 @@
+<div *ngIf="lineChartData">
+  <div>
+    <h4 class="text-uppercase text-center card-label">
+      Utilization Rate
+    </h4>
+    <canvas
+      baseChart
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+    >
+    </canvas>
+  </div>
+</div>

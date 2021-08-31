@@ -16,6 +16,7 @@ import { CreamTokenHoldersComponent } from './ice-cream/charts/cream-token-holde
 import { ChartsModule } from 'ng2-charts';
 import { TotalSupplyComponent } from './polygon/charts/total-supply/total-supply.component';
 import { TotalBorrowedComponent } from './polygon/charts/total-borrowed/total-borrowed.component';
+import { UtilizationRateComponent } from './polygon/charts/utilization-rate/utilization-rate.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TotalBorrowedComponent } from './polygon/charts/total-borrowed/total-bo
     TotalValueLockedComponent,
     CreamTokenHoldersComponent,
     TotalSupplyComponent,
-    TotalBorrowedComponent
+    TotalBorrowedComponent,
+    UtilizationRateComponent
   ],
   imports: [
     NgbModule,
