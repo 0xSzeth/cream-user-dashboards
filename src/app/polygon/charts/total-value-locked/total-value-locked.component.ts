@@ -13,7 +13,7 @@ import { Chart } from 'chart.js';
 export class TotalValueLockedComponent implements OnInit {
   // constants
   FIRST_INDEX = 1623888000;
-  PERIOD: number = this.constants.DAY_IN_SEC;
+  PERIOD: number = this.constants.WEEK_IN_SEC;
   COLORS: string[] = [
     '44, 123, 229',
     '255, 103, 155',

@@ -13,7 +13,7 @@ import { Chart } from 'chart.js';
 export class TotalSupplyComponent implements OnInit {
   // constants
   FIRST_INDEX = 1623888000;
-  PERIOD: number = this.constants.DAY_IN_SEC;
+  PERIOD: number = this.constants.WEEK_IN_SEC;
   COLORS: string[] = [
     '44, 123, 229',
     '255, 103, 155',
@@ -179,7 +179,6 @@ export class TotalSupplyComponent implements OnInit {
           if (entry) {
             entry.dataSupply[parseInt(t.substring(1))] = totalSupplied;
           }
-
         }
       }
     }
@@ -219,19 +218,10 @@ export class TotalSupplyComponent implements OnInit {
       if (this.data[m].label) {
         let market = this.data[m];
         for (let t in this.timestamps) {
-          // let supplyUSD = market.dataSupply[t] * market.dataUSD[t];
-          // if (isNaN(supplyUSD)) {
-          //   market.data[t] = 0;
-          // } else {
-          //   market.data[t] = supplyUSD;
-          // }
           market.data[t] = market.dataSupply[t] * market.dataUSD[t];
-
         }
       }
     }
-
-    console.log(this.data);
   }
 }
 
