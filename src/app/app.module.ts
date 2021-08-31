@@ -18,6 +18,7 @@ import { TotalSupplyComponent } from './polygon/charts/total-supply/total-supply
 import { TotalBorrowedComponent } from './polygon/charts/total-borrowed/total-borrowed.component';
 import { UtilizationRateComponent } from './polygon/charts/utilization-rate/utilization-rate.component';
 import { LoanOriginationComponent } from './polygon/charts/loan-origination/loan-origination.component';
+import { LoanRevenueComponent } from './polygon/charts/loan-revenue/loan-revenue.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { LoanOriginationComponent } from './polygon/charts/loan-origination/loan
     TotalSupplyComponent,
     TotalBorrowedComponent,
     UtilizationRateComponent,
-    LoanOriginationComponent
+    LoanOriginationComponent,
+    LoanRevenueComponent
   ],
   imports: [
     NgbModule,
