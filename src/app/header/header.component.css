@@ -1,4 +1,24 @@
 .navbar-nav {
-  background-color: rgb(105,227,221);
+  background-color: pink;
   margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header-image {
+  padding: 10px;
+}
+.nav-item {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
 }
