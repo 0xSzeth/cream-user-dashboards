@@ -7,7 +7,7 @@
             🍦 Total Value Locked
           </h4>
           <h1 class="card-content">
-            ${{ totalValueLockedUSD.toFixed(2) }}
+            ${{ numberWithCommas(totalValueLockedUSD) }}
           </h1>
         </div>
         <div class="card">
@@ -15,7 +15,7 @@
             🍦 Total Supply
           </h4>
           <h1 class="card-content">
-            ${{ totalValueSuppliedUSD.toFixed(2) }}
+            ${{ numberWithCommas(totalValueSuppliedUSD) }}
           </h1>
         </div>
         <div class="card">
@@ -23,7 +23,7 @@
             🍦 Total Borrowed
           </h4>
           <h1 class="card-content">
-            ${{ totalValueBorrowedUSD.toFixed(2) }}
+            ${{ numberWithCommas(totalValueBorrowedUSD) }}
           </h1>
         </div>
       </div>
@@ -45,7 +45,7 @@
             🍦 Loan Origination
           </h4>
           <h1 class="card-content">
-            ${{ totalLoanOrigination.toFixed(2) }}
+            ${{ numberWithCommas(totalLoanOrigination) }}
           </h1>
         </div>
         <div class="card">
@@ -53,7 +53,7 @@
             🍦 Loan Revenue
           </h4>
           <h1 class="card-content">
-            $ {{ totalLoanRevenue.toFixed(2) }}
+            ${{ numberWithCommas(totalLoanRevenue) }}
           </h1>
         </div>
       </div>

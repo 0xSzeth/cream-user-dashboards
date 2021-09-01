@@ -90,6 +90,12 @@ export class PolygonComponent implements OnInit {
     });
   }
 
+  numberWithCommas(x: number | BigNumber) {
+    let y = x.toFixed(2);
+    let number = y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return number;
+  }
+
 }
 
 interface QueryResult {
