@@ -1,9 +1,10 @@
 .navbar-nav {
-  background-color: pink;
+  background-color: #151C28;
   margin: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-bottom: 1px solid pink;
 }
 
 .header-image {
@@ -21,4 +22,5 @@ ul {
 a {
   color: #000000;
   text-decoration: none;
+  color: white;
 }
