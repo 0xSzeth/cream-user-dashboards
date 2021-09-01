@@ -19,6 +19,7 @@ import { TotalBorrowedComponent } from './polygon/charts/total-borrowed/total-bo
 import { UtilizationRateComponent } from './polygon/charts/utilization-rate/utilization-rate.component';
 import { LoanOriginationComponent } from './polygon/charts/loan-origination/loan-origination.component';
 import { LoanRevenueComponent } from './polygon/charts/loan-revenue/loan-revenue.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LoanRevenueComponent } from './polygon/charts/loan-revenue/loan-revenue
     NgbModule,
     BrowserModule,
     AppRoutingModule,
-    ChartsModule
+    ChartsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

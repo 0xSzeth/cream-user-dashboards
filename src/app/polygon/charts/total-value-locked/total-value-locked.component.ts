@@ -27,6 +27,8 @@ export class TotalValueLockedComponent implements OnInit {
     '57, 175, 209',
   ];
 
+  period: string = "weekly";
+
   // data variables
   timeseriesdata: number[][] = [];
   timestamps: number[] = [];
@@ -228,8 +230,25 @@ export class TotalValueLockedComponent implements OnInit {
         }
       }
     }
+  }
 
+  changePeriod() {
 
+    if (this.period === 'daily') {
+      this.PERIOD = this.constants.DAY_IN_SEC;
+    } else if (this.period === 'weekly') {
+      this.PERIOD = this.constants.WEEK_IN_SEC;
+    } else if (this.period === 'monthly') {
+      this.PERIOD = this.constants.MONTH_IN_SEC;
+    }
+
+    this.timeseriesdata = [];
+    this.timestamps = [];
+    this.readable = [];
+    this.blocks = [];
+    this.data = [];
+
+    this.drawChart();
   }
 
 }

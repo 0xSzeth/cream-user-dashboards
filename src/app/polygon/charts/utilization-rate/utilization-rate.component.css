@@ -132,3 +132,13 @@
   text-align: center;
   margin-top: 5px;
 }
+
+.custom-select {
+  background-color: #68E1DC;
+  border-radius: 36px;
+  border: 1px solid #68E1DC;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-right: 3px;
+  padding-left: 3px;
+}
