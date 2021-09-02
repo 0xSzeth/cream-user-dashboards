@@ -49,7 +49,7 @@ export class ConstantsService {
   BAND = {
     [this.CHAIN_ID.MAINNET]: "0xba11d00c5f74255f56a5e366f4f77f5a186d7f55",
     [this.CHAIN_ID.POLYGON]: "0xa8b1e0764f85f53dfe21760e8afe5446d82606ac",
-    [this.CHAIN_ID.FANTOM]: "0x46E7628E8b4350b2716ab470eE0bA1fa9e76c6C5",
+    [this.CHAIN_ID.FANTOM]: "0x46e7628e8b4350b2716ab470ee0ba1fa9e76c6c5",
     [this.CHAIN_ID.BSC]: ""
   };
   BAT = {
@@ -130,6 +130,12 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
+  FRAX = {
+    [this.CHAIN_ID.MAINNET]: "0x853d955acef822db058eb8505911ed77f175b99e",
+    [this.CHAIN_ID.POLYGON]: "0x104592a158490a9228070e0a8e5343b499e125d0",
+    [this.CHAIN_ID.FANTOM]: "0xaf319e5789945197e365e7f7fbfc56b130523b33",
+    [this.CHAIN_ID.BSC]: ""
+  };
   FXS = {
     [this.CHAIN_ID.MAINNET]: "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0",
     [this.CHAIN_ID.POLYGON]: "0x3e121107f6f22da4911079845a470757af4e1a1b",
@@ -152,6 +158,12 @@ export class ConstantsService {
     [this.CHAIN_ID.MAINNET]: "",
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  KP3R = {
+    [this.CHAIN_ID.MAINNET]: "0x1ceb5cb57c4d4e2b2433641b95dd330a33185a44",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "0x2a5062d22adcfaafbd5c541d4da82e4b450d4212",
     [this.CHAIN_ID.BSC]: ""
   };
   LINK = {
@@ -184,10 +196,22 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
+  SFI = {
+    [this.CHAIN_ID.MAINNET]: "0xb753428af26e81097e7fd17f40c88aaa3e04902c",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "0x924828a9fb17d47d0eb64b57271d10706699ff11",
+    [this.CHAIN_ID.BSC]: ""
+  };
   SNX = {
     [this.CHAIN_ID.MAINNET]: "0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f",
     [this.CHAIN_ID.POLYGON]: "0x50b728d8d964fd00c2d0aad81718b71311fef68a",
     [this.CHAIN_ID.FANTOM]: "0x56ee926bD8c72B2d5fa1aF4d9E4Cbb515a1E3Adc",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  SUSD = {
+    [this.CHAIN_ID.MAINNET]: "0x57ab1ec28d129707052df4df418d58a2d46d5f51",
+    [this.CHAIN_ID.POLYGON]: "0xf81b4bec6ca8f9fe7be01ca734f55b2b6e03a7a0",
+    [this.CHAIN_ID.FANTOM]: "0x0e1694483ebb3b74d3054e383840c6cf011e518e",
     [this.CHAIN_ID.BSC]: ""
   };
   SUSHI = {
