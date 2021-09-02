@@ -164,7 +164,8 @@ export class TotalSupplyComponent implements OnInit {
     for (let market in markets) {
       let dataobj: DataObject;
       dataobj = {
-        label: markets[market].underlyingAddress,
+        label: markets[market].underlyingSymbol,
+        address: markets[market].underlyingAddress,
         data: [],
         dataSupply: [],
         dataUSD: [],
@@ -181,7 +182,7 @@ export class TotalSupplyComponent implements OnInit {
       if (t !== 'markets') {
         for (let m in result[t]) {
           let market = result[t][m];
-          let entry = this.data.find((m) => m.label === market.underlyingAddress);
+          let entry = this.data.find((m) => m.address === market.underlyingAddress);
           let totalSupplied = parseFloat(market.totalSupply) * parseFloat(market.exchangeRate);
           if (isNaN(totalSupplied)) {
             totalSupplied = 0;
@@ -196,7 +197,7 @@ export class TotalSupplyComponent implements OnInit {
     // populate the dataUSD array
     for (let market in this.data) {
       if (this.data[market].label) {
-        let prices = this.assetPricesUSD.find((asset) => asset.address === this.data[market].label);
+        let prices = this.assetPricesUSD.find((asset) => asset.address === this.data[market].address);
         for (let t in this.timestamps) {
           let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
           if (price) {
@@ -255,6 +256,7 @@ interface QueryResult {
 
 interface DataObject {
   label: string;
+  address: string;
   data: number[];
   dataSupply: number[];
   dataUSD: number[];

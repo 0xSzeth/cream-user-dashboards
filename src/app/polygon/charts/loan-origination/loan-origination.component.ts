@@ -171,7 +171,8 @@ export class LoanOriginationComponent implements OnInit {
     for (let market in markets) {
       let dataobj: DataObject;
       dataobj = {
-        label: markets[market].underlyingAddress,
+        label: markets[market].underlyingSymbol,
+        address: markets[market].underlyingAddress,
         data: [],
         dataUSD: [],
         dataPeriodic: [],
@@ -190,7 +191,7 @@ export class LoanOriginationComponent implements OnInit {
       if (t !== 'markets') {
         for (let m in result[t]) {
           let market = result[t][m];
-          let entry = this.assetOrigination.find((m) => m.label === market.underlyingAddress);
+          let entry = this.assetOrigination.find((m) => m.address === market.underlyingAddress);
           let totalInterestAccumulated = parseFloat(market.totalInterestAccumulated);
           if (isNaN(totalInterestAccumulated)) {
             totalInterestAccumulated = 0;
@@ -206,7 +207,7 @@ export class LoanOriginationComponent implements OnInit {
     // populate the dataUSD array
     for (let market in this.assetOrigination) {
       if (this.assetOrigination[market].label) {
-        let prices = this.assetPricesUSD.find((asset) => asset.address === this.assetOrigination[market].label);
+        let prices = this.assetPricesUSD.find((asset) => asset.address === this.assetOrigination[market].address);
         for (let t in this.timestamps) {
           let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
           if (price) {
@@ -279,6 +280,7 @@ interface QueryResult {
 
 interface DataObject {
   label: string;
+  address: string;
   data: number[];
   dataUSD: number[];
   dataPeriodic: number[];

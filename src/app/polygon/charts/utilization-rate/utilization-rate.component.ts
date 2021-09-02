@@ -173,7 +173,8 @@ export class UtilizationRateComponent implements OnInit {
     for (let market in markets) {
       let dataobj: DataObject;
       dataobj = {
-        label: markets[market].underlyingAddress,
+        label: markets[market].underlyingSymbol,
+        address: markets[market].underlyingAddress,
         data: [],
         dataSupply: [],
         dataBorrow: [],
@@ -195,7 +196,7 @@ export class UtilizationRateComponent implements OnInit {
       if (t !== 'markets') {
         for (let m in result[t]) {
           let market = result[t][m];
-          let entry = this.data.find((m) => m.label === market.underlyingAddress);
+          let entry = this.data.find((m) => m.address === market.underlyingAddress);
           let totalSupply = parseFloat(market.totalSupply) * parseFloat(market.exchangeRate);
           if (isNaN(totalSupply)) { totalSupply = 0; }
           let totalBorrow = parseFloat(market.totalBorrows);
@@ -221,7 +222,6 @@ export class UtilizationRateComponent implements OnInit {
   }
 
   changePeriod() {
-
     if (this.period === 'daily') {
       this.PERIOD = this.constants.DAY_IN_SEC;
       this.FIRST_INDEX = 1623888000;
@@ -232,16 +232,13 @@ export class UtilizationRateComponent implements OnInit {
       this.PERIOD = this.constants.MONTH_IN_SEC;
       this.FIRST_INDEX = 1622505600;
     }
-
     this.timeseriesdata = [];
     this.timestamps = [];
     this.readable = [];
     this.blocks = [];
     this.data = [];
-
     this.drawChart();
   }
-
 }
 
 interface QueryResult {
@@ -259,6 +256,7 @@ interface QueryResult {
 
 interface DataObject {
   label: string;
+  address: string;
   data: number[];
   dataSupply: number[];
   dataBorrow: number[];
