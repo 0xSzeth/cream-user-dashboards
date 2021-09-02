@@ -16,6 +16,9 @@ export class IceCREAMComponent implements OnInit {
   iceCreamTotalSupply: number = 0;
   creamHolders: number = 0;
 
+  totalLoanOrigination: number = 0;
+  totalLoanRevenue: number = 0;
+
   activeUsersMainnet: number = 0;
   activeUsersIronBank: number = 0;
   activeUsersPolygon: number = 0;
@@ -173,14 +176,16 @@ export class IceCREAMComponent implements OnInit {
   }
 
   async loadPolygon() {
+    let loanOriginationPolygon: number = 0;
+    let loanRevenuePolygon: number = 0;
     let activeUsersPolygon: number = 0;
 
     let skip: boolean = true;
     let lastID: string = "";
 
     while (skip) {
-      let queryString = `query ActiveUsers {`;
-      queryString += `accounts (
+      let usersQueryString = `query ActiveUsers {`;
+      usersQueryString += `accounts (
         first: 1000,
         where: {
           id_gt: "${lastID}"
@@ -188,12 +193,12 @@ export class IceCREAMComponent implements OnInit {
       ) {
           id
         }`;
-      queryString += `}`;
-      const query = gql`
-        ${queryString}
+      usersQueryString += `}`;
+      const usersQuery = gql`
+        ${usersQueryString}
       `;
 
-      let result = await request(this.constants.GRAPHQL_POLYGON, query).then(
+      let result = await request(this.constants.GRAPHQL_POLYGON, usersQueryString).then(
         (data: QueryResult) => {
           return data;
         });
@@ -209,6 +214,32 @@ export class IceCREAMComponent implements OnInit {
     }
 
     this.activeUsersPolygon = activeUsersPolygon;
+
+    let queryString = `query InterestData {`;
+    queryString += `markets {
+        id
+        symbol
+        underlyingAddress
+        underlyingSymbol
+        cash
+        totalSupply
+        exchangeRate
+        totalBorrows
+        totalInterestAccumulated
+        reserveFactor
+      }`;
+    queryString += `}`;
+    const query = gql`
+      ${queryString}
+    `;
+
+    request(
+      this.constants.GRAPHQL_POLYGON,
+      queryString
+    ).then((data: QueryResult) => {
+      console.log(data);
+    });
+
   }
 
   async loadFantom() {
@@ -299,5 +330,17 @@ interface QueryResult {
     id: string;
     address: string;
     creamBalance: string;
+  }[];
+  markets: {
+    id: string;
+    symbol: string;
+    underlyingAddress: string;
+    underlyingSymbol: string;
+    cash: string;
+    totalSupply: string;
+    exchangeRate: string;
+    totalBorrows: string;
+    totalInterestAccumulated: string;
+    reserveFactor: string;
   }[];
 }

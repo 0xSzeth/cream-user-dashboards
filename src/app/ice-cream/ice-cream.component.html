@@ -1,133 +1,135 @@
-<div class="row">
-  <div class="col-12">
-    <div class="card-deck">
-      <div class="card">
-        <h4 class="card-label">
-          🍦 CREAM token price
-        </h4>
-        <h1 class="card-content">
-          ${{ creamPriceUSD.toFixed(2) }} USD
-        </h1>
-      </div>
-      <div class="card">
-        <h4 class="card-label">
-          🍦 Placeholder
-        </h4>
-        <h1 class="card-content">
-          Placeholder
-        </h1>
-      </div>
-      <div class="card">
-        <h4 class="card-label">
-          🍦 Placeholder
-        </h4>
-        <h1 class="card-content">
-          Placeholder
-        </h1>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <div class="card-deck">
-      <div class="card">
-        <h4 class="card-label">
-          🍦 iceCREAM Token
-        </h4>
-        <h1 class="card-content">
-          {{ iceCreamTotalSupply.toFixed(2) }} iceCREAM
-        </h1>
-      </div>
-      <div class="card">
-        <h4 class="card-label">
-          🍦 Placeholder
-        </h4>
-        <h1 class="card-content">
-          Placeholder
-        </h1>
-      </div>
-      <div class="card">
-        <h4 class="card-label">
-          🍦 CREAM token holders
-        </h4>
-        <h1 class="card-content">
-          {{ creamHolders }} Holders
-        </h1>
+<div class="main-content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck">
+        <div class="card">
+          <h4 class="card-label">
+            🍦 CREAM token price
+          </h4>
+          <h1 class="card-content">
+            ${{ creamPriceUSD.toFixed(2) }} USD
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            🍦 Total Loan Origination
+          </h4>
+          <h1 class="card-content">
+            ${{ totalLoanOrigination.toFixed(2) }} USD
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            🍦 Total Loan Revenue
+          </h4>
+          <h1 class="card-content">
+            ${{ totalLoanRevenue.toFixed(2) }} USD
+          </h1>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <div class="card-deck">
-      <div class="card">
-        <h4 class="card-label">
-          🍦 C.R.E.A.M. total active users - Ethereum
-        </h4>
-        <h1 class="card-content">
-          {{ activeUsersMainnet }} total active users
-        </h1>
-      </div>
-      <div class="card">
-        <h4 class="card-label">
-          🍦 C.R.E.A.M. total active users - IronBank
-        </h4>
-        <h1 class="card-content">
-          {{ activeUsersIronBank }} total active users
-        </h1>
-      </div>
-      <div class="card">
-        <h4 class="card-label">
-          🍦 C.R.E.A.M. total active users - Polygon
-        </h4>
-        <h1 class="card-content">
-          {{ activeUsersPolygon }} total active users
-        </h1>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <div class="card-deck">
-      <div class="card">
-        <h4 class="card-label">
-          C.R.E.A.M. total active users - Fantom
-        </h4>
-        <h1 class="card-content">
-          {{ activeUsersFantom }} total active users
-        </h1>
-      </div>
-      <div class="card">
-        <h4 class="card-label">
-          C.R.E.A.M. total active users - BSC
-        </h4>
-        <h1 class="card-content">
-          {{ activeUsersBSC }} total active users
-        </h1>
-      </div>
-      <div class="card">
-        <h4 class="card-label">
-          🍦 Placeholder
-        </h4>
-        <h1 class="card-content">
-          Placeholder
-        </h1>
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck">
+        <div class="card">
+          <h4 class="card-label">
+            🍦 iceCREAM Token
+          </h4>
+          <h1 class="card-content">
+            {{ iceCreamTotalSupply.toFixed(2) }} iceCREAM
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            🍦 Placeholder
+          </h4>
+          <h1 class="card-content">
+            Placeholder
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            🍦 CREAM token holders
+          </h4>
+          <h1 class="card-content">
+            {{ creamHolders }} Holders
+          </h1>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Start Charts -->
-<div class="row">
-  <div class="col-12">
-    <div class="card-deck my-5 justify-content-around">
-      <div class="card col-6">
-        <app-cream-token-holders class="mb-5"></app-cream-token-holders>
-      </div>
-      <div class="card col-6">
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck">
+        <div class="card">
+          <h4 class="card-label">
+            🍦 C.R.E.A.M. total active users - Ethereum
+          </h4>
+          <h1 class="card-content">
+            {{ activeUsersMainnet }} total active users
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            🍦 C.R.E.A.M. total active users - IronBank
+          </h4>
+          <h1 class="card-content">
+            {{ activeUsersIronBank }} total active users
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            🍦 C.R.E.A.M. total active users - Polygon
+          </h4>
+          <h1 class="card-content">
+            {{ activeUsersPolygon }} total active users
+          </h1>
+        </div>
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck">
+        <div class="card">
+          <h4 class="card-label">
+            C.R.E.A.M. total active users - Fantom
+          </h4>
+          <h1 class="card-content">
+            {{ activeUsersFantom }} total active users
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            C.R.E.A.M. total active users - BSC
+          </h4>
+          <h1 class="card-content">
+            {{ activeUsersBSC }} total active users
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            🍦 Placeholder
+          </h4>
+          <h1 class="card-content">
+            Placeholder
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Start Charts -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck my-5 justify-content-around">
+        <div class="card col-6">
+          <app-cream-token-holders class="mb-5"></app-cream-token-holders>
+        </div>
+        <div class="card col-6">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Charts -->
 </div>
-<!-- End Charts -->

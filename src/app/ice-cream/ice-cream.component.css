@@ -107,20 +107,30 @@
   word-wrap: break-word;
   background-color: transparent;
   background-clip: border-box;
-  border: 3px solid #6f8498;
+  border: 3px solid;
   border-radius: 0.5rem;
   border-color: rgb(254,185,210);
+  background-color: #1E2738;
 }
 
 .card-label {
   margin-top: 0;
+  margin-left: 5px;
+  color: white;
 }
 
 .card-content {
   text-align: center;
   margin-top: 0;
+  color: white;
 }
 
 .mb-5 {
   margin-bottom: 2.25rem !important;
+}
+
+.main-content {
+  /* background-color: #1E2738; */
+  padding: 40px;
+  background-color: #151C28;
 }
