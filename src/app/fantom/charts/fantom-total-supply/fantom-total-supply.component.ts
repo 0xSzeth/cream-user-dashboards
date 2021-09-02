@@ -201,10 +201,8 @@ export class FantomTotalSupplyComponent implements OnInit {
         for (let t in this.timestamps) {
           let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
           if (price) {
-            console.log("Match");
             this.data[market].dataUSD[t] = price[1];
           } else {
-            console.log("no match");
             this.data[market].dataUSD[t] = 0;
           }
         }
