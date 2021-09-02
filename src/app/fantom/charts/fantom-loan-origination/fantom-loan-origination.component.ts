@@ -208,14 +208,11 @@ export class FantomLoanOriginationComponent implements OnInit {
     for (let market in this.assetOrigination) {
       if (this.assetOrigination[market].label) {
         let prices = this.assetPricesUSD.find((asset) => asset.address === this.assetOrigination[market].address);
-        console.log(prices);
         for (let t in this.timestamps) {
           let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
           if (price) {
-            console.log('found');
             this.assetOrigination[market].dataUSD[t] = price[1];
           } else {
-            console.log('not found');
             this.assetOrigination[market].dataUSD[t] = 0;
           }
         }

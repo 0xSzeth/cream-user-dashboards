@@ -1,1 +1,21 @@
-<p>loan-revenue works!</p>
+<div *ngIf="barChartData">
+  <div>
+    <h3 class="text-uppercase text-center card-label chart-label">
+      Loan Revenue
+      <select [(ngModel)]="period" name="period" (change)="changePeriod()" class="custom-select">Select
+        <option value="daily">Daily</option>
+        <option value="weekly" selected>Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </h3>
+    <canvas
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"
+    >
+    </canvas>
+  </div>
+</div>
