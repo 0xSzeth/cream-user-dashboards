@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { request, gql } from 'graphql-request';
 import { ConstantsService } from 'src/app/constants.service';
 import { HelpersService } from 'src/app//helpers.service';
@@ -27,6 +27,8 @@ export class LoanOriginationComponent implements OnInit {
     '57, 175, 209',
   ];
 
+  @Input() assetPricesUSD: PriceObject[] = [];
+  firstChange: boolean = true;
   period: string = "weekly";
 
   // data variables
@@ -50,9 +52,11 @@ export class LoanOriginationComponent implements OnInit {
     public timeseries: TimeseriesService,
   ) { }
 
-  ngOnInit(): void {
-    this.drawChart();
+  ngOnChanges(changes: SimpleChanges) {
+    this.firstChange ? this.firstChange = false : this.drawChart();
   }
+
+  ngOnInit(): void { }
 
   async drawChart() {
     await this.loadData();
@@ -157,7 +161,6 @@ export class LoanOriginationComponent implements OnInit {
     request(this.constants.GRAPHQL_POLYGON, query).then(
       (data: QueryResult) => this.handleData(data)
     );
-
   }
 
   async handleData(data: QueryResult) {
@@ -201,28 +204,13 @@ export class LoanOriginationComponent implements OnInit {
     }
 
     // populate the dataUSD array
-    // @dev if days < 100 then coingecko api returns inaccurate timestamps
-    let days = (this.timeseries.getLatestUTCDate() - this.FIRST_INDEX + this.constants.DAY_IN_SEC) / this.constants.DAY_IN_SEC;
-    if (days < 100) {
-      days = 100;
-    }
     for (let market in this.assetOrigination) {
       if (this.assetOrigination[market].label) {
-        // fetch historical token prices
-        let apiResult: number[][] = [];
-        apiResult = await this.helpers.getTokenPriceUSD(
-          this.assetOrigination[market].label,
-          this.constants.CHAIN_ID.POLYGON,
-          days
-        );
-
+        let prices = this.assetPricesUSD.find((asset) => asset.address === this.assetOrigination[market].label);
         for (let t in this.timestamps) {
-          // find the historical price in the api result
-          let found = apiResult.find(
-            (price) => price[0] === this.timestamps[t] * 1000
-          );
-          if (found) {
-            this.assetOrigination[market].dataUSD[t] = found[1];
+          let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
+          if (price) {
+            this.assetOrigination[market].dataUSD[t] = price[1];
           } else {
             this.assetOrigination[market].dataUSD[t] = 0;
           }
@@ -241,7 +229,6 @@ export class LoanOriginationComponent implements OnInit {
     }
 
     // populate the dataPeriodic array
-    // set data to be displayed as periodic (@dev make customizable later)
     for (let m in this.assetOrigination) {
       if (this.assetOrigination[m].label) {
         let market = this.assetOrigination[m];
@@ -260,7 +247,6 @@ export class LoanOriginationComponent implements OnInit {
   }
 
   changePeriod() {
-
     if (this.period === 'daily') {
       this.PERIOD = this.constants.DAY_IN_SEC;
       this.FIRST_INDEX = 1623888000;
@@ -271,16 +257,13 @@ export class LoanOriginationComponent implements OnInit {
       this.PERIOD = this.constants.MONTH_IN_SEC;
       this.FIRST_INDEX = 1622505600;
     }
-
     this.timeseriesdata = [];
     this.timestamps = [];
     this.readable = [];
     this.blocks = [];
     this.assetOrigination = [];
-
     this.drawChart();
   }
-
 }
 
 interface QueryResult {
@@ -303,4 +286,9 @@ interface DataObject {
   dataOrigination: number[];
   backgroundColor: string;
   hoverBackgroundColor: string;
+}
+
+interface PriceObject {
+  address: string;
+  prices: number[][];
 }

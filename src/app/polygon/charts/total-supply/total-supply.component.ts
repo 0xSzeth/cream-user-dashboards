@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { request, gql } from 'graphql-request';
 import { ConstantsService } from 'src/app/constants.service';
 import { HelpersService } from 'src/app//helpers.service';
@@ -27,6 +27,8 @@ export class TotalSupplyComponent implements OnInit {
     '57, 175, 209',
   ];
 
+  @Input() assetPricesUSD: PriceObject[] = [];
+  firstChange: boolean = true;
   period: string = "weekly";
 
   // data variables
@@ -49,9 +51,11 @@ export class TotalSupplyComponent implements OnInit {
     public timeseries: TimeseriesService,
   ) { }
 
-  ngOnInit(): void {
-    this.drawChart();
+  ngOnChanges(changes: SimpleChanges) {
+    this.firstChange ? this.firstChange = false : this.drawChart();
   }
+
+  ngOnInit(): void { }
 
   async drawChart() {
     await this.loadData();
@@ -150,7 +154,6 @@ export class TotalSupplyComponent implements OnInit {
     request(this.constants.GRAPHQL_POLYGON, query).then(
       (data: QueryResult) => this.handleData(data)
     );
-
   }
 
   async handleData(data: QueryResult) {
@@ -191,28 +194,13 @@ export class TotalSupplyComponent implements OnInit {
     }
 
     // populate the dataUSD array
-    // @dev if days < 100 then coingecko api returns inaccurate timestamps
-    let days = (this.timeseries.getLatestUTCDate() - this.FIRST_INDEX + this.constants.DAY_IN_SEC) / this.constants.DAY_IN_SEC;
-    if (days < 100) {
-      days = 100;
-    }
     for (let market in this.data) {
       if (this.data[market].label) {
-        // fetch historical token prices
-        let apiResult: number[][] = [];
-        apiResult = await this.helpers.getTokenPriceUSD(
-          this.data[market].label,
-          this.constants.CHAIN_ID.POLYGON,
-          days
-        );
-
+        let prices = this.assetPricesUSD.find((asset) => asset.address === this.data[market].label);
         for (let t in this.timestamps) {
-          // find the historical price in the api result
-          let found = apiResult.find(
-            (price) => price[0] === this.timestamps[t] * 1000
-          );
-          if (found) {
-            this.data[market].dataUSD[t] = found[1];
+          let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
+          if (price) {
+            this.data[market].dataUSD[t] = price[1];
           } else {
             this.data[market].dataUSD[t] = 0;
           }
@@ -243,13 +231,11 @@ export class TotalSupplyComponent implements OnInit {
       this.PERIOD = this.constants.MONTH_IN_SEC;
       this.FIRST_INDEX = 1622505600;
     }
-
     this.timeseriesdata = [];
     this.timestamps = [];
     this.readable = [];
     this.blocks = [];
     this.data = [];
-
     this.drawChart();
   }
 
@@ -274,4 +260,9 @@ interface DataObject {
   dataUSD: number[];
   backgroundColor: string;
   hoverBackgroundColor: string;
+}
+
+interface PriceObject {
+  address: string;
+  prices: number[][];
 }

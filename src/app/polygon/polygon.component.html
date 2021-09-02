@@ -64,10 +64,10 @@
     <div class="col-12">
       <div class="card-deck my-5 justify-content-around">
         <div class="card col-6">
-          <app-total-value-locked class="w-50"></app-total-value-locked>
+          <app-total-value-locked [assetPricesUSD]="assetPricesUSD" class="w-50"></app-total-value-locked>
         </div>
         <div class="card col-6">
-          <app-total-supply class="w-50"></app-total-supply>
+          <app-total-supply [assetPricesUSD]="assetPricesUSD" class="w-50"></app-total-supply>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
     <div class="col-12">
       <div class="card-deck my-5 justify-content-around">
         <div class="card col-6">
-          <app-total-borrowed class="w-50"></app-total-borrowed>
+          <app-total-borrowed [assetPricesUSD]="assetPricesUSD" class="w-50"></app-total-borrowed>
         </div>
         <div class="card col-6">
           <app-utilization-rate class="w-50"></app-utilization-rate>
@@ -88,10 +88,10 @@
     <div class="col-12">
       <div class="card-deck my-5 justify-content-around">
         <div class="card col-6">
-          <app-loan-origination class="w-50"></app-loan-origination>
+          <app-loan-origination [assetPricesUSD]="assetPricesUSD" class="w-50"></app-loan-origination>
         </div>
         <div class="card col-6">
-          <app-loan-revenue class="w-50"></app-loan-revenue>
+          <app-loan-revenue [assetPricesUSD]="assetPricesUSD" class="w-50"></app-loan-revenue>
         </div>
       </div>
     </div>

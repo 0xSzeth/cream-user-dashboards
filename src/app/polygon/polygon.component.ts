@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { request, gql } from 'graphql-request';
 import { ConstantsService } from '../constants.service';
 import { HelpersService } from '../helpers.service';
+import { TimeseriesService } from '../timeseries.service';
 
 @Component({
   selector: 'app-polygon',
@@ -10,6 +11,9 @@ import { HelpersService } from '../helpers.service';
   styleUrls: ['./polygon.component.css']
 })
 export class PolygonComponent implements OnInit {
+
+  FIRST_INDEX: number = 1622505600;
+  assetPricesUSD: PriceObject[] = [];
 
   totalValueLockedUSD: BigNumber = new BigNumber(0);
   totalValueSuppliedUSD: BigNumber = new BigNumber(0);
@@ -21,6 +25,7 @@ export class PolygonComponent implements OnInit {
   constructor(
     public helpers: HelpersService,
     public constants: ConstantsService,
+    public timeseries: TimeseriesService,
   ) { }
 
   async ngOnInit() {
@@ -58,12 +63,31 @@ export class PolygonComponent implements OnInit {
     let totalValueBorrowedUSD = new BigNumber(0);
     let totalLoanOriginationUSD = new BigNumber(0);
     let totalLoanRevenueUSD = new BigNumber(0);
+    let assetPricesUSD: PriceObject[] = [];
 
     Promise.all(
       markets.map(async (market) => {
 
-        // fetch the price of the underlying asset in USD
-        let assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON, 0);
+        // calculate number of days since first index
+        let days = (this.timeseries.getLatestUTCDate() - this.FIRST_INDEX + this.constants.DAY_IN_SEC) / this.constants.DAY_IN_SEC;
+        if (days < 100) {
+          days = 100;
+        }
+
+        // fetch the historical and current prices of the underlying asset in USD
+        // @dev if days < 100 then coingecko api returns inaccurate timestamps
+        const assetPrices = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON, days);
+
+        // add the price object to the assetPricesUSD array
+        const priceObject: PriceObject = {
+          address: market.underlyingAddress,
+          prices: assetPrices
+        };
+        assetPricesUSD.push(priceObject);
+        // this.assetPricesUSD.push(priceObject);
+
+        // get current asset price from asset price list
+        const assetPriceUSD = assetPrices[assetPrices.length - 1][1];
 
         // calculate total value locked in USD
         const assetTotalValueLockedUSD = new BigNumber(market.cash).times(assetPriceUSD);
@@ -87,6 +111,7 @@ export class PolygonComponent implements OnInit {
       this.totalUtilizationRate = totalValueBorrowedUSD.div(totalValueSuppliedUSD).times(100);
       this.totalLoanOrigination = totalLoanOriginationUSD;
       this.totalLoanRevenue = totalLoanRevenueUSD;
+      this.assetPricesUSD = assetPricesUSD;
     });
   }
 
@@ -111,4 +136,9 @@ interface QueryResult {
     totalInterestAccumulated: string;
     reserveFactor: string;
   }[];
+}
+
+interface PriceObject {
+  address: string;
+  prices: number[][];
 }
