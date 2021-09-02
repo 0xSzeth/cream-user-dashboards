@@ -20,12 +20,12 @@ import { PolygonUtilizationRateComponent } from './polygon/charts/polygon-utiliz
 import { PolygonLoanOriginationComponent } from './polygon/charts/polygon-loan-origination/polygon-loan-origination.component';
 import { PolygonLoanRevenueComponent } from './polygon/charts/polygon-loan-revenue/polygon-loan-revenue.component';
 import { FormsModule } from '@angular/forms';
-// import { FantomTotalValueLockedComponent } from './fantom/charts/fantom-total-value-locked/fantom-total-value-locked.component';
-// import { FantomTotalSupplyComponent } from './fantom/charts/fantom-total-supply/fantom-total-supply.component';
-// import { FantomTotalBorrowedComponent } from './fantom/charts/fantom-total-borrowed/fantom-total-borrowed.component';
-// import { FantomUtilizationRateComponent } from './fantom/charts/fantom-utilization-rate/fantom-utilization-rate.component';
-// import { FantomLoanOriginationComponent } from './fantom/charts/fantom-loan-origination/fantom-loan-origination.component';
-// import { FantomLoanRevenueComponent } from './fantom/charts/fantom-loan-revenue/fantom-loan-revenue.component';
+import { FantomTotalValueLockedComponent } from './fantom/charts/fantom-total-value-locked/fantom-total-value-locked.component';
+import { FantomTotalSupplyComponent } from './fantom/charts/fantom-total-supply/fantom-total-supply.component';
+import { FantomTotalBorrowedComponent } from './fantom/charts/fantom-total-borrowed/fantom-total-borrowed.component';
+import { FantomUtilizationRateComponent } from './fantom/charts/fantom-utilization-rate/fantom-utilization-rate.component';
+import { FantomLoanOriginationComponent } from './fantom/charts/fantom-loan-origination/fantom-loan-origination.component';
+import { FantomLoanRevenueComponent } from './fantom/charts/fantom-loan-revenue/fantom-loan-revenue.component';
 
 @NgModule({
   declarations: [
@@ -45,12 +45,12 @@ import { FormsModule } from '@angular/forms';
     PolygonUtilizationRateComponent,
     PolygonLoanOriginationComponent,
     PolygonLoanRevenueComponent,
-    // FantomTotalValueLockedComponent,
-    // FantomTotalSupplyComponent,
-    // FantomTotalBorrowedComponent,
-    // FantomUtilizationRateComponent,
-    // FantomLoanOriginationComponent,
-    // FantomLoanRevenueComponent
+    FantomTotalValueLockedComponent,
+    FantomTotalSupplyComponent,
+    FantomTotalBorrowedComponent,
+    FantomUtilizationRateComponent,
+    FantomLoanOriginationComponent,
+    FantomLoanRevenueComponent,
   ],
   imports: [
     NgbModule,

@@ -12,7 +12,7 @@ import { TimeseriesService } from '../timeseries.service';
 })
 export class FantomComponent implements OnInit {
 
-  FIRST_INDEX: number = 1622505600;
+  FIRST_INDEX: number = 1612137600;
   assetPricesUSD: PriceObject[] = [];
 
   totalValueLockedUSD: BigNumber = new BigNumber(0);
@@ -76,7 +76,6 @@ export class FantomComponent implements OnInit {
 
         // fetch the historical and current prices of the underlying asset in USD
         // @dev if days < 100 then coingecko api returns inaccurate timestamps
-        console.log(market.underlyingAddress);
         const assetPrices = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.FANTOM, days);
 
         // add the price object to the assetPricesUSD array
