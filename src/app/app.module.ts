@@ -11,15 +11,21 @@ import { HomeComponent } from './home/home.component';
 import { BinanceSmartChainComponent } from './binance-smart-chain/binance-smart-chain.component';
 import { PolygonComponent } from './polygon/polygon.component';
 import { FantomComponent } from './fantom/fantom.component';
-import { TotalValueLockedComponent } from './polygon/charts/total-value-locked/total-value-locked.component';
 import { CreamTokenHoldersComponent } from './ice-cream/charts/cream-token-holders/cream-token-holders.component';
 import { ChartsModule } from 'ng2-charts';
-import { TotalSupplyComponent } from './polygon/charts/total-supply/total-supply.component';
-import { TotalBorrowedComponent } from './polygon/charts/total-borrowed/total-borrowed.component';
-import { UtilizationRateComponent } from './polygon/charts/utilization-rate/utilization-rate.component';
-import { LoanOriginationComponent } from './polygon/charts/loan-origination/loan-origination.component';
-import { LoanRevenueComponent } from './polygon/charts/loan-revenue/loan-revenue.component';
+import { PolygonTotalValueLockedComponent } from './polygon/charts/polygon-total-value-locked/polygon-total-value-locked.component';
+import { PolygonTotalSupplyComponent } from './polygon/charts/polygon-total-supply/polygon-total-supply.component';
+import { PolygonTotalBorrowedComponent } from './polygon/charts/polygon-total-borrowed/polygon-total-borrowed.component';
+import { PolygonUtilizationRateComponent } from './polygon/charts/polygon-utilization-rate/polygon-utilization-rate.component';
+import { PolygonLoanOriginationComponent } from './polygon/charts/polygon-loan-origination/polygon-loan-origination.component';
+import { PolygonLoanRevenueComponent } from './polygon/charts/polygon-loan-revenue/polygon-loan-revenue.component';
 import { FormsModule } from '@angular/forms';
+// import { FantomTotalValueLockedComponent } from './fantom/charts/fantom-total-value-locked/fantom-total-value-locked.component';
+// import { FantomTotalSupplyComponent } from './fantom/charts/fantom-total-supply/fantom-total-supply.component';
+// import { FantomTotalBorrowedComponent } from './fantom/charts/fantom-total-borrowed/fantom-total-borrowed.component';
+// import { FantomUtilizationRateComponent } from './fantom/charts/fantom-utilization-rate/fantom-utilization-rate.component';
+// import { FantomLoanOriginationComponent } from './fantom/charts/fantom-loan-origination/fantom-loan-origination.component';
+// import { FantomLoanRevenueComponent } from './fantom/charts/fantom-loan-revenue/fantom-loan-revenue.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +38,19 @@ import { FormsModule } from '@angular/forms';
     BinanceSmartChainComponent,
     PolygonComponent,
     FantomComponent,
-    TotalValueLockedComponent,
     CreamTokenHoldersComponent,
-    TotalSupplyComponent,
-    TotalBorrowedComponent,
-    UtilizationRateComponent,
-    LoanOriginationComponent,
-    LoanRevenueComponent
+    PolygonTotalValueLockedComponent,
+    PolygonTotalSupplyComponent,
+    PolygonTotalBorrowedComponent,
+    PolygonUtilizationRateComponent,
+    PolygonLoanOriginationComponent,
+    PolygonLoanRevenueComponent,
+    // FantomTotalValueLockedComponent,
+    // FantomTotalSupplyComponent,
+    // FantomTotalBorrowedComponent,
+    // FantomUtilizationRateComponent,
+    // FantomLoanOriginationComponent,
+    // FantomLoanRevenueComponent
   ],
   imports: [
     NgbModule,

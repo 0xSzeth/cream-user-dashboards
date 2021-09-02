@@ -6,11 +6,11 @@ import { TimeseriesService } from 'src/app//timeseries.service';
 import { Chart } from 'chart.js';
 
 @Component({
-  selector: 'app-loan-origination',
-  templateUrl: './loan-origination.component.html',
-  styleUrls: ['./loan-origination.component.css']
+  selector: 'app-polygon-total-value-locked',
+  templateUrl: './polygon-total-value-locked.component.html',
+  styleUrls: ['./polygon-total-value-locked.component.css']
 })
-export class LoanOriginationComponent implements OnInit {
+export class PolygonTotalValueLockedComponent implements OnInit {
   // constants
   FIRST_INDEX = 1623542400;
   PERIOD: number = this.constants.WEEK_IN_SEC;
@@ -36,8 +36,7 @@ export class LoanOriginationComponent implements OnInit {
   timestamps: number[] = [];
   readable: string[] = [];
   blocks: number[] = [];
-  assetOrigination: DataObject[] = [];
-  //data: number[] = [];
+  data: DataObject[] = [];
 
   // chart variables
   barChartOptions: any = {};
@@ -94,15 +93,7 @@ export class LoanOriginationComponent implements OnInit {
     this.barChartLabels = this.readable;
     this.barChartType = 'bar';
     this.barChartLegend = false;
-    this.barChartData = this.assetOrigination;
-    // this.barChartData = [
-    //   {
-    //     data: this.data,
-    //     backgroundColor: 'rgba(44, 123, 229, 0.3)',
-    //     borderColor: 'rgba(44, 123, 229, 1)',
-    //     hoverBackgroundColor: 'rgba(44, 123, 229, 1)',
-    //   },
-    // ];
+    this.barChartData = this.data;
   }
 
   async loadData() {
@@ -131,13 +122,13 @@ export class LoanOriginationComponent implements OnInit {
     this.readable = readable;
 
     // then generate the query
-    let queryString = `query HistoricalLoanOrigination {`;
+    let queryString = `query HistoricalAssetTVL {`;
     queryString += `markets {
       id
       symbol
       underlyingAddress
       underlyingSymbol
-      totalInterestAccumulated
+      cash
     }`;
     for (let i = 0; i < this.blocks.length; i++) {
       queryString += `t${i}: markets(
@@ -149,7 +140,7 @@ export class LoanOriginationComponent implements OnInit {
         symbol
         underlyingAddress
         underlyingSymbol
-        totalInterestAccumulated
+        cash
       }`;
     }
     queryString += `}`;
@@ -174,74 +165,54 @@ export class LoanOriginationComponent implements OnInit {
         label: markets[market].underlyingSymbol,
         address: markets[market].underlyingAddress,
         data: [],
+        dataTVL: [],
         dataUSD: [],
-        dataPeriodic: [],
-        dataCumulative: [],
-        dataOrigination: [],
         backgroundColor:
           'rgba(' + this.COLORS[parseInt(market) % this.COLORS.length] + ', 0.5)',
         hoverBackgroundColor:
           'rgba(' + this.COLORS[parseInt(market) % this.COLORS.length] + ', 1)',
       };
-      this.assetOrigination.push(dataobj);
+      this.data.push(dataobj);
     }
 
-    // populate dataOrigination array (token quantity)
+    // populate TVL array (token quantity)
     for (let t in result) {
       if (t !== 'markets') {
         for (let m in result[t]) {
           let market = result[t][m];
-          let entry = this.assetOrigination.find((m) => m.address === market.underlyingAddress);
-          let totalInterestAccumulated = parseFloat(market.totalInterestAccumulated);
-          if (isNaN(totalInterestAccumulated)) {
-            totalInterestAccumulated = 0;
+          let entry = this.data.find((m) => m.address === market.underlyingAddress);
+          let totalDeposit = parseFloat(market.cash);
+          if (isNaN(totalDeposit)) {
+            totalDeposit = 0;
           }
           if (entry) {
-            entry.dataOrigination[parseInt(t.substring(1))] = totalInterestAccumulated;
+            entry.dataTVL[parseInt(t.substring(1))] = totalDeposit;
           }
-
         }
       }
     }
 
     // populate the dataUSD array
-    for (let market in this.assetOrigination) {
-      if (this.assetOrigination[market].label) {
-        let prices = this.assetPricesUSD.find((asset) => asset.address === this.assetOrigination[market].address);
+    for (let market in this.data) {
+      if (this.data[market].label) {
+        let prices = this.assetPricesUSD.find((asset) => asset.address === this.data[market].address);
         for (let t in this.timestamps) {
           let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
           if (price) {
-            this.assetOrigination[market].dataUSD[t] = price[1];
+            this.data[market].dataUSD[t] = price[1];
           } else {
-            this.assetOrigination[market].dataUSD[t] = 0;
+            this.data[market].dataUSD[t] = 0;
           }
         }
       }
     }
 
-    // populate the dataCumulative array
-    for (let m in this.assetOrigination) {
-      if (this.assetOrigination[m].label) {
-        let market = this.assetOrigination[m];
+    // populate the data array to be charted
+    for (let m in this.data) {
+      if (this.data[m].label) {
+        let market = this.data[m];
         for (let t in this.timestamps) {
-          market.dataCumulative[t] = market.dataOrigination[t] * market.dataUSD[t];
-        }
-      }
-    }
-
-    // populate the dataPeriodic array
-    for (let m in this.assetOrigination) {
-      if (this.assetOrigination[m].label) {
-        let market = this.assetOrigination[m];
-        for (let t in this.timestamps) {
-          let delta = parseInt(t) - 1;
-          if (parseInt(t) == 0) {
-            market.dataCumulative[t] = market.dataOrigination[t] * market.dataUSD[t];
-            market.data[t] = market.dataOrigination[t] * market.dataUSD[t];
-          } else {
-            market.dataPeriodic[t] = (market.dataOrigination[t] - market.dataOrigination[delta]) * market.dataUSD[t];
-            market.data[t] = (market.dataOrigination[t] - market.dataOrigination[delta]) * market.dataUSD[t];
-          }
+          market.data[t] = market.dataTVL[t] * market.dataUSD[t];
         }
       }
     }
@@ -262,7 +233,7 @@ export class LoanOriginationComponent implements OnInit {
     this.timestamps = [];
     this.readable = [];
     this.blocks = [];
-    this.assetOrigination = [];
+    this.data = [];
     this.drawChart();
   }
 }
@@ -274,7 +245,7 @@ interface QueryResult {
     symbol: string;
     underlyingAddress: string;
     underlyingSymbol: string;
-    totalInterestAccumulated: string;
+    cash: string;
   }[];
 }
 
@@ -282,10 +253,8 @@ interface DataObject {
   label: string;
   address: string;
   data: number[];
+  dataTVL: number[];
   dataUSD: number[];
-  dataPeriodic: number[];
-  dataCumulative: number[];
-  dataOrigination: number[];
   backgroundColor: string;
   hoverBackgroundColor: string;
 }

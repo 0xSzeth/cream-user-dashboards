@@ -6,11 +6,11 @@ import { TimeseriesService } from 'src/app//timeseries.service';
 import { Chart } from 'chart.js';
 
 @Component({
-  selector: 'app-total-borrowed',
-  templateUrl: './total-borrowed.component.html',
-  styleUrls: ['./total-borrowed.component.css']
+  selector: 'app-polygon-total-borrowed',
+  templateUrl: './polygon-total-borrowed.component.html',
+  styleUrls: ['./polygon-total-borrowed.component.css']
 })
-export class TotalBorrowedComponent implements OnInit {
+export class PolygonTotalBorrowedComponent implements OnInit {
   // constants
   FIRST_INDEX = 1623542400;
   PERIOD: number = this.constants.WEEK_IN_SEC;

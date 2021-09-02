@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { request, gql } from 'graphql-request';
 import { ConstantsService } from 'src/app/constants.service';
 import { HelpersService } from 'src/app//helpers.service';
@@ -6,11 +6,11 @@ import { TimeseriesService } from 'src/app//timeseries.service';
 import { Chart } from 'chart.js';
 
 @Component({
-  selector: 'app-total-supply',
-  templateUrl: './total-supply.component.html',
-  styleUrls: ['./total-supply.component.css']
+  selector: 'app-polygon-utilization-rate',
+  templateUrl: './polygon-utilization-rate.component.html',
+  styleUrls: ['./polygon-utilization-rate.component.css']
 })
-export class TotalSupplyComponent implements OnInit {
+export class PolygonUtilizationRateComponent implements OnInit {
   // constants
   FIRST_INDEX = 1623542400;
   PERIOD: number = this.constants.WEEK_IN_SEC;
@@ -27,8 +27,6 @@ export class TotalSupplyComponent implements OnInit {
     '57, 175, 209',
   ];
 
-  @Input() assetPricesUSD: PriceObject[] = [];
-  firstChange: boolean = true;
   period: string = "weekly";
 
   // data variables
@@ -39,11 +37,11 @@ export class TotalSupplyComponent implements OnInit {
   data: DataObject[] = [];
 
   // chart variables
-  barChartOptions: any = {};
-  barChartLabels: any = [];
-  barChartType: any = 'bar';
-  barChartLegend: boolean = true;
-  barChartData: any = [];
+  lineChartOptions: any = {};
+  lineChartLabels: any = [];
+  lineChartType: any = 'line';
+  lineChartLegend: boolean = true;
+  lineChartData: any = [];
 
   constructor(
     public constants: ConstantsService,
@@ -51,22 +49,19 @@ export class TotalSupplyComponent implements OnInit {
     public timeseries: TimeseriesService,
   ) { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.firstChange ? this.firstChange = false : this.drawChart();
+  ngOnInit(): void {
+    this.drawChart();
   }
-
-  ngOnInit(): void { }
 
   async drawChart() {
     await this.loadData();
 
-    this.barChartOptions = {
+    this.lineChartOptions = {
       scaleShowVerticalLines: false,
       responsive: true,
       scales: {
         xAxes: [
           {
-            stacked: true,
             gridLines: {
               display: false,
             },
@@ -77,7 +72,6 @@ export class TotalSupplyComponent implements OnInit {
         ],
         yAxes: [
           {
-            stacked: true,
             gridLines: {
               display: true,
               color: 'grey',
@@ -89,11 +83,26 @@ export class TotalSupplyComponent implements OnInit {
           },
         ],
       },
+      hover: {
+        mode: 'dataset',
+      },
+      elements: {
+        point: {
+          radius: 0,
+          hoverRadius: 2,
+          hitRadius: 4,
+        },
+        line: {
+          tension: 0,
+          borderWidth: 2,
+          hoverBorderWidth: 2,
+        },
+      },
     };
-    this.barChartLabels = this.readable;
-    this.barChartType = 'bar';
-    this.barChartLegend = false;
-    this.barChartData = this.data;
+    this.lineChartLabels = this.readable;
+    this.lineChartType = 'line';
+    this.lineChartLegend = false;
+    this.lineChartData = this.data;
   }
 
   async loadData() {
@@ -122,14 +131,12 @@ export class TotalSupplyComponent implements OnInit {
     this.readable = readable;
 
     // then generate the query
-    let queryString = `query HistoricalSupplied {`;
+    let queryString = `query HistoricalUtilizationRate {`;
     queryString += `markets {
       id
       symbol
       underlyingAddress
       underlyingSymbol
-      totalSupply
-      exchangeRate
     }`;
     for (let i = 0; i < this.blocks.length; i++) {
       queryString += `t${i}: markets(
@@ -142,6 +149,7 @@ export class TotalSupplyComponent implements OnInit {
         underlyingAddress
         underlyingSymbol
         totalSupply
+        totalBorrows
         exchangeRate
       }`;
     }
@@ -154,6 +162,7 @@ export class TotalSupplyComponent implements OnInit {
     request(this.constants.GRAPHQL_POLYGON, query).then(
       (data: QueryResult) => this.handleData(data)
     );
+
   }
 
   async handleData(data: QueryResult) {
@@ -168,43 +177,35 @@ export class TotalSupplyComponent implements OnInit {
         address: markets[market].underlyingAddress,
         data: [],
         dataSupply: [],
-        dataUSD: [],
-        backgroundColor:
+        dataBorrow: [],
+        borderColor:
           'rgba(' + this.COLORS[parseInt(market) % this.COLORS.length] + ', 0.5)',
-        hoverBackgroundColor:
+        hoverBorderColor:
           'rgba(' + this.COLORS[parseInt(market) % this.COLORS.length] + ', 1)',
+        pointHoverBorderColor:
+          'rgba(' + this.COLORS[parseInt(market) % this.COLORS.length] + ', 1)',
+        pointHoverBackgroundColor:
+          'rgba(' + this.COLORS[parseInt(market) % this.COLORS.length] + ', 1)',
+        fill: false,
       };
       this.data.push(dataobj);
     }
 
-    // populate TVL array (token quantity)
+    // populate totalSupply & totalBOrrow arrays (token quantity)
     for (let t in result) {
       if (t !== 'markets') {
         for (let m in result[t]) {
           let market = result[t][m];
           let entry = this.data.find((m) => m.address === market.underlyingAddress);
-          let totalSupplied = parseFloat(market.totalSupply) * parseFloat(market.exchangeRate);
-          if (isNaN(totalSupplied)) {
-            totalSupplied = 0;
-          }
+          let totalSupply = parseFloat(market.totalSupply) * parseFloat(market.exchangeRate);
+          if (isNaN(totalSupply)) { totalSupply = 0; }
+          let totalBorrow = parseFloat(market.totalBorrows);
+          if (isNaN(totalBorrow)) { totalBorrow = 0; }
           if (entry) {
-            entry.dataSupply[parseInt(t.substring(1))] = totalSupplied;
+            entry.dataSupply[parseInt(t.substring(1))] = totalSupply;
+            entry.dataBorrow[parseInt(t.substring(1))] = totalBorrow;
           }
-        }
-      }
-    }
 
-    // populate the dataUSD array
-    for (let market in this.data) {
-      if (this.data[market].label) {
-        let prices = this.assetPricesUSD.find((asset) => asset.address === this.data[market].address);
-        for (let t in this.timestamps) {
-          let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
-          if (price) {
-            this.data[market].dataUSD[t] = price[1];
-          } else {
-            this.data[market].dataUSD[t] = 0;
-          }
         }
       }
     }
@@ -214,14 +215,13 @@ export class TotalSupplyComponent implements OnInit {
       if (this.data[m].label) {
         let market = this.data[m];
         for (let t in this.timestamps) {
-          market.data[t] = market.dataSupply[t] * market.dataUSD[t];
+          market.data[t] = market.dataBorrow[t] / market.dataSupply[t] * 100;
         }
       }
     }
   }
 
   changePeriod() {
-
     if (this.period === 'daily') {
       this.PERIOD = this.constants.DAY_IN_SEC;
       this.FIRST_INDEX = 1623888000;
@@ -239,7 +239,6 @@ export class TotalSupplyComponent implements OnInit {
     this.data = [];
     this.drawChart();
   }
-
 }
 
 interface QueryResult {
@@ -250,6 +249,7 @@ interface QueryResult {
     underlyingAddress: string;
     underlyingSymbol: string;
     totalSupply: string;
+    totalBorrows: string;
     exchangeRate: string;
   }[];
 }
@@ -259,12 +259,10 @@ interface DataObject {
   address: string;
   data: number[];
   dataSupply: number[];
-  dataUSD: number[];
-  backgroundColor: string;
-  hoverBackgroundColor: string;
-}
-
-interface PriceObject {
-  address: string;
-  prices: number[][];
+  dataBorrow: number[];
+  borderColor: string;
+  hoverBorderColor: string;
+  pointHoverBorderColor: string;
+  pointHoverBackgroundColor: string;
+  fill: boolean;
 }
