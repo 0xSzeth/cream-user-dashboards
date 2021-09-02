@@ -320,7 +320,7 @@ export class ConstantsService {
   GRAPHQL_BLOCKS = {
     [this.CHAIN_ID.MAINNET]: "https://api.thegraph.com/subgraphs/name/blocklytics/ethereum-blocks",
     [this.CHAIN_ID.POLYGON]: "https://api.thegraph.com/subgraphs/name/elkfinance/matic-blocks",
-    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.FANTOM]: "https://api.thegraph.com/subgraphs/name/ord786/fantom-blocks",
     [this.CHAIN_ID.BSC]: ""
   };
 
