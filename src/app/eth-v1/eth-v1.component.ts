@@ -12,7 +12,7 @@ import { TimeseriesService } from '../timeseries.service';
 })
 export class EthV1Component implements OnInit {
 
-  FIRST_INDEX: number = 1622505600;
+  FIRST_INDEX: number = 1596322800;
   assetPricesUSD: PriceObject[] = [];
 
   totalValueLockedUSD: BigNumber = new BigNumber(0);

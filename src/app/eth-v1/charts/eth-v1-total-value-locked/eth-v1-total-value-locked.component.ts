@@ -12,7 +12,7 @@ import { Chart } from 'chart.js';
 })
 export class EthV1TotalValueLockedComponent implements OnInit {
   // constants
-  FIRST_INDEX = 1623542400;
+  FIRST_INDEX = 1596409200;
   PERIOD: number = this.constants.WEEK_IN_SEC;
   COLORS: string[] = [
     '44, 123, 229',
@@ -222,13 +222,13 @@ export class EthV1TotalValueLockedComponent implements OnInit {
   changePeriod() {
     if (this.period === 'daily') {
       this.PERIOD = this.constants.DAY_IN_SEC;
-      this.FIRST_INDEX = 1623888000;
+      this.FIRST_INDEX = 1596495600;
     } else if (this.period === 'weekly') {
       this.PERIOD = this.constants.WEEK_IN_SEC;
-      this.FIRST_INDEX = 1623542400;
+      this.FIRST_INDEX = 1596409200;
     } else if (this.period === 'monthly') {
       this.PERIOD = this.constants.MONTH_IN_SEC;
-      this.FIRST_INDEX = 1622505600;
+      this.FIRST_INDEX = 1596322800;
     }
     this.timeseriesdata = [];
     this.timestamps = [];
