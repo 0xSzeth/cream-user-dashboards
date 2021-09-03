@@ -182,7 +182,7 @@ export class HelpersService {
           const index = parseInt(i.substring(1));
 
           let entry: number[] = [];
-          entry[0] = timestamps[index];
+          entry[0] = timestamps[index] * 1000;
           entry[1] = parseFloat(data[i].reserveUSD) / parseFloat(data[i].totalSupply);
 
           historicalPrices[index] = entry;
@@ -244,7 +244,7 @@ export class HelpersService {
           const index = parseInt(i.substring(1));
 
           let entry: number[] = [];
-          entry[0] = timestamps[index];
+          entry[0] = timestamps[index] * 1000;
           entry[1] = parseFloat(data[i].reserveUSD) / parseFloat(data[i].totalSupply);
 
           historicalPrices[index] = entry;
