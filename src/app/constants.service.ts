@@ -321,7 +321,7 @@ export class ConstantsService {
     [this.CHAIN_ID.MAINNET]: "https://api.thegraph.com/subgraphs/name/blocklytics/ethereum-blocks",
     [this.CHAIN_ID.POLYGON]: "https://api.thegraph.com/subgraphs/name/elkfinance/matic-blocks",
     [this.CHAIN_ID.FANTOM]: "https://api.thegraph.com/subgraphs/name/ord786/fantom-blocks",
-    [this.CHAIN_ID.BSC]: ""
+    [this.CHAIN_ID.BSC]: "https://api.thegraph.com/subgraphs/name/elkfinance/bsc-blocks"
   };
 
 
