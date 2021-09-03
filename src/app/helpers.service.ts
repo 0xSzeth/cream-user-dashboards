@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConstantsService } from './constants.service';
+import { request, gql } from 'graphql-request';
 
 @Injectable({
   providedIn: 'root'
@@ -113,27 +114,79 @@ export class HelpersService {
   }
 
   // 1inch
-  async getTokenPriceUSD2(from: string, to: string, amount: number): Promise<number> {
-    //const apiStr = `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}/market_chart/?vs_currency=usd&days=0`;
-    const apiStr = `https://api.1inch.exchange/v3.0/1/quote?fromTokenAddress=${from}&toTokenAddress=${to}&amount=${amount}`;
-    const rawResult = await this.httpsGet(apiStr, 300);
-    if (rawResult.error) {
-      console.log("here's an error!!!!!!!!")
-      return 0;
-    } else {
-      console.log(rawResult);
-      return rawResult.prices[0][1];
-    }
+  // async getTokenPriceUSD2(from: string, to: string, amount: number): Promise<number> {
+  //   //const apiStr = `https://api.coingecko.com/api/v3/coins/ethereum/contract/${address}/market_chart/?vs_currency=usd&days=0`;
+  //   const apiStr = `https://api.1inch.exchange/v3.0/1/quote?fromTokenAddress=${from}&toTokenAddress=${to}&amount=${amount}`;
+  //   const rawResult = await this.httpsGet(apiStr, 300);
+  //   if (rawResult.error) {
+  //     console.log("here's an error!!!!!!!!")
+  //     return 0;
+  //   } else {
+  //     console.log(rawResult);
+  //     return rawResult.prices[0][1];
+  //   }
+  // }
 
-
-  }
-
-  async httpsGet(apiStr: string, cacheMaxAge: number = 3) {
+  async httpsGet(apiStr: string, cacheMaxAge: number = 60) {
     const request = await fetch(apiStr, {
       headers: { 'Cache-Control': `max-age=${cacheMaxAge}` },
     });
     return await request.json();
   }
 
+  // token needs to have 'UNI-V2' in name
+  // works for current price, need to implement historical prices
+  async getUniswapPairPrice(underlyingAddress: string): Promise<number> {
+    let pairPriceUSD: number = 0;
+    const uniswapQueryString = gql`
+      {
+        pair (
+          id: "${underlyingAddress}"
+        ) {
+          reserveUSD
+          totalSupply
+        }
+      }
+    `;
+    pairPriceUSD = await request(
+      this.constants.GRAPHQL_UNISWAP_V2,
+      uniswapQueryString
+    ).then((data: PairQueryResult) => {
+      const result = parseFloat(data.pair.reserveUSD) / parseFloat(data.pair.totalSupply);
+      return result;
+    });
+    return pairPriceUSD;
+  }
 
+  // token needs to have 'SLP' in name
+  // works for current price, need to implement historical prices
+  async getSushiswapPairPrice(underlyingAddress: string): Promise<number> {
+    let pairPriceUSD: number = 0;
+    const sushiswapQueryString = gql`
+      {
+        pair (
+          id: "${underlyingAddress}"
+        ) {
+          reserveUSD
+          totalSupply
+        }
+      }
+    `;
+    pairPriceUSD = await request(
+      this.constants.GRAPHQL_SUSHISWAP,
+      sushiswapQueryString
+    ).then((data: PairQueryResult) => {
+      const result = parseFloat(data.pair.reserveUSD) / parseFloat(data.pair.totalSupply);
+      return result;
+    });
+    return pairPriceUSD;
+  }
+
+}
+
+interface PairQueryResult {
+  pair: {
+    reserveUSD: string;
+    totalSupply: string;
+  };
 }
