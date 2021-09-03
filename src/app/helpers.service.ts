@@ -134,50 +134,126 @@ export class HelpersService {
     return await request.json();
   }
 
-  // token needs to have 'UNI-V2' in name
-  // works for current price, need to implement historical prices
-  async getUniswapPairPrice(underlyingAddress: string): Promise<number> {
-    let pairPriceUSD: number = 0;
-    const uniswapQueryString = gql`
-      {
-        pair (
+  async getUniswapPairPrice(underlyingAddress: string, blocks?: number[], timestamps?: number[]): Promise<any> {
+    let pairPriceUSD: number | number[][] = 0;
+    let uniswapQueryString: string = `query SushiswapPairPrice {`;
+
+    // fetch the current price
+    if (!blocks) {
+      uniswapQueryString += `pair (
+        id: "${underlyingAddress}"
+      ) {
+        reserveUSD
+        totalSupply
+      }`;
+    }
+
+    // fetch historical prices based on block number
+    if (blocks && timestamps) {
+      for (let i = 0; i < blocks.length; i++) {
+        uniswapQueryString += `t${i}: pair (
           id: "${underlyingAddress}"
+          block: {
+            number: ${blocks[i]}
+          }
         ) {
           reserveUSD
           totalSupply
-        }
+        }`;
       }
+    }
+
+    uniswapQueryString += `}`;
+    const uniswapQuery = gql`
+      ${uniswapQueryString}
     `;
+
     pairPriceUSD = await request(
       this.constants.GRAPHQL_UNISWAP_V2,
-      uniswapQueryString
+      uniswapQuery
     ).then((data: PairQueryResult) => {
-      const result = parseFloat(data.pair.reserveUSD) / parseFloat(data.pair.totalSupply);
-      return result;
+      if (data.pair) {
+        const currentPrice = parseFloat(data.pair.reserveUSD) / parseFloat(data.pair.totalSupply);
+        return currentPrice;
+      } else if (blocks && timestamps) {
+        let historicalPrices: number[][] = [];
+
+        for (let i in data) {
+          const index = parseInt(i.substring(1));
+
+          let entry: number[] = [];
+          entry[0] = timestamps[index];
+          entry[1] = parseFloat(data[i].reserveUSD) / parseFloat(data[i].totalSupply);
+
+          historicalPrices[index] = entry;
+        }
+
+        return historicalPrices;
+      } else {
+        return 0;
+      }
     });
     return pairPriceUSD;
   }
 
-  // token needs to have 'SLP' in name
-  // works for current price, need to implement historical prices
-  async getSushiswapPairPrice(underlyingAddress: string): Promise<number> {
-    let pairPriceUSD: number = 0;
-    const sushiswapQueryString = gql`
-      {
-        pair (
+  async getSushiswapPairPrice(underlyingAddress: string, blocks?: number[], timestamps?: number[]): Promise<any> {
+    let pairPriceUSD: number | number[][] = 0;
+    let sushiswapQueryString: string = `query SushiswapPairPrice {`;
+
+    // fetch the current price
+    if (!blocks) {
+      sushiswapQueryString += `pair (
+        id: "${underlyingAddress}"
+      ) {
+        reserveUSD
+        totalSupply
+      }`;
+    }
+
+    // fetch historical prices based on block number
+    if (blocks && timestamps) {
+      for (let i = 0; i < blocks.length; i++) {
+        sushiswapQueryString += `t${i}: pair (
           id: "${underlyingAddress}"
+          block: {
+            number: ${blocks[i]}
+          }
         ) {
           reserveUSD
           totalSupply
-        }
+        }`;
       }
+    }
+
+    sushiswapQueryString += `}`;
+    const sushiswapQuery = gql`
+      ${sushiswapQueryString}
     `;
+
     pairPriceUSD = await request(
       this.constants.GRAPHQL_SUSHISWAP,
-      sushiswapQueryString
+      sushiswapQuery
     ).then((data: PairQueryResult) => {
-      const result = parseFloat(data.pair.reserveUSD) / parseFloat(data.pair.totalSupply);
-      return result;
+      if (data.pair) {
+        const currentPrice = parseFloat(data.pair.reserveUSD) / parseFloat(data.pair.totalSupply);
+        return currentPrice;
+      } else if (blocks && timestamps) {
+        let historicalPrices: number[][] = [];
+
+        for (let i in data) {
+          const index = parseInt(i.substring(1));
+
+          let entry: number[] = [];
+          entry[0] = timestamps[index];
+          entry[1] = parseFloat(data[i].reserveUSD) / parseFloat(data[i].totalSupply);
+
+          historicalPrices[index] = entry;
+        }
+
+        return historicalPrices;
+      } else {
+        return 0;
+      }
     });
     return pairPriceUSD;
   }
@@ -185,6 +261,7 @@ export class HelpersService {
 }
 
 interface PairQueryResult {
+  [key: string]: any;
   pair: {
     reserveUSD: string;
     totalSupply: string;
