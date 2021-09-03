@@ -1,1 +1,100 @@
-<p>iron-bank works!</p>
+<div class="main-content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck">
+        <div class="card">
+          <h4 class="card-label">
+            🔒 Total Value Locked
+          </h4>
+          <h1 class="card-content">
+            <!-- ${{ numberWithCommas(totalValueLockedUSD) }} -->
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            📈 Total Supply
+          </h4>
+          <h1 class="card-content">
+            <!-- ${{ numberWithCommas(totalValueSuppliedUSD) }} -->
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            📉 Total Borrowed
+          </h4>
+          <h1 class="card-content">
+            <!-- ${{ numberWithCommas(totalValueBorrowedUSD) }} -->
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck">
+        <div class="card">
+          <h4 class="card-label">
+            🍦 Utilization Rate
+          </h4>
+          <h1 class="card-content">
+            <!-- {{ totalUtilizationRate.toFixed(2) }}% -->
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            🏦 Loan Origination
+          </h4>
+          <h1 class="card-content">
+            <!-- ${{ numberWithCommas(totalLoanOrigination) }} -->
+          </h1>
+        </div>
+        <div class="card">
+          <h4 class="card-label">
+            💰 Loan Revenue
+          </h4>
+          <h1 class="card-content">
+            <!-- ${{ numberWithCommas(totalLoanRevenue) }} -->
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Start Charts -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck my-5 justify-content-around">
+        <div class="card col-6">
+          <!-- <app-polygon-total-value-locked [assetPricesUSD]="assetPricesUSD" class="w-50"></app-polygon-total-value-locked> -->
+        </div>
+        <div class="card col-6">
+          <!-- <app-polygon-total-supply [assetPricesUSD]="assetPricesUSD" class="w-50"></app-polygon-total-supply> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck my-5 justify-content-around">
+        <div class="card col-6">
+          <!-- <app-polygon-total-borrowed [assetPricesUSD]="assetPricesUSD" class="w-50"></app-polygon-total-borrowed> -->
+        </div>
+        <div class="card col-6">
+          <!-- <app-polygon-utilization-rate class="w-50"></app-polygon-utilization-rate> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck my-5 justify-content-around">
+        <div class="card col-6">
+          <!-- <app-polygon-loan-origination [assetPricesUSD]="assetPricesUSD" class="w-50"></app-polygon-loan-origination> -->
+        </div>
+        <div class="card col-6">
+          <!-- <app-polygon-loan-revenue [assetPricesUSD]="assetPricesUSD" class="w-50"></app-polygon-loan-revenue> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Charts -->
+</div>
