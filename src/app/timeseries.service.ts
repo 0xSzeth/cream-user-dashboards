@@ -81,40 +81,92 @@ export class TimeseriesService {
       }
     }
 
-    // generate a query string
-    let queryString = `query GetBlocks {`;
-    for (let i = 0; i < timeStamps.length; i++) {
-      queryString += `t${i}: blocks(
-        first: 1,
-        orderBy: timestamp,
-        orderDirection: asc,
-        where: {
-          timestamp_gt: ${timeStamps[i]},
-          timestamp_lt: ${timeStamps[i] + 600}
-        }
-      ) {
-        id
-        number
-        timestamp
-      }`;
-    }
-    queryString += `}`;
-    const blocksQuery = gql`
-      ${queryString}
-    `;
-
-    // run the query and create array of blocks
-    await request(
-      this.constants.GRAPHQL_BLOCKS[networkID],
-      blocksQuery
-    ).then((data) => {
-      for (let block in data) {
-        blocks.push(parseInt(data[block][0].number));
-        blocks.sort(function (a, b) {
-          return a - b;
-        });
+    let count: number = 0;
+    while (count < timeStamps.length) {
+      let limit = timeStamps.length - count;
+      if (limit > 200) {
+        limit = 200;
       }
-    });
+      // generate a query string
+      let queryString = `query GetBlocks {`;
+      for (let i = count; i < count + limit; i++) {
+        queryString += `t${i}: blocks(
+          first: 1,
+          orderBy: timestamp,
+          orderDirection: asc,
+          where: {
+            timestamp_gt: ${timeStamps[i]},
+            timestamp_lt: ${timeStamps[i] + 600}
+          }
+        ) {
+          id
+          number
+          timestamp
+        }`;
+      }
+      queryString += `}`;
+      const blocksQuery = gql`
+        ${queryString}
+      `;
+
+      // run the query and create array of blocks
+      await request(
+        this.constants.GRAPHQL_BLOCKS[networkID],
+        blocksQuery,
+        {
+          'Cache-Control': `max-age=60`,
+          'Access-Control-Allow-Origin': '*'
+        }
+      ).then((data) => {
+        for (let block in data) {
+          blocks.push(parseInt(data[block][0].number));
+          blocks.sort(function (a, b) {
+            return a - b;
+          });
+        }
+      });
+
+      count += limit;
+    }
+
+    // // generate a query string
+    // let queryString = `query GetBlocks {`;
+    // for (let i = 0; i < timeStamps.length; i++) {
+    //   queryString += `t${i}: blocks(
+    //     first: 1,
+    //     orderBy: timestamp,
+    //     orderDirection: asc,
+    //     where: {
+    //       timestamp_gt: ${timeStamps[i]},
+    //       timestamp_lt: ${timeStamps[i] + 600}
+    //     }
+    //   ) {
+    //     id
+    //     number
+    //     timestamp
+    //   }`;
+    // }
+    // queryString += `}`;
+    // const blocksQuery = gql`
+    //   ${queryString}
+    // `;
+    //
+    // // run the query and create array of blocks
+    // await request(
+    //   this.constants.GRAPHQL_BLOCKS[networkID],
+    //   blocksQuery,
+    //   {
+    //     'Cache-Control': `max-age=60`,
+    //     'Access-Control-Allow-Origin': '*'
+    //   }
+    // ).then((data) => {
+    //   for (let block in data) {
+    //     blocks.push(parseInt(data[block][0].number));
+    //     blocks.sort(function (a, b) {
+    //       return a - b;
+    //     });
+    //   }
+    // });
 
     // return data
     data.push(timeStamps);
