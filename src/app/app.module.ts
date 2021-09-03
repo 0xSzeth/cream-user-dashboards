@@ -26,6 +26,12 @@ import { FantomTotalBorrowedComponent } from './fantom/charts/fantom-total-borro
 import { FantomUtilizationRateComponent } from './fantom/charts/fantom-utilization-rate/fantom-utilization-rate.component';
 import { FantomLoanOriginationComponent } from './fantom/charts/fantom-loan-origination/fantom-loan-origination.component';
 import { FantomLoanRevenueComponent } from './fantom/charts/fantom-loan-revenue/fantom-loan-revenue.component';
+import { EthV1TotalValueLockedComponent } from './eth-v1/charts/eth-v1-total-value-locked/eth-v1-total-value-locked.component';
+import { EthV1TotalSupplyComponent } from './eth-v1/charts/eth-v1-total-supply/eth-v1-total-supply.component';
+import { EthV1TotalBorrowedComponent } from './eth-v1/charts/eth-v1-total-borrowed/eth-v1-total-borrowed.component';
+import { EthV1UtilizationRateComponent } from './eth-v1/charts/eth-v1-utilization-rate/eth-v1-utilization-rate.component';
+import { EthV1LoanOriginationComponent } from './eth-v1/charts/eth-v1-loan-origination/eth-v1-loan-origination.component';
+import { EthV1LoanRevenueComponent } from './eth-v1/charts/eth-v1-loan-revenue/eth-v1-loan-revenue.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +57,12 @@ import { FantomLoanRevenueComponent } from './fantom/charts/fantom-loan-revenue/
     FantomUtilizationRateComponent,
     FantomLoanOriginationComponent,
     FantomLoanRevenueComponent,
+    EthV1TotalValueLockedComponent,
+    EthV1TotalSupplyComponent,
+    EthV1TotalBorrowedComponent,
+    EthV1UtilizationRateComponent,
+    EthV1LoanOriginationComponent,
+    EthV1LoanRevenueComponent,
   ],
   imports: [
     NgbModule,
