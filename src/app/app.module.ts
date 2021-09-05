@@ -32,6 +32,12 @@ import { EthV1TotalBorrowedComponent } from './eth-v1/charts/eth-v1-total-borrow
 import { EthV1UtilizationRateComponent } from './eth-v1/charts/eth-v1-utilization-rate/eth-v1-utilization-rate.component';
 import { EthV1LoanOriginationComponent } from './eth-v1/charts/eth-v1-loan-origination/eth-v1-loan-origination.component';
 import { EthV1LoanRevenueComponent } from './eth-v1/charts/eth-v1-loan-revenue/eth-v1-loan-revenue.component';
+import { IronBankTotalSupplyComponent } from './iron-bank/charts/iron-bank-total-supply/iron-bank-total-supply.component';
+import { IronBankTotalValueLockedComponent } from './iron-bank/charts/iron-bank-total-value-locked/iron-bank-total-value-locked.component';
+import { IronBankTotalBorrowedComponent } from './iron-bank/charts/iron-bank-total-borrowed/iron-bank-total-borrowed.component';
+import { IronBankUtilizationRateComponent } from './iron-bank/charts/iron-bank-utilization-rate/iron-bank-utilization-rate.component';
+import { IronBankLoanOriginationComponent } from './iron-bank/charts/iron-bank-loan-origination/iron-bank-loan-origination.component';
+import { IronBankLoanRevenueComponent } from './iron-bank/charts/iron-bank-loan-revenue/iron-bank-loan-revenue.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +69,12 @@ import { EthV1LoanRevenueComponent } from './eth-v1/charts/eth-v1-loan-revenue/e
     EthV1UtilizationRateComponent,
     EthV1LoanOriginationComponent,
     EthV1LoanRevenueComponent,
+    IronBankTotalSupplyComponent,
+    IronBankTotalValueLockedComponent,
+    IronBankTotalBorrowedComponent,
+    IronBankUtilizationRateComponent,
+    IronBankLoanOriginationComponent,
+    IronBankLoanRevenueComponent,
   ],
   imports: [
     NgbModule,
