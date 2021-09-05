@@ -1,1 +1,21 @@
-<p>iron-bank-utilization-rate works!</p>
+<div *ngIf="lineChartData">
+  <div>
+    <h3 class="text-uppercase text-center card-label chart-label">
+      Utilization Rate
+      <select [(ngModel)]="period" name="period" (change)="changePeriod()" class="custom-select">Select
+        <option value="daily">Daily</option>
+        <option value="weekly" selected>Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </h3>
+    <canvas
+      baseChart
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+    >
+    </canvas>
+  </div>
+</div>
