@@ -80,45 +80,21 @@ export class EthV1Component implements OnInit {
 
     Promise.all(
       markets.map(async (market) => {
-        let assetPriceUSD: number = 0;
-        let assetPrices: number[][] = [];
+        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET);
 
-        if (market.underlyingSymbol === 'UNI-V2') {
-          assetPrices = await this.helpers.getUniswapPairPrice(market.underlyingAddress, this.blocks, this.timestamps);
-          assetPriceUSD = await this.helpers.getUniswapPairPrice(market.underlyingAddress);
-
-          const priceObject: PriceObject = {
-            address: market.underlyingAddress,
-            prices: assetPrices
-          };
-          assetPricesUSD.push(priceObject);
-        } else if (market.underlyingSymbol === 'SLP') {
-          assetPrices = await this.helpers.getSushiswapPairPrice(market.underlyingAddress, this.blocks, this.timestamps);
-          assetPriceUSD = await this.helpers.getSushiswapPairPrice(market.underlyingAddress);
-
-          const priceObject: PriceObject = {
-            address: market.underlyingAddress,
-            prices: assetPrices
-          };
-          assetPricesUSD.push(priceObject);
-        } else {
-          let days = (this.timeseries.getLatestUTCDate() - this.FIRST_INDEX + this.constants.DAY_IN_SEC) / this.constants.DAY_IN_SEC;
-          if (days < 100) {
-            days = 100;
-          }
-
-          const assetPrices = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET, days);
-          const assetPriceUSD = assetPrices[assetPrices.length - 1][1];
-
-          const priceObject: PriceObject = {
-            address: market.underlyingAddress,
-            prices: assetPrices
-          };
-          assetPricesUSD.push(priceObject);
-        }
+        // add the price object to the assetPricesUSD array
+        const priceObject: PriceObject = {
+          symbol: market.underlyingSymbol,
+          address: market.underlyingAddress,
+          price: assetPriceUSD
+        };
+        assetPricesUSD.push(priceObject);
 
         // calculate total value locked in USD
         const assetTotalValueLockedUSD = new BigNumber(market.cash).times(assetPriceUSD);
+        // console.log(market.symbol);
+        // console.log(market.id);
+        // console.log(market.underlyingAddress);
         const assetTotalValueSuppliedUSD = new BigNumber(market.totalSupply).times(market.exchangeRate).times(assetPriceUSD);
         const assetTotalValueBorrowedUSD = new BigNumber(market.totalBorrows).times(assetPriceUSD);
         const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
@@ -139,6 +115,7 @@ export class EthV1Component implements OnInit {
       this.totalLoanOrigination = totalLoanOriginationUSD;
       this.totalLoanRevenue = totalLoanRevenueUSD;
       this.assetPricesUSD = assetPricesUSD;
+      // console.log(this.assetPricesUSD);
     });
   }
 
@@ -166,6 +143,7 @@ interface QueryResult {
 }
 
 interface PriceObject {
+  symbol: string;
   address: string;
-  prices: number[][];
+  price: number;
 }

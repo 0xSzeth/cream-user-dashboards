@@ -175,7 +175,6 @@ export class EthV1LoanRevenueComponent implements OnInit {
         label: markets[market].underlyingSymbol,
         address: markets[market].underlyingAddress,
         data: [],
-        dataUSD: [],
         dataRevenue: [],
         dataPeriodic: [],
         dataCumulative: [],
@@ -205,27 +204,13 @@ export class EthV1LoanRevenueComponent implements OnInit {
       }
     }
 
-    // populate the dataUSD array
-    for (let market in this.assetRevenue) {
-      if (this.assetRevenue[market].label) {
-        let prices = this.assetPricesUSD.find((asset) => asset.address === this.assetRevenue[market].address);
-        for (let t in this.timestamps) {
-          let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
-          if (price) {
-            this.assetRevenue[market].dataUSD[t] = price[1];
-          } else {
-            this.assetRevenue[market].dataUSD[t] = 0;
-          }
-        }
-      }
-    }
-
     // populate the dataCumulative array
     for (let m in this.assetRevenue) {
       if (this.assetRevenue[m].label) {
         let market = this.assetRevenue[m];
+        let price = this.assetPricesUSD.find((m) => m.address === market.address).price;
         for (let t in this.timestamps) {
-          market.dataCumulative[t] = market.dataRevenue[t] * market.dataUSD[t];
+          market.dataCumulative[t] = market.dataRevenue[t] * price;
           //market.data[t] = market.dataRevenue[t] * market.dataUSD[t];
         }
       }
@@ -236,14 +221,15 @@ export class EthV1LoanRevenueComponent implements OnInit {
     for (let m in this.assetRevenue) {
       if (this.assetRevenue[m].label) {
         let market = this.assetRevenue[m];
+        let price = this.assetPricesUSD.find((m) => m.address === market.address).price;
         for (let t in this.timestamps) {
           let delta = parseInt(t) - 1;
           if (parseInt(t) == 0) {
-            market.dataCumulative[t] = market.dataRevenue[t] * market.dataUSD[t];
-            market.data[t] = market.dataRevenue[t] * market.dataUSD[t];
+            market.dataPeriodic[t] = market.dataRevenue[t] * price;
+            market.data[t] = market.dataRevenue[t] * price;
           } else {
-            market.dataPeriodic[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * market.dataUSD[t];
-            market.data[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * market.dataUSD[t];
+            market.dataPeriodic[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * price;
+            market.data[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * price;
           }
         }
       }
@@ -286,7 +272,6 @@ interface DataObject {
   label: string;
   address: string;
   data: number[];
-  dataUSD: number[];
   dataRevenue: number[];
   dataPeriodic: number[];
   dataCumulative: number[];
@@ -295,6 +280,7 @@ interface DataObject {
 }
 
 interface PriceObject {
+  symbol: string;
   address: string;
-  prices: number[][];
+  price: number;
 }
