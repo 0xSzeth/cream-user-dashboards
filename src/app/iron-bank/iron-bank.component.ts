@@ -71,6 +71,9 @@ export class IronBankComponent implements OnInit {
 
     Promise.all(
       markets.map(async (market) => {
+        // depreciated cySUSD vault
+        if (market.id === "0x4e3a36a633f63aee0ab57b5054ec78867cb3c0b8") return;
+
         const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET);
 
         // add the price object to the assetPricesUSD array

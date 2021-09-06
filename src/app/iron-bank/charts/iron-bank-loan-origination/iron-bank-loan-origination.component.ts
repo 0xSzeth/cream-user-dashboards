@@ -231,8 +231,6 @@ export class IronBankLoanOriginationComponent implements OnInit {
         }
       }
     }
-    let me = this.assetOrigination.find((m) => m.label === "WETH");
-    console.log(me);
   }
 
   changePeriod() {
