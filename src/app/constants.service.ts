@@ -34,6 +34,18 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0xa1faa113cbe53436df28ff0aee54275c13b40975"
   };
+  ARMOR = {
+    [this.CHAIN_ID.MAINNET]: "0x1337def16f9b486faed0293eb623dc8395dfe46a",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  ARNXM = {
+    [this.CHAIN_ID.MAINNET]: "0x1337def18c680af1f9f45cbcab6309562975b1dd",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   ATOM = {
     [this.CHAIN_ID.MAINNET]: "",
     [this.CHAIN_ID.POLYGON]: "",
@@ -71,7 +83,7 @@ export class ConstantsService {
     [this.CHAIN_ID.BSC]: ""
   };
   BUSD = {
-    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.MAINNET]: "0x4fabb145d64652a948d72533023f6e7a623c7c53",
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0xe9e7cea3dedca5984780bafc599bd69add087d56"
@@ -81,6 +93,12 @@ export class ConstantsService {
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
+  };
+  CDAI = {
+    [this.CHAIN_ID.MAINNET]: "0x5d3a536e4d6dbd6114cc1ead35777bab948e3643",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
   };
   COVER = {
     [this.CHAIN_ID.MAINNET]: "0x4688a8b1f292fdab17e9a90c8bc379dc1dbd8713",
@@ -98,6 +116,18 @@ export class ConstantsService {
     [this.CHAIN_ID.MAINNET]: "0xD533a949740bb3306d119CC777fa900bA034cd52",
     [this.CHAIN_ID.POLYGON]: "0x172370d5cd63279efa6d502dab29171933a610af",
     [this.CHAIN_ID.FANTOM]: "0x1E4F97b9f9F913c46F1632781732927B9019C68b",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  CUSDC = {
+    [this.CHAIN_ID.MAINNET]: "0x39aa39c021dfbae8fac545936693ac917d5e7563",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  CUSDT = {
+    [this.CHAIN_ID.MAINNET]: "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
   DAI = {
@@ -118,11 +148,29 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0xab671ea900a8e3c959f5bd29ceb5e370ba75bb9e"
   };
+  DUSD = {
+    [this.CHAIN_ID.MAINNET]: "0x5bc25f649fc4e26069ddf4cf4010f9f706c23831",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   EOS = {
     [this.CHAIN_ID.MAINNET]: "",
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0x56b6fb708fc5732dec1afc8d8556423a2edccbd6"
+  };
+  EURS = {
+    [this.CHAIN_ID.MAINNET]: "0xdb25f211ab05b1c97d595516f45794528a807ad8",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  EURT = {
+    [this.CHAIN_ID.MAINNET]: "0xc581b735a1688071a1746c968e0798d642ede491",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
   };
   FIL = {
     [this.CHAIN_ID.MAINNET]: "",
@@ -142,15 +190,57 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "0x82F8Cb20c14F134fe6Ebf7aC3B903B2117aAfa62",
     [this.CHAIN_ID.BSC]: "0xde2f075f6f14eb9d96755b24e416a53e736ca363"
   };
+  GUSD = {
+    [this.CHAIN_ID.MAINNET]: "0x056fd409e1d7a124bd7017459dfea2f387b6d5cd",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   HEGIC = {
     [this.CHAIN_ID.MAINNET]: "0x584bc13c7d411c00c01a62e8019472de68768430",
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "0x44b26e839eb3572c5e959f994804a5de66600349",
     [this.CHAIN_ID.BSC]: ""
   };
+  IBAUD = {
+    [this.CHAIN_ID.MAINNET]: "0xfafdf0c4c1cb09d430bf88c75d88bb46dae09967",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   IBBTC = {
     [this.CHAIN_ID.MAINNET]: "0xc4e15973e6ff2a35cc804c2cf9d2a1b817a8b40f",
     [this.CHAIN_ID.POLYGON]: "0x4eac4c4e9050464067d673102f8e24b2fcceb350",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  IBCHF = {
+    [this.CHAIN_ID.MAINNET]: "0x1cc481ce2bd2ec7bf67d1be64d4878b16078f309",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  IBEUR = {
+    [this.CHAIN_ID.MAINNET]: "0x96e61422b6a9ba0e068b6c5add4ffabc6a4aae27",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  IBGBP = {
+    [this.CHAIN_ID.MAINNET]: "0x69681f8fde45345c3870bcd5eaf4a05a60e7d227",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  IBJPY = {
+    [this.CHAIN_ID.MAINNET]: "0x5555f75e3d5278082200fb451d1b6ba946d8e13b",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  IBKRW = {
+    [this.CHAIN_ID.MAINNET]: "0x95dfdc8161832e4ff7816ac4b6367ce201538253",
+    [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
@@ -178,6 +268,12 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0x4338665cbb7b2485a8855a139b75d5e34ab0db94"
   };
+  MUSD = {
+    [this.CHAIN_ID.MAINNET]: "0xe2f2a5c287993345a840db3b0845fbc70f5935a5",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   QUICK = {
     [this.CHAIN_ID.MAINNET]: "0x6c28AeF8977c9B773996d0e8376d2EE379446F2f",
     [this.CHAIN_ID.POLYGON]: "0x831753dd7087cac61ab5644b308642cc1c33dc13",
@@ -192,6 +288,12 @@ export class ConstantsService {
   };
   RENZEC = {
     [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
+  SEUR = {
+    [this.CHAIN_ID.MAINNET]: "0xd71ecff9342a5ced620049e616c5035f1db98620",
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
@@ -243,6 +345,12 @@ export class ConstantsService {
     [this.CHAIN_ID.POLYGON]: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
     [this.CHAIN_ID.FANTOM]: "0x04068da6c83afcfa0e13ba15a6696662335d5b75",
     [this.CHAIN_ID.BSC]: "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d"
+  };
+  USDP = {
+    [this.CHAIN_ID.MAINNET]: "0x1456688345527be1f37e9e627da0837d6f08c925",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
   };
   USDT = {
     [this.CHAIN_ID.MAINNET]: "0xdac17f958d2ee523a2206206994597c13d831ec7",
@@ -298,6 +406,12 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0x16939ef78684453bfdfb47825f8a5f714f12623a"
   };
+  Y3CRV = {
+    [this.CHAIN_ID.MAINNET]: "0x9ca85572e6a3ebf24dedd195623f188735a5179f",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "",
+    [this.CHAIN_ID.BSC]: ""
+  };
   YFI = {
     [this.CHAIN_ID.MAINNET]: "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e",
     [this.CHAIN_ID.POLYGON]: "0xda537104d6a5edd53c6fbba9a898708e465260b6",
@@ -316,6 +430,14 @@ export class ConstantsService {
   GRAPHQL_UNISWAP_V2 = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2';
   GRAPHQL_UNISWAP_V3 = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3';
   GRAPHQL_SUSHISWAP = 'https://api.thegraph.com/subgraphs/name/sushiswap/exchange';
+  GRAPHQL_PANCAKESWAP = 'https://bsc.streamingfast.io/subgraphs/name/pancakeswap/exchange-v2/graphql';
+
+  GRAPHQL_SUSHISWAP_TEST = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "https://api.thegraph.com/subgraphs/name/sushiswap/fantom-exchange",
+    [this.CHAIN_ID.BSC]: ""
+  };
 
   GRAPHQL_BLOCKS = {
     [this.CHAIN_ID.MAINNET]: "https://api.thegraph.com/subgraphs/name/blocklytics/ethereum-blocks",
@@ -323,6 +445,9 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "https://api.thegraph.com/subgraphs/name/ord786/fantom-blocks",
     [this.CHAIN_ID.BSC]: "https://api.thegraph.com/subgraphs/name/elkfinance/bsc-blocks"
   };
+
+  // other
+  CREAM_ORACLE = "0x3aBce8F1DB258fBc64827b0926e14A0F90525CF7";
 
 
   // utils
