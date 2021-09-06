@@ -1,52 +1,282 @@
 {
-  "1INCH": "",
-  "AAVE": "0x6df09e975c830ecae5bd4ed9d90f3a95a4f88012",
-  "AKRO": "",
-  "AMP": "",
-  "BAL": "",
-  "BNT": "",
-  "BTC": "0xdeb288f737066589598e9214e782fa5a8ed689e8",
-  "BUSD": "0x614715d2af89e6ec99a233818275142ce88d1cfd",
-  "CEL": "",
-  "COMP": "0x1b39ee86ec5979ba5c322b826b3ecb8c79991699",
-  "COVER": "",
-  "CREAM": "",
-  "CRV": "0x8a12be339b0cd1829b91adc01977caa5e9ac121e",
-  "DAI": "0x773616e4d11a78f511299002da57a0a94577f1f4",
-  "DPI": "0x029849bbc0b1d93b85a8b6190e979fd38f5760e2",
-  "ETH": "0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419",
-  "FEI": "",
-  "FRAX": "0x14d04fff8d21bd62987a5ce9ce543d2f1edf5d3e",
-  "FTM": "",
-  "FTT": "",
-  "GNO": "",
-  "HEGIC": "",
-  "HUSD": "",
-  "KP3R": "",
-  "LINK": "0xdc530d9457755926550b59e8eccdae7624181557",
-  "LON": "",
-  "MLN": "",
-  "MTA": "",
-  "OCEAN": "",
-  "OMG": "",
-  "PAX": "",
-  "PAXG": "",
-  "PERP": "",
-  "RAI": "",
-  "RARI": "",
-  "RUNE": "",
-  "SFI": "",
-  "SNX": "0x79291a9d692df95334b1a0b3b4ae6bc606782f8c",
-  "SRM": "",
-  "SUSD": "0x8e0b7e6062272b5ef4524250bfff8e5bd3497757",
-  "SUSHI": "0xe572cef69f43c2e488b33924af04bdace19079cf",
-  "SWAP": "",
-  "UNI": "0xd6aa3d25116d8da79ea0246c4826eb951872e02e",
-  "USDC": "0x986b5e1e1755e3c2440e960477f25201b0a8bbd4",
-  "USDT": "0xee9f2375b4bdf6387aa8265dd4fb8f16512a1d46",
-  "UST": "",
-  "VSP": "",
-  "WOO": "",
-  "YFI": "0x7c5d4f8345e66f68099581db340cd65b078c41f4",
-  "wNXM": ""
+  "1" : {
+    "1INCH": {
+      "USD": "0xc929ad75b72593967de83e7f7cda0493458261d9",
+      "ETH": ""
+    },
+    "AAVE": {
+      "USD": "0x547a514d5e3769680ce22b2361c10ea13619e8a9",
+      "ETH": ""
+    },
+    "AKRO": {
+      "USD": "0xb23d105df4958b4b81757e12f2151b5b5183520b",
+      "ETH": ""
+    },
+    "AMP": {
+      "USD": "0x8797abc4641de76342b8ace9c63e3301dc35e3d8",
+      "ETH": ""
+    },
+    "AUD": {
+      "USD": "0x77f9710e7d0a19669a13c055f62cd80d313df022",
+      "ETH": ""
+    },
+    "BAL": {
+      "USD": "",
+      "ETH": ""
+    },
+    "BNT": {
+      "USD": "0x1e6cf0d433de4fe882a437abc654f58e1e78548c",
+      "ETH": ""
+    },
+    "BTC": {
+      "USD": "0xf4030086522a5beea4988f8ca5b36dbc97bee88c",
+      "ETH": ""
+    },
+    "BUSD": {
+      "USD": "0x833d8eb16d306ed1fbb5d7a2e019e106b960965a",
+      "ETH": ""
+    },
+    "CEL": {
+      "USD": "",
+      "ETH": ""
+    },
+    "CHF": {
+      "USD": "0x449d117117838ffa61263b61da6301aa2a88b13a",
+      "ETH": ""
+    },
+    "COMP": {
+      "USD": "0xdbd020caef83efd542f4de03e3cf0c28a4428bd5",
+      "ETH": ""
+    },
+    "COVER": {
+      "USD": "0x0ad50393f11ffac4dd0fe5f1056448ecb75226cf",
+      "ETH": ""
+    },
+    "CREAM": {
+      "USD": "",
+      "ETH": ""
+    },
+    "CRV": {
+      "USD": "0xcd627aa160a6fa45eb793d19ef54f5062f20f33f",
+      "ETH": ""
+    },
+    "DAI": {
+      "USD": "0xaed0c38402a5d19df6e4c03f4e2dced6e29c1ee9",
+      "ETH": ""
+    },
+    "DPI": {
+      "USD": "",
+      "ETH": "0x029849bbc0b1d93b85a8b6190e979fd38f5760e2"
+    },
+    "ETH": {
+      "USD": "0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419",
+      "ETH": ""
+    },
+    "EUR": {
+      "USD": "0xb49f677943bc038e9857d61e7d053caa2c1734c1",
+      "ETH": ""
+    },
+    "FEI": {
+      "USD": "",
+      "ETH": ""
+    },
+    "FRAX": {
+      "USD": "",
+      "ETH": "0x14d04fff8d21bd62987a5ce9ce543d2f1edf5d3e"
+    },
+    "FTM": {
+      "USD": "",
+      "ETH": ""
+    },
+    "FTT": {
+      "USD": "",
+      "ETH": ""
+    },
+    "GBP": {
+      "USD": "0x5c0ab2d9b5a7ed9f470386e82bb36a3613cdd4b5",
+      "ETH": ""
+    },
+    "GNO": {
+      "USD": "",
+      "ETH": ""
+    },
+    "HEGIC": {
+      "USD": "0xbfc189ac214e6a4a35ebc281ad15669619b75534",
+      "ETH": ""
+    },
+    "HUSD": {
+      "USD": "",
+      "ETH": ""
+    },
+    "JPY": {
+      "USD": "0xbce206cae7f0ec07b545edde332a47c2f75bbeb3",
+      "ETH": ""
+    },
+    "KP3R": {
+      "USD": "",
+      "ETH": ""
+    },
+    "KRW": {
+      "USD": "0x01435677fb11763550905594a16b645847c1d0f3",
+      "ETH": ""
+    },
+    "LINK": {
+      "USD": "0x2c1d072e956affc0d435cb7ac38ef18d24d9127c",
+      "ETH": ""
+    },
+    "LON": {
+      "USD": "",
+      "ETH": ""
+    },
+    "MLN": {
+      "USD": "",
+      "ETH": ""
+    },
+    "MTA": {
+      "USD": "0xc751e86208f0f8af2d5cd0e29716ca7ad98b5ef5",
+      "ETH": ""
+    },
+    "OCEAN": {
+      "USD": "0x7ece4e4E206eD913D991a074A19C192142726797",
+      "ETH": ""
+    },
+    "OMG": {
+      "USD": "0x7d476f061f8212a8c9317d5784e72b4212436e93",
+      "ETH": ""
+    },
+    "PAX": {
+      "USD": "",
+      "ETH": ""
+    },
+    "PAXG": {
+      "USD": "",
+      "ETH": ""
+    },
+    "PERP": {
+      "USD": "",
+      "ETH": ""
+    },
+    "RAI": {
+      "USD": "",
+      "ETH": ""
+    },
+    "RARI": {
+      "USD": "",
+      "ETH": ""
+    },
+    "RUNE": {
+      "USD": "0x48731cf7e84dc94c5f84577882c14be11a5b7456",
+      "ETH": ""
+    },
+    "SFI": {
+      "USD": "",
+      "ETH": ""
+    },
+    "SNX": {
+      "USD": "0xdc3ea94cd0ac27d9a86c180091e7f78c683d3699",
+      "ETH": ""
+    },
+    "SRM": {
+      "USD": "",
+      "ETH": ""
+    },
+    "SUSD": {
+      "USD": "0xad35bd71b9afe6e4bdc266b345c198eadef9ad94",
+      "ETH": ""
+    },
+    "SUSHI": {
+      "USD": "0xCc70F09A6CC17553b2E31954cD36E4A2d89501f7",
+      "ETH": ""
+    },
+    "SWAP": {
+      "USD": "",
+      "ETH": ""
+    },
+    "UNI": {
+      "USD": "0x553303d460ee0afb37edff9be42922d8ff63220e",
+      "ETH": ""
+    },
+    "USDC": {
+      "USD": "0x8fffffd4afb6115b954bd326cbe7b4ba576818f6",
+      "ETH": ""
+    },
+    "USDT": {
+      "USD": "0x3E7d1eAB13ad0104d2750B8863b489D65364e32D",
+      "ETH": ""
+    },
+    "UST": {
+      "USD": "",
+      "ETH": ""
+    },
+    "VSP": {
+      "USD": "",
+      "ETH": ""
+    },
+    "WOO": {
+      "USD": "",
+      "ETH": ""
+    },
+    "YFI": {
+      "USD": "0xa027702dbb89fbd58938e4324ac03b58d812b0e1",
+      "ETH": ""
+    },
+    "wNXM": {
+      "USD": "",
+      "ETH": ""
+    }
+  },
+  "137": {
+    "MATIC": {
+      "USD": "0xab594600376ec9fd91f8e885dadf0ce036862de0",
+      "ETH": ""
+    },
+    "USDC": {
+      "USD": "0xfe4a8cc5b5b2366c1b58bea3858e81843581b2f7",
+      "ETH": ""
+    },
+    "USDT": {
+      "USD": "0x0a6513e40db6eb1b165753ad52e80663aea50545",
+      "ETH": ""
+    },
+    "DAI": {
+      "USD": "0x4746dec9e833a82ec7c2c1356372ccf2cfcd2f3d",
+      "ETH": ""
+    },
+    "ETH": {
+      "USD": "0xf9680d99d6c9589e2a93a78a04a279e509205945",
+      "ETH": ""
+    },
+    "BTC": {
+      "USD": "0xc907e116054ad103354f2d350fd2514433d57f6f",
+      "ETH": ""
+    },
+    "LINK": {
+      "USD": "0xd9ffdb71ebe7496cc440152d43986aae0ab76665",
+      "ETH": ""
+    },
+    "SUSHI": {
+      "USD": "0x49b0c695039243bbfeb8ecd054eb70061fd54aa0",
+      "ETH": ""
+    },
+    "AAVE": {
+      "USD": "0x72484b12719e23115761d5da1646945632979bb6",
+      "ETH": ""
+    },
+    "DPI": {
+      "USD": "0x2e48b7924fbe04d575ba229a59b64547d9da16e9",
+      "ETH": ""
+    },
+    "FXS": {
+      "USD": "0x6c0fe985d3cacbcde428b84fc9431792694d0f51",
+      "ETH": ""
+    },
+    "SNX": {
+      "USD": "0xbf90a5d9b6ee9019028dbfc2a9e50056d5252894",
+      "ETH": ""
+    },
+    "UNI": {
+      "USD": "0xdf0fb4e4f928d2dcb76f438575fdd8682386e13c",
+      "ETH": ""
+    }
+  }
 }
