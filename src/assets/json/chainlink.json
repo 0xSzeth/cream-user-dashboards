@@ -22,7 +22,7 @@
     },
     "BAL": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0xc1438aa3823a6ba0c159cfa8d98df5a994ba120b"
     },
     "BNT": {
       "USD": "0x1e6cf0d433de4fe882a437abc654f58e1e78548c",
@@ -38,7 +38,7 @@
     },
     "CEL": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x75fbd83b4bd51dee765b2a01e8d3aa1b020f9d33"
     },
     "CHF": {
       "USD": "0x449d117117838ffa61263b61da6301aa2a88b13a",
@@ -54,7 +54,7 @@
     },
     "CREAM": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x82597cfe6af8baad7c0d441aa82cbc3b51759607"
     },
     "CRV": {
       "USD": "0xcd627aa160a6fa45eb793d19ef54f5062f20f33f",
@@ -78,7 +78,7 @@
     },
     "FEI": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x7f0d2c2838c6ac24443d13e23d99490017bde370"
     },
     "FRAX": {
       "USD": "",
@@ -86,11 +86,11 @@
     },
     "FTM": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x2de7e4a9488488e0058b95854cc2f7955b35dc9b"
     },
     "FTT": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0xf0985f7e2cabff22cecc5a71282a89582c382efe"
     },
     "GBP": {
       "USD": "0x5c0ab2d9b5a7ed9f470386e82bb36a3613cdd4b5",
@@ -98,7 +98,7 @@
     },
     "GNO": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0xa614953df476577e90dcf4e3428960e221ea4727"
     },
     "HEGIC": {
       "USD": "0xbfc189ac214e6a4a35ebc281ad15669619b75534",
@@ -106,7 +106,7 @@
     },
     "HUSD": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x1b61bad1495161bcb6c03ddb0e41622c0270bb1a"
     },
     "JPY": {
       "USD": "0xbce206cae7f0ec07b545edde332a47c2f75bbeb3",
@@ -114,7 +114,7 @@
     },
     "KP3R": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0xe7015ccb7e5f788b8c1010fc22343473eaac3741"
     },
     "KRW": {
       "USD": "0x01435677fb11763550905594a16b645847c1d0f3",
@@ -126,11 +126,11 @@
     },
     "LON": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x13a8f2cc27ccc2761ca1b21d2f3e762445f201ce"
     },
     "MLN": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0xdaea8386611a157b08829ed4997a8a62b557014c"
     },
     "MTA": {
       "USD": "0xc751e86208f0f8af2d5cd0e29716ca7ad98b5ef5",
@@ -146,23 +146,23 @@
     },
     "PAX": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x3a08ebBaB125224b7b6474384Ee39fBb247D2200"
     },
     "PAXG": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x9b97304ea12efed0fad976fbecaad46016bf269e"
     },
     "PERP": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x3b41d5571468904d4e53b6a8d93a6bac43f02dc9"
     },
     "RAI": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x4ad7b025127e89263242ab68f0f9c4e5c033b489"
     },
     "RARI": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x2a784368b1d492f458bf919389f42c18315765f5"
     },
     "RUNE": {
       "USD": "0x48731cf7e84dc94c5f84577882c14be11a5b7456",
@@ -170,7 +170,7 @@
     },
     "SFI": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0xea286b2584f79cd4d322fe107d9683971c890596"
     },
     "SNX": {
       "USD": "0xdc3ea94cd0ac27d9a86c180091e7f78c683d3699",
@@ -178,7 +178,7 @@
     },
     "SRM": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x050c048c9a0cd0e76f166e2539f87ef2accec58f"
     },
     "SUSD": {
       "USD": "0xad35bd71b9afe6e4bdc266b345c198eadef9ad94",
@@ -190,7 +190,7 @@
     },
     "SWAP": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0xffa4bb3a24b60c0262dbaad60d77a3c3fa6173e8"
     },
     "UNI": {
       "USD": "0x553303d460ee0afb37edff9be42922d8ff63220e",
@@ -206,23 +206,23 @@
     },
     "UST": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0xa20623070413d42a5c01db2c8111640dd7a5a03a"
     },
     "VSP": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x99cd3337aa0da455845d7afe7781341fdae4d2ef"
     },
     "WOO": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0x926a93b44a887076edd00257e5d42fafea313363"
     },
     "YFI": {
       "USD": "0xa027702dbb89fbd58938e4324ac03b58d812b0e1",
       "ETH": ""
     },
-    "wNXM": {
+    "WNXM": {
       "USD": "",
-      "ETH": ""
+      "ETH": "0xe5dc0a609ab8bcf15d3f35cfaa1ff40f521173ea"
     }
   },
   "137": {

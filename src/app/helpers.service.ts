@@ -13,14 +13,23 @@ export class HelpersService {
     public constants: ConstantsService,
   ) { }
 
-  async getTokenPriceUSD(address: string, chainID: number, days?: number): Promise<any> {
-    if (address.toLowerCase() === this.constants.AAVE[chainID].toLowerCase()) {
+  async getTokenPriceUSD(address: string, chainID: number, days?: number, ironBank?: boolean): Promise<any> {
+    if (address.toLowerCase() === this.constants.ONEINCH[chainID].toLowerCase()) {
+      // address = this.constants.1INCH[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('1INCH', chainID);
+    } else if (address.toLowerCase() === this.constants.AAVE[chainID].toLowerCase()) {
       // address = this.constants.AAVE[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('AAVE', chainID);
     } else if (address.toLowerCase() === this.constants.ADA[chainID].toLowerCase()) {
       // address = this.constants.ADA[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.AKRO[chainID].toLowerCase()) {
+      // address = this.constants.ADA[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('AKRO', chainID);
     } else if (address.toLowerCase() === this.constants.ALPHA[chainID].toLowerCase()) {
       // address = this.constants.ALPHA[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.AMP[chainID].toLowerCase()) {
+      // address = this.constants.ALPHA[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('AMP', chainID);
     } else if (address.toLowerCase() === this.constants.ARMOR[chainID].toLowerCase()) {
       // address = this.constants.ARMOR[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.ARNXM[chainID].toLowerCase()) {
@@ -29,25 +38,44 @@ export class HelpersService {
       // address = this.constants.ATOM[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.AUTO[chainID].toLowerCase()) {
       // address = this.constants.AUTO[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.BAL[chainID].toLowerCase()) {
+      // address = this.constants.BAL[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('BAL', chainID);
     } else if (address.toLowerCase() === this.constants.BAND[chainID].toLowerCase()) {
       // address = this.constants.BAND[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.BAT[chainID].toLowerCase()) {
       // address = this.constants.BAT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.BBTC[chainID].toLowerCase()) {
+      // address = this.constants.BAT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('BTC', chainID);
     } else if (address.toLowerCase() === this.constants.BCH[chainID].toLowerCase()) {
       // address = this.constants.BCH[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.BNB[chainID].toLowerCase()) {
       // address = this.constants.BNB[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.BNT[chainID].toLowerCase()) {
+      // address = this.constants.BNB[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('BNT', chainID);
     } else if (address.toLowerCase() === this.constants.BUSD[chainID].toLowerCase()) {
+      return await this.getChainlinkPriceUSD('BUSD', chainID);
       // address = this.constants.BUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.CAKE[chainID].toLowerCase()) {
       // address = this.constants.CAKE[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.CDAI[chainID].toLowerCase()) {
       // address = this.constants.CDAI[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.CEL[chainID].toLowerCase()) {
+      // address = this.constants.CEL[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('CEL', chainID);
+    } else if (address.toLowerCase() === this.constants.COMP[chainID].toLowerCase()) {
+      // address = this.constants.COMP[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('COMP', chainID);
     } else if (address.toLowerCase() === this.constants.COVER[chainID].toLowerCase()) {
       // address = this.constants.COVER[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('COVER', chainID);
     } else if (address.toLowerCase() === this.constants.CREAM[chainID].toLowerCase()) {
       // address = this.constants.CREAM[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('CREAM', chainID);
     } else if (address.toLowerCase() === this.constants.CRV[chainID].toLowerCase()) {
+      return await this.getChainlinkPriceUSD('CRV', chainID);
       // address = this.constants.CRV[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.CUSDC[chainID].toLowerCase()) {
       // address = this.constants.CUSDC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -73,18 +101,35 @@ export class HelpersService {
       // address = this.constants.EURT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('EUR', chainID);
       // return await this.getForexPriceUSD(address);
+    } else if (address.toLowerCase() === this.constants.FEI[chainID].toLowerCase()) {
+      // address = this.constants.EURT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('FEI', chainID);
+      // return await this.getForexPriceUSD(address);
     } else if (address.toLowerCase() === this.constants.FIL[chainID].toLowerCase()) {
       // address = this.constants.FIL[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.FRAX[chainID].toLowerCase()) {
       // address = this.constants.FRAX[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('FRAX', chainID);
+    } else if (address.toLowerCase() === this.constants.FTT[chainID].toLowerCase()) {
+      // address = this.constants.FTT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('FTT', chainID);
     } else if (address.toLowerCase() === this.constants.FXS[chainID].toLowerCase()) {
       return await this.getChainlinkPriceUSD('FXS', chainID);
       // address = this.constants.FXS[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.GNO[chainID].toLowerCase()) {
+      return await this.getChainlinkPriceUSD('GNO', chainID);
+      // address = this.constants.FXS[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.GUSD[chainID].toLowerCase()) {
       // address = this.constants.GUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.HBTC[chainID].toLowerCase()) {
+      // address = this.constants.HEGIC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('BTC', chainID);
     } else if (address.toLowerCase() === this.constants.HEGIC[chainID].toLowerCase()) {
       // address = this.constants.HEGIC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('HEGIC', chainID);
+    } else if (address.toLowerCase() === this.constants.HUSD[chainID].toLowerCase()) {
+      // address = this.constants.HEGIC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('HUSD', chainID);
     } else if (address.toLowerCase() === this.constants.IBAUD[chainID].toLowerCase()) {
       // address = this.constants.IBAUD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('AUD', chainID);
@@ -116,28 +161,67 @@ export class HelpersService {
       // address = this.constants.IOTX[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.KP3R[chainID].toLowerCase()) {
       // address = this.constants.KP3R[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('KP3R', chainID);
     } else if (address.toLowerCase() === this.constants.LINK[chainID].toLowerCase()) {
       // address = this.constants.LINK[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('LINK', chainID);
+    } else if (address.toLowerCase() === this.constants.LON[chainID].toLowerCase()) {
+      // address = this.constants.LINK[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('LON', chainID);
     } else if (address.toLowerCase() === this.constants.LTC[chainID].toLowerCase()) {
       // address = this.constants.LTC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.MLN[chainID].toLowerCase()) {
+      // address = this.constants.LTC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('MLN', chainID);
+    } else if (address.toLowerCase() === this.constants.MTA[chainID].toLowerCase()) {
+      // address = this.constants.LTC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('MTA', chainID);
     } else if (address.toLowerCase() === this.constants.MUSD[chainID].toLowerCase()) {
       // address = this.constants.MUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.OCEAN[chainID].toLowerCase()) {
+      // address = this.constants.MUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('OCEAN', chainID);
+    } else if (address.toLowerCase() === this.constants.OMG[chainID].toLowerCase()) {
+      // address = this.constants.MUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('OMG', chainID);
+    } else if (address.toLowerCase() === this.constants.PAX[chainID].toLowerCase()) {
+      // address = this.constants.MUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('PAX', chainID);
+    } else if (address.toLowerCase() === this.constants.PAXG[chainID].toLowerCase()) {
+      // address = this.constants.MUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('PAXG', chainID);
     } else if (address.toLowerCase() === this.constants.QUICK[chainID].toLowerCase()) {
       // address = this.constants.QUICK[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.RAI[chainID].toLowerCase()) {
+      // address = this.constants.QUICK[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('RAI', chainID);
+    } else if (address.toLowerCase() === this.constants.RARI[chainID].toLowerCase()) {
+      // address = this.constants.QUICK[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('RARI', chainID);
     } else if (address.toLowerCase() === this.constants.RENBTC[chainID].toLowerCase()) {
       // address = this.constants.RENBTC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('BTC', chainID);
     } else if (address.toLowerCase() === this.constants.RENZEC[chainID].toLowerCase()) {
       // address = this.constants.RENZEC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.RUNE[chainID].toLowerCase()) {
+      // address = this.constants.RENZEC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('RUNE', chainID);
+    } else if (address.toLowerCase() === this.constants.PERP[chainID].toLowerCase()) {
+      // address = this.constants.RENZEC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('PERP', chainID);
     } else if (address.toLowerCase() === this.constants.SEUR[chainID].toLowerCase()) {
       // address = this.constants.SEUR[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('EUR', chainID);
       // return await this.getForexPriceUSD(address);
     } else if (address.toLowerCase() === this.constants.SFI[chainID].toLowerCase()) {
       // address = this.constants.SFI[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('SFI', chainID);
     } else if (address.toLowerCase() === this.constants.SNX[chainID].toLowerCase()) {
       // address = this.constants.SNX[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('SNX', chainID);
+    } else if (address.toLowerCase() === this.constants.SRM[chainID].toLowerCase()) {
+      // address = this.constants.SUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('SRM', chainID);
     } else if (address.toLowerCase() === this.constants.SUSD[chainID].toLowerCase()) {
       // address = this.constants.SUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('SUSD', chainID);
@@ -159,8 +243,14 @@ export class HelpersService {
     } else if (address.toLowerCase() === this.constants.USDT[chainID].toLowerCase()) {
       // address = this.constants.USDT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('USDT', chainID);
+    } else if (address.toLowerCase() === this.constants.UST[chainID].toLowerCase()) {
+      // address = this.constants.USDT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('UST', chainID);
     } else if (address.toLowerCase() === this.constants.VAI[chainID].toLowerCase()) {
       // address = this.constants.VAI[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+    } else if (address.toLowerCase() === this.constants.VSP[chainID].toLowerCase()) {
+      // address = this.constants.VAI[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('VSP', chainID);
     } else if (address.toLowerCase() === this.constants.WBTC[chainID].toLowerCase()) {
       // address = this.constants.WBTC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('BTC', chainID);
@@ -171,9 +261,16 @@ export class HelpersService {
       return await this.getChainlinkPriceUSD('ETH', chainID);
     } else if (address.toLowerCase() === this.constants.WFTM[chainID].toLowerCase()) {
       // address = this.constants.WFTM[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('FTM', chainID);
     } else if (address.toLowerCase() === this.constants.WMATIC[chainID].toLowerCase()) {
       // address = this.constants.WMATIC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('MATIC', chainID);
+    } else if (address.toLowerCase() === this.constants.WNXM[chainID].toLowerCase()) {
+      // address = this.constants.WNXM[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('WNXM', chainID);
+    } else if (address.toLowerCase() === this.constants.WOO[chainID].toLowerCase()) {
+      // address = this.constants.WNXM[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      return await this.getChainlinkPriceUSD('WOO', chainID);
     } else if (address.toLowerCase() === this.constants.XRP[chainID].toLowerCase()) {
       // address = this.constants.XRP[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.XTZ[chainID].toLowerCase()) {
@@ -183,12 +280,34 @@ export class HelpersService {
     } else if (address.toLowerCase() === this.constants.YFI[chainID].toLowerCase()) {
       // address = this.constants.YFI[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('YFI', chainID);
+    } else if (address.toLowerCase() === this.constants.UNI_DAI_ETH[chainID].toLowerCase()) {
+      return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.UNI_USDC_ETH[chainID].toLowerCase()) {
+      return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.UNI_USDT_ETH[chainID].toLowerCase()) {
+      return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.UNI_WBTC_ETH[chainID].toLowerCase()) {
+      // return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.SUSHI_DAI_ETH[chainID].toLowerCase()) {
+      return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.SUSHI_USDC_ETH[chainID].toLowerCase()) {
+      return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.SUSHI_USDT_ETH[chainID].toLowerCase()) {
+      return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.SUSHI_SUSHI_ETH[chainID].toLowerCase()) {
+      return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.SUSHI_YFI_ETH[chainID].toLowerCase()) {
+      // return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.SUSHI_WBTC_ETH[chainID].toLowerCase()) {
+      // return await this.getFairUniswapPriceUSD(address, chainID);
+    } else if (address.toLowerCase() === this.constants.ZERO_ADDRESS.toLowerCase()) {
+      return await this.getChainlinkPriceUSD('ETH', chainID);
     } else {
-      console.log("TOKEN NOT FOUND " + address);
-      return 0;
+      console.log("TOKEN NOT FOUND " + address.toLowerCase());
+      //return 0;
     }
     // return 0;
-    return this.getOraclePriceUSD(address, chainID);
+    return this.getOraclePriceUSD(address.toLowerCase(), chainID);
   }
 
   async getTokenPrice(address: string, blocks?: number[], timestamps?: number[]): Promise<any> {
@@ -257,38 +376,6 @@ export class HelpersService {
     // return price;
   }
 
-  async getForexPriceUSD(address: string): Promise<number> {
-    let price: number = 0;
-    let symbol: string = '';
-
-    if (address.toLowerCase() === this.constants.IBCHF[this.constants.CHAIN_ID.MAINNET].toLowerCase()) {
-      symbol = 'CHF';
-    } else if (address.toLowerCase() === this.constants.IBJPY[this.constants.CHAIN_ID.MAINNET].toLowerCase()) {
-      symbol = 'JPY';
-    } else if (address.toLowerCase() === this.constants.IBEUR[this.constants.CHAIN_ID.MAINNET].toLowerCase() ||
-      address.toLowerCase() === this.constants.EURS[this.constants.CHAIN_ID.MAINNET].toLowerCase() ||
-      address.toLowerCase() === this.constants.EURT[this.constants.CHAIN_ID.MAINNET].toLowerCase() ||
-      address.toLowerCase() === this.constants.SEUR[this.constants.CHAIN_ID.MAINNET].toLowerCase()
-    ) {
-      symbol = 'EUR';
-    } else if (address.toLowerCase() === this.constants.IBGBP[this.constants.CHAIN_ID.MAINNET].toLowerCase()) {
-      symbol = 'GBP';
-    } else if (address.toLowerCase() === this.constants.IBAUD[this.constants.CHAIN_ID.MAINNET].toLowerCase()) {
-      symbol = 'AUD';
-    } else if (address.toLowerCase() === this.constants.IBKRW[this.constants.CHAIN_ID.MAINNET].toLowerCase()) {
-      symbol = 'KRW';
-    } else {
-      console.log("Unknown Forex");
-      return 0;
-    }
-
-    const apiStr = "https://api.coinbase.com/v2/exchange-rates";
-    const rawResult = await this.httpsGet(apiStr, 300);
-    price = 1 / parseFloat(rawResult.data.rates[symbol]);
-
-    return price;
-  }
-
   async getETHPriceUSD(chainID: number): Promise<number> {
     // provider @dev make a service for this
     const provider = (await detectEthereumProvider()) as any;
@@ -328,7 +415,7 @@ export class HelpersService {
     }
   }
 
-  async getOraclePriceUSD(address: string, chainID?: number): Promise<number> {
+  async getOraclePriceUSD(address: string, chainID?: number, ironBank?: boolean): Promise<number> {
     // provider @dev make a service for this
     const provider = (await detectEthereumProvider()) as any;
     const ethereum = new ethers.providers.Web3Provider(provider);
@@ -352,6 +439,21 @@ export class HelpersService {
     }
 
     return price;
+  }
+
+  async getFairUniswapPriceUSD(address: string, chainID: number): Promise<number> {
+    // provider @dev make a service for this
+    const provider = (await detectEthereumProvider()) as any;
+    const ethereum = new ethers.providers.Web3Provider(provider);
+
+    const oracleABI = require(`src/assets/abis/UniswapV2Oracle.json`);
+    const oracleAddress = this.constants.UNISWAP_V2_ORACLE[chainID];
+    const oracleContract = new ethers.Contract(oracleAddress, oracleABI, ethereum);
+
+    const price = parseFloat(await oracleContract.getETHPx(address, {gasLimit: 100000000})) / Math.pow(2, 112);
+    const ethPriceUSD = await this.getETHPriceUSD(chainID);
+
+    return price * ethPriceUSD;
   }
 
   async httpsGet(apiStr: string, cacheMaxAge: number = 60) {
