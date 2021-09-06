@@ -166,7 +166,6 @@ export class IronBankTotalBorrowedComponent implements OnInit {
         address: markets[market].underlyingAddress,
         data: [],
         dataBorrows: [],
-        dataUSD: [],
         backgroundColor:
           'rgba(' + this.COLORS[parseInt(market) % this.COLORS.length] + ', 0.5)',
         hoverBackgroundColor:
@@ -181,38 +180,15 @@ export class IronBankTotalBorrowedComponent implements OnInit {
         for (let m in result[t]) {
           let market = result[t][m];
           let entry = this.data.find((m) => m.address === market.underlyingAddress);
+          let price = this.assetPricesUSD.find((m) => m.address === market.underlyingAddress).price;
           let totalBorrowed = parseFloat(market.totalBorrows);
           if (isNaN(totalBorrowed)) {
             totalBorrowed = 0;
           }
           if (entry) {
             entry.dataBorrows[parseInt(t.substring(1))] = totalBorrowed;
+            entry.data[parseInt(t.substring(1))] = totalBorrowed * price;
           }
-        }
-      }
-    }
-
-    // populate the dataUSD array
-    for (let market in this.data) {
-      if (this.data[market].label) {
-        let prices = this.assetPricesUSD.find((asset) => asset.address === this.data[market].address);
-        for (let t in this.timestamps) {
-          let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
-          if (price) {
-            this.data[market].dataUSD[t] = price[1];
-          } else {
-            this.data[market].dataUSD[t] = 0;
-          }
-        }
-      }
-    }
-
-    // populate the data array to be charted
-    for (let m in this.data) {
-      if (this.data[m].label) {
-        let market = this.data[m];
-        for (let t in this.timestamps) {
-          market.data[t] = market.dataBorrows[t] * market.dataUSD[t];
         }
       }
     }
@@ -255,12 +231,12 @@ interface DataObject {
   address: string;
   data: number[];
   dataBorrows: number[];
-  dataUSD: number[];
   backgroundColor: string;
   hoverBackgroundColor: string;
 }
 
 interface PriceObject {
+  symbol: string;
   address: string;
-  prices: number[][];
+  price: number;
 }

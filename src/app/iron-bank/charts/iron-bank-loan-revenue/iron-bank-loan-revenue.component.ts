@@ -175,7 +175,6 @@ export class IronBankLoanRevenueComponent implements OnInit {
         label: markets[market].underlyingSymbol,
         address: markets[market].underlyingAddress,
         data: [],
-        dataUSD: [],
         dataRevenue: [],
         dataPeriodic: [],
         dataCumulative: [],
@@ -188,33 +187,21 @@ export class IronBankLoanRevenueComponent implements OnInit {
     }
 
     // populate dataRevenue array (token quantity)
+    // @dev WETH reserve factor changes at t-15 and t-16 and chart doesn't factor that change in. need to fix.
     for (let t in result) {
       if (t !== 'markets') {
         for (let m in result[t]) {
           let market = result[t][m];
           let entry = this.assetRevenue.find((m) => m.address === market.underlyingAddress);
           let totalRevenue = parseFloat(market.totalInterestAccumulated) * parseFloat(market.reserveFactor) / 1e18;
+          // if (entry.label === "WETH") {
+          //   console.log(t + " ----- " + parseFloat(market.reserveFactor) / 1e18)
+          // }
           if (isNaN(totalRevenue)) {
             totalRevenue = 0;
           }
           if (entry) {
             entry.dataRevenue[parseInt(t.substring(1))] = totalRevenue;
-          }
-
-        }
-      }
-    }
-
-    // populate the dataUSD array
-    for (let market in this.assetRevenue) {
-      if (this.assetRevenue[market].label) {
-        let prices = this.assetPricesUSD.find((asset) => asset.address === this.assetRevenue[market].address);
-        for (let t in this.timestamps) {
-          let price = prices?.prices?.find((price) => price[0] === this.timestamps[t] * 1000);
-          if (price) {
-            this.assetRevenue[market].dataUSD[t] = price[1];
-          } else {
-            this.assetRevenue[market].dataUSD[t] = 0;
           }
         }
       }
@@ -224,9 +211,9 @@ export class IronBankLoanRevenueComponent implements OnInit {
     for (let m in this.assetRevenue) {
       if (this.assetRevenue[m].label) {
         let market = this.assetRevenue[m];
+        let price = this.assetPricesUSD.find((m) => m.address === market.address).price;
         for (let t in this.timestamps) {
-          market.dataCumulative[t] = market.dataRevenue[t] * market.dataUSD[t];
-          //market.data[t] = market.dataRevenue[t] * market.dataUSD[t];
+          market.dataCumulative[t] = market.dataRevenue[t] * price;
         }
       }
     }
@@ -236,18 +223,21 @@ export class IronBankLoanRevenueComponent implements OnInit {
     for (let m in this.assetRevenue) {
       if (this.assetRevenue[m].label) {
         let market = this.assetRevenue[m];
+        let price = this.assetPricesUSD.find((m) => m.address === market.address).price;
         for (let t in this.timestamps) {
           let delta = parseInt(t) - 1;
           if (parseInt(t) == 0) {
-            market.dataCumulative[t] = market.dataRevenue[t] * market.dataUSD[t];
-            market.data[t] = market.dataRevenue[t] * market.dataUSD[t];
+            market.dataPeriodic[t] = market.dataRevenue[t] * price;
+            market.data[t] = market.dataRevenue[t] * price;
           } else {
-            market.dataPeriodic[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * market.dataUSD[t];
-            market.data[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * market.dataUSD[t];
+            market.dataPeriodic[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * price;
+            market.data[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * price;
           }
         }
       }
     }
+    // let me = this.assetRevenue.find((m) => m.label === "WETH");
+    // console.log(me);
   }
 
   changePeriod() {
@@ -286,7 +276,6 @@ interface DataObject {
   label: string;
   address: string;
   data: number[];
-  dataUSD: number[];
   dataRevenue: number[];
   dataPeriodic: number[];
   dataCumulative: number[];
@@ -295,6 +284,7 @@ interface DataObject {
 }
 
 interface PriceObject {
+  symbol: string;
   address: string;
-  prices: number[][];
+  price: number;
 }

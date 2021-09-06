@@ -69,45 +69,18 @@ export class IronBankComponent implements OnInit {
     let totalLoanRevenueUSD = new BigNumber(0);
     let assetPricesUSD: PriceObject[] = [];
 
-    // fetch timeseries data
-    this.timeseriesdata = await this.timeseries.getCustomTimeSeries(
-      this.FIRST_INDEX,
-      this.constants.DAY_IN_SEC,
-      this.constants.CHAIN_ID.MAINNET
-    );
-    this.timestamps = this.timeseriesdata[0];
-    this.blocks = this.timeseriesdata[1];
-
     Promise.all(
       markets.map(async (market) => {
-
-        // calculate number of days since first index
-        let days = (this.timeseries.getLatestUTCDate() - this.FIRST_INDEX + this.constants.DAY_IN_SEC) / this.constants.DAY_IN_SEC;
-        if (days < 100) {
-          days = 100;
-        }
-
-        // fetch the historical and current prices of the underlying asset in USD
-        // @dev if days < 100 then coingecko api returns inaccurate timestamps
-        // const assetPrices = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET, days);
-
-        // const assetPrices = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET, days);
-        const assetPrices = await this.helpers.getTokenPrice(market.underlyingAddress, this.blocks, this.timestamps);
-        // const assetPriceUSD = assetPrices[assetPrices.length - 1][1];
-        const assetPriceUSD = await this.helpers.getTokenPrice(market.underlyingAddress);
+        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET);
 
         // add the price object to the assetPricesUSD array
         const priceObject: PriceObject = {
+          symbol: market.underlyingSymbol,
           address: market.underlyingAddress,
-          prices: assetPrices
+          price: assetPriceUSD
         };
         assetPricesUSD.push(priceObject);
-        // this.assetPricesUSD.push(priceObject);
 
-        // get current asset price from asset price list
-        //const assetPriceUSD = assetPrices[assetPrices.length - 1][1];
-
-        // calculate total value locked in USD
         const assetTotalValueLockedUSD = new BigNumber(market.cash).times(assetPriceUSD);
         const assetTotalValueSuppliedUSD = new BigNumber(market.totalSupply).times(market.exchangeRate).times(assetPriceUSD);
         const assetTotalValueBorrowedUSD = new BigNumber(market.totalBorrows).times(assetPriceUSD);
@@ -130,6 +103,7 @@ export class IronBankComponent implements OnInit {
       this.totalLoanOrigination = totalLoanOriginationUSD;
       this.totalLoanRevenue = totalLoanRevenueUSD;
       this.assetPricesUSD = assetPricesUSD;
+      // console.log(this.assetPricesUSD);
     });
   }
 
@@ -157,6 +131,7 @@ interface QueryResult {
 }
 
 interface PriceObject {
+  symbol: string;
   address: string;
-  prices: number[][];
+  price: number;
 }
