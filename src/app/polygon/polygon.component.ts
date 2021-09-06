@@ -4,6 +4,7 @@ import { request, gql } from 'graphql-request';
 import { ConstantsService } from '../constants.service';
 import { HelpersService } from '../helpers.service';
 import { TimeseriesService } from '../timeseries.service';
+import { ethers } from 'ethers';
 
 @Component({
   selector: 'app-polygon',
@@ -68,26 +69,40 @@ export class PolygonComponent implements OnInit {
     Promise.all(
       markets.map(async (market) => {
 
-        // calculate number of days since first index
-        let days = (this.timeseries.getLatestUTCDate() - this.FIRST_INDEX + this.constants.DAY_IN_SEC) / this.constants.DAY_IN_SEC;
-        if (days < 100) {
-          days = 100;
-        }
-
-        // fetch the historical and current prices of the underlying asset in USD
-        // @dev if days < 100 then coingecko api returns inaccurate timestamps
-        const assetPrices = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON, days);
+        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON);
 
         // add the price object to the assetPricesUSD array
         const priceObject: PriceObject = {
+          symbol: market.underlyingSymbol,
           address: market.underlyingAddress,
-          prices: assetPrices
+          price: assetPriceUSD
         };
         assetPricesUSD.push(priceObject);
+        //
+        // let assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON);
+        // console.log(assetPriceUSD);
+
+        // // calculate number of days since first index
+        // let days = (this.timeseries.getLatestUTCDate() - this.FIRST_INDEX + this.constants.DAY_IN_SEC) / this.constants.DAY_IN_SEC;
+        // if (days < 100) {
+        //   days = 100;
+        // }
+        //
+        // // fetch the historical and current prices of the underlying asset in USD
+        // // @dev if days < 100 then coingecko api returns inaccurate timestamps
+        // const assetPrices = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON, days);
+        //
+        // // add the price object to the assetPricesUSD array
+        // const priceObject: PriceObject = {
+        //   address: market.underlyingAddress,
+        //   prices: assetPrices
+        // };
+        // assetPricesUSD.push(priceObject);
         // this.assetPricesUSD.push(priceObject);
 
         // get current asset price from asset price list
-        const assetPriceUSD = assetPrices[assetPrices.length - 1][1];
+        // const assetPriceUSD = assetPrices[assetPrices.length - 1][1];
+        // assetPriceUSD = 0;
 
         // calculate total value locked in USD
         const assetTotalValueLockedUSD = new BigNumber(market.cash).times(assetPriceUSD);
@@ -112,6 +127,7 @@ export class PolygonComponent implements OnInit {
       this.totalLoanOrigination = totalLoanOriginationUSD;
       this.totalLoanRevenue = totalLoanRevenueUSD;
       this.assetPricesUSD = assetPricesUSD;
+      console.log(this.assetPricesUSD);
     });
   }
 
@@ -139,6 +155,7 @@ interface QueryResult {
 }
 
 interface PriceObject {
+  symbol: string;
   address: string;
-  prices: number[][];
+  price: number;
 }
