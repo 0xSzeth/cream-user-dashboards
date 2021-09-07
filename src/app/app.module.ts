@@ -38,6 +38,12 @@ import { IronBankTotalBorrowedComponent } from './iron-bank/charts/iron-bank-tot
 import { IronBankUtilizationRateComponent } from './iron-bank/charts/iron-bank-utilization-rate/iron-bank-utilization-rate.component';
 import { IronBankLoanOriginationComponent } from './iron-bank/charts/iron-bank-loan-origination/iron-bank-loan-origination.component';
 import { IronBankLoanRevenueComponent } from './iron-bank/charts/iron-bank-loan-revenue/iron-bank-loan-revenue.component';
+import { BscTotalValueLockedComponent } from './binance-smart-chain/charts/bsc-total-value-locked/bsc-total-value-locked.component';
+import { BscTotalSupplyComponent } from './binance-smart-chain/charts/bsc-total-supply/bsc-total-supply.component';
+import { BscTotalBorrowedComponent } from './binance-smart-chain/charts/bsc-total-borrowed/bsc-total-borrowed.component';
+import { BscUtilizationRateComponent } from './binance-smart-chain/charts/bsc-utilization-rate/bsc-utilization-rate.component';
+import { BscLoanOriginationComponent } from './binance-smart-chain/charts/bsc-loan-origination/bsc-loan-origination.component';
+import { BscLoanRevenueComponent } from './binance-smart-chain/charts/bsc-loan-revenue/bsc-loan-revenue.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +81,12 @@ import { IronBankLoanRevenueComponent } from './iron-bank/charts/iron-bank-loan-
     IronBankUtilizationRateComponent,
     IronBankLoanOriginationComponent,
     IronBankLoanRevenueComponent,
+    BscTotalValueLockedComponent,
+    BscTotalSupplyComponent,
+    BscTotalBorrowedComponent,
+    BscUtilizationRateComponent,
+    BscLoanOriginationComponent,
+    BscLoanRevenueComponent,
   ],
   imports: [
     NgbModule,
