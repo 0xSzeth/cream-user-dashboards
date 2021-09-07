@@ -544,8 +544,11 @@ export class HelpersService {
 
   async getETHPriceUSD(chainID: number): Promise<number> {
     // provider @dev make a service for this
-    const provider = (await detectEthereumProvider()) as any;
-    const ethereum = new ethers.providers.Web3Provider(provider);
+    // const provider = (await detectEthereumProvider()) as any;
+    // const ethereum = new ethers.providers.Web3Provider(provider);
+
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[chainID]);
+    // console.log(providertest);
 
     const chainlinkABI = require(`src/assets/abis/ChainLinkOracle.json`);
 
@@ -557,10 +560,11 @@ export class HelpersService {
     return ethPrice;
   }
 
-  async getChainlinkPriceUSD(symbol: string, chainID?: number): Promise<number> {
+  async getChainlinkPriceUSD(symbol: string, chainID: number): Promise<number> {
     // provider @dev make a service for this
-    const provider = (await detectEthereumProvider()) as any;
-    const ethereum = new ethers.providers.Web3Provider(provider);
+    // const provider = (await detectEthereumProvider()) as any;
+    // const ethereum = new ethers.providers.Web3Provider(provider);
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[chainID]);
     const chainlinkABI = require(`src/assets/abis/ChainLinkOracle.json`);
 
     let chainlinkAddress = require(`src/assets/json/chainlink.json`)[chainID][symbol]['USD'];
@@ -583,8 +587,9 @@ export class HelpersService {
 
   async getBandPriceUSD(symbol: string, chainID: number): Promise<number> {
     // provider @dev make a service for this
-    const provider = (await detectEthereumProvider()) as any;
-    const ethereum = new ethers.providers.Web3Provider(provider);
+    // const provider = (await detectEthereumProvider()) as any;
+    // const ethereum = new ethers.providers.Web3Provider(provider);
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[chainID]);
 
     const bandABI = require(`src/assets/abis/BandOracle.json`);
     const bandAddress = this.constants.BAND_ORACLE[chainID];
@@ -594,10 +599,11 @@ export class HelpersService {
     return tokenPrice;
   }
 
-  async getOraclePriceUSD(address: string, chainID?: number, ironBank?: boolean): Promise<number> {
+  async getOraclePriceUSD(address: string, chainID: number, ironBank?: boolean): Promise<number> {
     // provider @dev make a service for this
-    const provider = (await detectEthereumProvider()) as any;
-    const ethereum = new ethers.providers.Web3Provider(provider);
+    // const provider = (await detectEthereumProvider()) as any;
+    // const ethereum = new ethers.providers.Web3Provider(provider);
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[chainID]);
 
     if (ironBank) { chainID = 0 };
     const oracleABI = require(`src/assets/abis/CreamOracle.json`);
@@ -631,8 +637,9 @@ export class HelpersService {
   // @notice address = crToken address
   async getFairUniswapPriceUSD(address: string, chainID: number, ironBank?: boolean): Promise<number> {
     // provider @dev make a service for this
-    const provider = (await detectEthereumProvider()) as any;
-    const ethereum = new ethers.providers.Web3Provider(provider);
+    // const provider = (await detectEthereumProvider()) as any;
+    // const ethereum = new ethers.providers.Web3Provider(provider);
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[chainID]);
 
     if (ironBank) { chainID = 0 };
 

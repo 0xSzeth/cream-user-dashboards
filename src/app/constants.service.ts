@@ -912,6 +912,14 @@ export class ConstantsService {
     [this.CHAIN_ID.BSC]: "0xDA7a001b254CD22e46d3eAB04d937489c93174C3"
   };
 
+  // rpc urls
+  RPC_URL = {
+    [this.CHAIN_ID.MAINNET]: "https://mainnet.infura.io/v3/a92d4eb2cfcc4c91b5cbf49d088d7c7f",
+    [this.CHAIN_ID.POLYGON]: "https://polygon-rpc.com",
+    [this.CHAIN_ID.FANTOM]: "https://rpcapi.fantom.network",
+    [this.CHAIN_ID.BSC]: "https://bsc-dataseed.binance.org"
+  };
+
   // utils
   PRECISION = 1e18;
   YEAR_IN_SEC = 31556952;
