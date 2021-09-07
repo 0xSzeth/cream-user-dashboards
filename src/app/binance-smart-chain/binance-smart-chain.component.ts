@@ -12,7 +12,7 @@ import { TimeseriesService } from '../timeseries.service';
 })
 export class BinanceSmartChainComponent implements OnInit {
 
-  FIRST_INDEX: number = 1622505600;
+  FIRST_INDEX: number = 1598918400;
   assetPricesUSD: PriceObject[] = [];
 
   totalValueLockedUSD: BigNumber = new BigNumber(0);

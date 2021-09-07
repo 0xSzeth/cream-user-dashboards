@@ -64,22 +64,10 @@
     <div class="col-12">
       <div class="card-deck my-5 justify-content-around">
         <div class="card col-6">
-          <!-- <app-bsc-total-value-locked [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-total-value-locked> -->
+          <app-bsc-total-value-locked [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-total-value-locked>
         </div>
         <div class="card col-6">
-          <!-- <app-bsc-total-supply [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-total-supply> -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <div class="card-deck my-5 justify-content-around">
-        <div class="card col-6">
-          <!-- <app-bsc-total-borrowed [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-total-borrowed> -->
-        </div>
-        <div class="card col-6">
-          <!-- <app-bsc-utilization-rate class="w-50"></app-bsc-utilization-rate> -->
+          <app-bsc-total-supply [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-total-supply>
         </div>
       </div>
     </div>
@@ -88,10 +76,22 @@
     <div class="col-12">
       <div class="card-deck my-5 justify-content-around">
         <div class="card col-6">
-          <!-- <app-bsc-loan-origination [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-loan-origination> -->
+          <app-bsc-total-borrowed [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-total-borrowed>
         </div>
         <div class="card col-6">
-          <!-- <app-bsc-loan-revenue [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-loan-revenue> -->
+          <app-bsc-utilization-rate class="w-50"></app-bsc-utilization-rate>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card-deck my-5 justify-content-around">
+        <div class="card col-6">
+          <app-bsc-loan-origination [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-loan-origination>
+        </div>
+        <div class="card col-6">
+          <app-bsc-loan-revenue [assetPricesUSD]="assetPricesUSD" class="w-50"></app-bsc-loan-revenue>
         </div>
       </div>
     </div>

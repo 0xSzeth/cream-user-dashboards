@@ -563,7 +563,6 @@ export class HelpersService {
     const oracleABI = require(`src/assets/abis/CreamOracleProxy.json`);
     const oracleAddress = this.constants.CREAM_ORACLE_PROXY[chainID];
     const oracleContract = new ethers.Contract(oracleAddress, oracleABI, ethereum);
-    console.log(oracleContract);
 
     const price = parseFloat(await oracleContract.getUnderlyingPrice(address, {gasLimit: 100000})) / 1e18;
     let basePriceUSD;
