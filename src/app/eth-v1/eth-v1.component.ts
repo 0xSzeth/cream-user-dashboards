@@ -80,7 +80,7 @@ export class EthV1Component implements OnInit {
 
     Promise.all(
       markets.map(async (market) => {
-        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET);
+        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, market.id, false);
 
         // add the price object to the assetPricesUSD array
         const priceObject: PriceObject = {
@@ -92,9 +92,6 @@ export class EthV1Component implements OnInit {
 
         // calculate total value locked in USD
         const assetTotalValueLockedUSD = new BigNumber(market.cash).times(assetPriceUSD);
-        // console.log(market.symbol);
-        // console.log(market.id);
-        // console.log(market.underlyingAddress);
         const assetTotalValueSuppliedUSD = new BigNumber(market.totalSupply).times(market.exchangeRate).times(assetPriceUSD);
         const assetTotalValueBorrowedUSD = new BigNumber(market.totalBorrows).times(assetPriceUSD);
         const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
@@ -115,7 +112,6 @@ export class EthV1Component implements OnInit {
       this.totalLoanOrigination = totalLoanOriginationUSD;
       this.totalLoanRevenue = totalLoanRevenueUSD;
       this.assetPricesUSD = assetPricesUSD;
-      // console.log(this.assetPricesUSD);
     });
   }
 

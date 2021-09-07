@@ -490,7 +490,7 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
-  SETT = {
+  BBADGER = {
     [this.CHAIN_ID.MAINNET]: "0x19d97d8fa813ee2f51ad4b4e04ea08baf4dffc28",
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
@@ -702,7 +702,7 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
-  YWETH = {
+  YETH = {
     [this.CHAIN_ID.MAINNET]: "0xe1237aa7f535b0cc33fd973d66cbf830354d16c7",
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
@@ -726,14 +726,14 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
-  YUSD2 = { //alot
-    [this.CHAIN_ID.MAINNET]: "0x5dbcf33d8c2e976c6b560249878e6f1491bca25c",
+  YCRV = {
+    [this.CHAIN_ID.MAINNET]: "0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8",
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
   };
-  YUSD3 = { //alot
-    [this.CHAIN_ID.MAINNET]: "0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8",
+  YYCRV = {
+    [this.CHAIN_ID.MAINNET]: "0x5dbcf33d8c2e976c6b560249878e6f1491bca25c",
     [this.CHAIN_ID.POLYGON]: "",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: ""
@@ -890,18 +890,18 @@ export class ConstantsService {
     [this.CHAIN_ID.BSC]: "https://api.thegraph.com/subgraphs/name/elkfinance/bsc-blocks"
   };
 
-  // other
-  // 0x9A975fe93CFf8b0387b958adB9082B0ed0659AD2 is the eth-v1 oracle
+  // oracles
   CREAM_ORACLE = {
-    //[0]: "0x3aBce8F1DB258fBc64827b0926e14A0F90525CF7",
+    [0]: "0x3aBce8F1DB258fBc64827b0926e14A0F90525CF7",
     [this.CHAIN_ID.MAINNET]: "0x9A975fe93CFf8b0387b958adB9082B0ed0659AD2",
     [this.CHAIN_ID.POLYGON]: "0x0a4AcCD9D150AD4DDC7eA2e6151243CE668Bf2f5",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0x9cF84A3cBd5368bFC08412851c4f2015eE078c2f"
   };
   CREAM_ORACLE_PROXY = {
+    [0]: "0xde19f5a7cF029275Be9cEC538E81Aa298E297266",
     [this.CHAIN_ID.MAINNET]: "0x338EEE1F7B89CE6272f302bDC4b952C13b221f1d",
-    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.POLYGON]: "0x812C0b2a2A0A74f6f6ed620Fbd2B67Fec7DB2190",
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0xab548FFf4Db8693c999e98551C756E6C2948C408"
   };

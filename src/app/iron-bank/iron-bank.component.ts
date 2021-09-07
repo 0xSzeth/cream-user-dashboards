@@ -74,7 +74,7 @@ export class IronBankComponent implements OnInit {
         // depreciated cySUSD vault
         if (market.id === "0x4e3a36a633f63aee0ab57b5054ec78867cb3c0b8") return;
 
-        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET);
+        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, market.id, true);
 
         // add the price object to the assetPricesUSD array
         const priceObject: PriceObject = {
@@ -106,7 +106,6 @@ export class IronBankComponent implements OnInit {
       this.totalLoanOrigination = totalLoanOriginationUSD;
       this.totalLoanRevenue = totalLoanRevenueUSD;
       this.assetPricesUSD = assetPricesUSD;
-      // console.log(this.assetPricesUSD);
     });
   }
 

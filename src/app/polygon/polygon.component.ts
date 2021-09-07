@@ -68,7 +68,7 @@ export class PolygonComponent implements OnInit {
 
     Promise.all(
       markets.map(async (market) => {
-        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON);
+        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON, 0, market.id, false);
 
         // add the price object to the assetPricesUSD array
         const priceObject: PriceObject = {
@@ -101,7 +101,6 @@ export class PolygonComponent implements OnInit {
       this.totalLoanOrigination = totalLoanOriginationUSD;
       this.totalLoanRevenue = totalLoanRevenueUSD;
       this.assetPricesUSD = assetPricesUSD;
-      console.log(this.assetPricesUSD);
     });
   }
 
