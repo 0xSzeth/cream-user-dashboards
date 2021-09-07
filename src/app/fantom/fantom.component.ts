@@ -67,27 +67,15 @@ export class FantomComponent implements OnInit {
 
     Promise.all(
       markets.map(async (market) => {
-
-        // calculate number of days since first index
-        let days = (this.timeseries.getLatestUTCDate() - this.FIRST_INDEX + this.constants.DAY_IN_SEC) / this.constants.DAY_IN_SEC;
-        if (days < 100) {
-          days = 100;
-        }
-
-        // fetch the historical and current prices of the underlying asset in USD
-        // @dev if days < 100 then coingecko api returns inaccurate timestamps
-        const assetPrices = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.FANTOM, days);
+        const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.FANTOM, 0, market.id);
 
         // add the price object to the assetPricesUSD array
         const priceObject: PriceObject = {
+          symbol: market.underlyingSymbol,
           address: market.underlyingAddress,
-          prices: assetPrices
+          price: assetPriceUSD
         };
         assetPricesUSD.push(priceObject);
-        // this.assetPricesUSD.push(priceObject);
-
-        // get current asset price from asset price list
-        const assetPriceUSD = assetPrices[assetPrices.length - 1][1];
 
         // calculate total value locked in USD
         const assetTotalValueLockedUSD = new BigNumber(market.cash).times(assetPriceUSD);
@@ -139,6 +127,7 @@ interface QueryResult {
 }
 
 interface PriceObject {
+  symbol: string;
   address: string;
-  prices: number[][];
+  price: number;
 }

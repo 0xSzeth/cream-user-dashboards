@@ -905,6 +905,12 @@ export class ConstantsService {
     [this.CHAIN_ID.FANTOM]: "",
     [this.CHAIN_ID.BSC]: "0xab548FFf4Db8693c999e98551C756E6C2948C408"
   };
+  BAND_ORACLE = {
+    [this.CHAIN_ID.MAINNET]: "",
+    [this.CHAIN_ID.POLYGON]: "",
+    [this.CHAIN_ID.FANTOM]: "0x56E2898E0ceFF0D1222827759B56B28Ad812f92F",
+    [this.CHAIN_ID.BSC]: "0xDA7a001b254CD22e46d3eAB04d937489c93174C3"
+  };
 
   // utils
   PRECISION = 1e18;

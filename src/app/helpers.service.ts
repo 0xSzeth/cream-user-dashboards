@@ -18,18 +18,20 @@ export class HelpersService {
       // address = this.constants.1INCH[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('1INCH', chainID);
     } else if (address.toLowerCase() === this.constants.AAVE[chainID].toLowerCase()) {
-      // address = this.constants.AAVE[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('AAVE', chainID);
+      }
       return await this.getChainlinkPriceUSD('AAVE', chainID);
     } else if (address.toLowerCase() === this.constants.ADA[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('ADA');
+        return await this.getBandPriceUSD('ADA', chainID);
       }
     } else if (address.toLowerCase() === this.constants.AKRO[chainID].toLowerCase()) {
       // address = this.constants.ADA[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('AKRO', chainID);
     } else if (address.toLowerCase() === this.constants.ALPHA[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('ALPHA');
+        return await this.getBandPriceUSD('ALPHA', chainID);
       }
     } else if (address.toLowerCase() === this.constants.AMP[chainID].toLowerCase()) {
       // address = this.constants.ALPHA[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -40,49 +42,51 @@ export class HelpersService {
       // address = this.constants.ARNXM[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.ATOM[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('ATOM');
+        return await this.getBandPriceUSD('ATOM', chainID);
       }
     } else if (address.toLowerCase() === this.constants.AUTO[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('AUTO');
+        return await this.getBandPriceUSD('AUTO', chainID);
       }
     } else if (address.toLowerCase() === this.constants.BAL[chainID].toLowerCase()) {
       // address = this.constants.BAL[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('BAL', chainID);
     } else if (address.toLowerCase() === this.constants.BAND[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('BAND');
+        return await this.getBandPriceUSD('BAND', chainID);
+      } else if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('BAND', chainID);
       }
     } else if (address.toLowerCase() === this.constants.BAT[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('BAT');
+        return await this.getBandPriceUSD('BAT', chainID);
       }
     } else if (address.toLowerCase() === this.constants.BBTC[chainID].toLowerCase()) {
       // address = this.constants.BAT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('BTC', chainID);
     } else if (address.toLowerCase() === this.constants.BCH[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('BCH');
+        return await this.getBandPriceUSD('BCH', chainID);
       }
     } else if (address.toLowerCase() === this.constants.BETH[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('BETH');
+        return await this.getBandPriceUSD('BETH', chainID);
       }
     } else if (address.toLowerCase() === this.constants.BNB[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('BNB');
+        return await this.getBandPriceUSD('BNB', chainID);
       }
     } else if (address.toLowerCase() === this.constants.BNT[chainID].toLowerCase()) {
       // address = this.constants.BNB[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('BNT', chainID);
     } else if (address.toLowerCase() === this.constants.BUSD[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('BUSD');
+        return await this.getBandPriceUSD('BUSD', chainID);
       }
       return await this.getChainlinkPriceUSD('BUSD', chainID);
     } else if (address.toLowerCase() === this.constants.CAKE[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('CAKE');
+        return await this.getBandPriceUSD('CAKE', chainID);
       }
     } else if (address.toLowerCase() === this.constants.CDAI[chainID].toLowerCase()) {
       // address = this.constants.CDAI[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -93,14 +97,21 @@ export class HelpersService {
       // address = this.constants.COMP[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('COMP', chainID);
     } else if (address.toLowerCase() === this.constants.COVER[chainID].toLowerCase()) {
-      // address = this.constants.COVER[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('COVER', chainID);
+      }
       return await this.getChainlinkPriceUSD('COVER', chainID);
     } else if (address.toLowerCase() === this.constants.CREAM[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('CREAM');
+        return await this.getBandPriceUSD('CREAM', chainID);
+      } else if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('CREAM', chainID);
       }
       return await this.getChainlinkPriceUSD('CREAM', chainID);
     } else if (address.toLowerCase() === this.constants.CRV[chainID].toLowerCase()) {
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('CRV', chainID);
+      }
       return await this.getChainlinkPriceUSD('CRV', chainID);
       // address = this.constants.CRV[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.CUSDC[chainID].toLowerCase()) {
@@ -109,12 +120,14 @@ export class HelpersService {
       // address = this.constants.CUSDT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.DAI[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('DAI');
+        return await this.getBandPriceUSD('DAI', chainID);
+      } else if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('DAI', chainID);
       }
       return await this.getChainlinkPriceUSD('DAI', chainID);
     } else if (address.toLowerCase() === this.constants.DOT[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('DOT');
+        return await this.getBandPriceUSD('DOT', chainID);
       }
     } else if (address.toLowerCase() === this.constants.DPI[chainID].toLowerCase()) {
       // address = this.constants.DPI[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -123,7 +136,7 @@ export class HelpersService {
       // address = this.constants.DUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.EOS[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('EOS');
+        return await this.getBandPriceUSD('EOS', chainID);
       }
     } else if (address.toLowerCase() === this.constants.EURS[chainID].toLowerCase()) {
       // address = this.constants.EURS[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -139,10 +152,12 @@ export class HelpersService {
       // return await this.getForexPriceUSD(address);
     } else if (address.toLowerCase() === this.constants.FIL[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('FIL');
+        return await this.getBandPriceUSD('FIL', chainID);
       }
     } else if (address.toLowerCase() === this.constants.FRAX[chainID].toLowerCase()) {
-      // address = this.constants.FRAX[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('FRAX', chainID);
+      }
       return await this.getChainlinkPriceUSD('FRAX', chainID);
     } else if (address.toLowerCase() === this.constants.FTT[chainID].toLowerCase()) {
       // address = this.constants.FTT[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -159,7 +174,9 @@ export class HelpersService {
       // address = this.constants.HEGIC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('BTC', chainID);
     } else if (address.toLowerCase() === this.constants.HEGIC[chainID].toLowerCase()) {
-      // address = this.constants.HEGIC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('HEGIC', chainID);
+      }
       return await this.getChainlinkPriceUSD('HEGIC', chainID);
     } else if (address.toLowerCase() === this.constants.HUSD[chainID].toLowerCase()) {
       // address = this.constants.HEGIC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -193,21 +210,25 @@ export class HelpersService {
       // return await this.getForexPriceUSD(address);
     } else if (address.toLowerCase() === this.constants.IOTX[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('IOTX');
+        return await this.getBandPriceUSD('IOTX', chainID);
       }
     } else if (address.toLowerCase() === this.constants.KP3R[chainID].toLowerCase()) {
-      // address = this.constants.KP3R[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('KP3R', chainID);
+      }
       return await this.getChainlinkPriceUSD('KP3R', chainID);
     } else if (address.toLowerCase() === this.constants.LINK[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('LINK');
+        return await this.getBandPriceUSD('LINK', chainID);
+      } else if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('LINK', chainID);
       }
       return await this.getChainlinkPriceUSD('LINK', chainID);
     } else if (address.toLowerCase() === this.constants.LON[chainID].toLowerCase()) {
       return await this.getChainlinkPriceUSD('LON', chainID);
     } else if (address.toLowerCase() === this.constants.LTC[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('LTC');
+        return await this.getBandPriceUSD('LTC', chainID);
       }
     } else if (address.toLowerCase() === this.constants.MLN[chainID].toLowerCase()) {
       // address = this.constants.LTC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -239,12 +260,12 @@ export class HelpersService {
       return await this.getChainlinkPriceUSD('RARI', chainID);
     } else if (address.toLowerCase() === this.constants.RENBTC[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('RENBTC');
+        return await this.getBandPriceUSD('RENBTC', chainID);
       }
       return await this.getChainlinkPriceUSD('BTC', chainID);
     } else if (address.toLowerCase() === this.constants.RENZEC[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('ZEC');
+        return await this.getBandPriceUSD('ZEC', chainID);
       }
     } else if (address.toLowerCase() === this.constants.RUNE[chainID].toLowerCase()) {
       // address = this.constants.RENZEC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -257,45 +278,55 @@ export class HelpersService {
       return await this.getChainlinkPriceUSD('EUR', chainID);
       // return await this.getForexPriceUSD(address);
     } else if (address.toLowerCase() === this.constants.SFI[chainID].toLowerCase()) {
-      // address = this.constants.SFI[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('SFI', chainID);
+      }
       return await this.getChainlinkPriceUSD('SFI', chainID);
     } else if (address.toLowerCase() === this.constants.SNX[chainID].toLowerCase()) {
-      // address = this.constants.SNX[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('SNX', chainID);
+      }
       return await this.getChainlinkPriceUSD('SNX', chainID);
     } else if (address.toLowerCase() === this.constants.SRM[chainID].toLowerCase()) {
       // address = this.constants.SUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
       return await this.getChainlinkPriceUSD('SRM', chainID);
     } else if (address.toLowerCase() === this.constants.SUSD[chainID].toLowerCase()) {
-      // address = this.constants.SUSD[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('SUSD', chainID);
+      }
       return await this.getChainlinkPriceUSD('SUSD', chainID);
     } else if (address.toLowerCase() === this.constants.SUSHI[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('SUSHI');
+        return await this.getBandPriceUSD('SUSHI', chainID);
+      } else if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('SUSHI', chainID);
       }
       return await this.getChainlinkPriceUSD('SUSHI', chainID);
     } else if (address.toLowerCase() === this.constants.SXP[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('SXP');
+        return await this.getBandPriceUSD('SXP', chainID);
       }
     } else if (address.toLowerCase() === this.constants.TWT[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('TWT');
+        return await this.getBandPriceUSD('TWT', chainID);
       }
     } else if (address.toLowerCase() === this.constants.UNI[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('UNI');
+        return await this.getBandPriceUSD('UNI', chainID);
       }
       return await this.getChainlinkPriceUSD('UNI', chainID);
     } else if (address.toLowerCase() === this.constants.USDC[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('USDC');
+        return await this.getBandPriceUSD('USDC', chainID);
+      } else if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('USDC', chainID);
       }
       return await this.getChainlinkPriceUSD('USDC', chainID);
     } else if (address.toLowerCase() === this.constants.USDP[chainID].toLowerCase()) {
       // address = this.constants.USDP[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.USDT[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('USDT');
+        return await this.getBandPriceUSD('USDT', chainID);
       }
       return await this.getChainlinkPriceUSD('USDT', chainID);
     } else if (address.toLowerCase() === this.constants.UST[chainID].toLowerCase()) {
@@ -309,20 +340,26 @@ export class HelpersService {
       return await this.getChainlinkPriceUSD('VSP', chainID);
     } else if (address.toLowerCase() === this.constants.WBTC[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('BTCB');
+        return await this.getBandPriceUSD('BTCB', chainID);
+      } else if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('BTC', chainID);
       }
       return await this.getChainlinkPriceUSD('BTC', chainID);
     } else if (address.toLowerCase() === this.constants.WBNB[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('BNB');
+        return await this.getBandPriceUSD('BNB', chainID);
       }
     } else if (address.toLowerCase() === this.constants.WETH[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('ETH');
+        return await this.getBandPriceUSD('ETH', chainID);
+      } else if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('ETH', chainID);
       }
       return await this.getChainlinkPriceUSD('ETH', chainID);
     } else if (address.toLowerCase() === this.constants.WFTM[chainID].toLowerCase()) {
-      // address = this.constants.WFTM[this.constants.CHAIN_ID.MAINNET].toLowerCase();
+      if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('FTM', chainID);
+      }
       return await this.getChainlinkPriceUSD('FTM', chainID);
     } else if (address.toLowerCase() === this.constants.WMATIC[chainID].toLowerCase()) {
       // address = this.constants.WMATIC[this.constants.CHAIN_ID.MAINNET].toLowerCase();
@@ -335,21 +372,23 @@ export class HelpersService {
       return await this.getChainlinkPriceUSD('WOO', chainID);
     } else if (address.toLowerCase() === this.constants.XRP[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('XRP');
+        return await this.getBandPriceUSD('XRP', chainID);
       }
     } else if (address.toLowerCase() === this.constants.XTZ[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('XTZ');
+        return await this.getBandPriceUSD('XTZ', chainID);
       }
     } else if (address.toLowerCase() === this.constants.XVS[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('XVS');
+        return await this.getBandPriceUSD('XVS', chainID);
       }
     } else if (address.toLowerCase() === this.constants.Y3CRV[chainID].toLowerCase()) {
       // address = this.constants.Y3CRV[this.constants.CHAIN_ID.MAINNET].toLowerCase();
     } else if (address.toLowerCase() === this.constants.YFI[chainID].toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('YFI');
+        return await this.getBandPriceUSD('YFI', chainID);
+      } else if (chainID === this.constants.CHAIN_ID.FANTOM) {
+        return await this.getBandPriceUSD('YFI', chainID);
       }
       return await this.getChainlinkPriceUSD('YFI', chainID);
     } else if (address.toLowerCase() === this.constants.UNI_DAI_ETH[chainID].toLowerCase()) {
@@ -394,7 +433,7 @@ export class HelpersService {
       return await this.getFairUniswapPriceUSD(id, chainID);
     } else if (address.toLowerCase() === this.constants.ZERO_ADDRESS.toLowerCase()) {
       if (chainID === this.constants.CHAIN_ID.BSC) {
-        return await this.getBandPriceUSD('BNB');
+        return await this.getBandPriceUSD('BNB', chainID);
       }
       return await this.getChainlinkPriceUSD('ETH', chainID);
     } else {
@@ -510,13 +549,13 @@ export class HelpersService {
     }
   }
 
-  async getBandPriceUSD(symbol: string): Promise<number> {
+  async getBandPriceUSD(symbol: string, chainID: number): Promise<number> {
     // provider @dev make a service for this
     const provider = (await detectEthereumProvider()) as any;
     const ethereum = new ethers.providers.Web3Provider(provider);
 
     const bandABI = require(`src/assets/abis/BandOracle.json`);
-    const bandAddress = "0xDA7a001b254CD22e46d3eAB04d937489c93174C3";
+    const bandAddress = this.constants.BAND_ORACLE[chainID];
     const oracleContract = new ethers.Contract(bandAddress, bandABI, ethereum);
 
     const tokenPrice = parseFloat(await oracleContract.getReferenceData(symbol, 'USD', {gasLimit: 100000})) / 1e18;
@@ -534,7 +573,7 @@ export class HelpersService {
 
     let basePriceUSD = 1;
     if (chainID === this.constants.CHAIN_ID.BSC) {
-      basePriceUSD = await this.getBandPriceUSD('BNB');
+      basePriceUSD = await this.getBandPriceUSD('BNB', this.constants.CHAIN_ID.BSC);
     }
 
     let price = parseFloat(ethers.utils.formatUnits(await oracleContract.getPrice(address, {gasLimit: 100000}), '18'));
@@ -567,7 +606,7 @@ export class HelpersService {
     const price = parseFloat(await oracleContract.getUnderlyingPrice(address, {gasLimit: 100000})) / 1e18;
     let basePriceUSD;
     if (chainID === this.constants.CHAIN_ID.BSC) {
-      basePriceUSD = await this.getBandPriceUSD('BNB');
+      basePriceUSD = await this.getBandPriceUSD('BNB', this.constants.CHAIN_ID.BSC);
     } else {
       basePriceUSD = await this.getETHPriceUSD(chainID);
     }
