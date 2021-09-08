@@ -1,0 +1,16 @@
+<div *ngIf="pieChartData">
+  <div>
+    <h4 class="text-uppercase text-center card-label">
+      🍦 CREAM token holders with no iceCREAM
+    </h4>
+    <canvas
+      baseChart
+      [datasets]="pieChartData"
+      [labels]="pieChartLabels"
+      [legend]="pieChartLegend"
+      [chartType]="pieChartType"
+      [options]="pieChartOptions"
+    >
+    </canvas>
+  </div>
+</div>

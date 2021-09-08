@@ -44,6 +44,7 @@ import { BscTotalBorrowedComponent } from './binance-smart-chain/charts/bsc-tota
 import { BscUtilizationRateComponent } from './binance-smart-chain/charts/bsc-utilization-rate/bsc-utilization-rate.component';
 import { BscLoanOriginationComponent } from './binance-smart-chain/charts/bsc-loan-origination/bsc-loan-origination.component';
 import { BscLoanRevenueComponent } from './binance-smart-chain/charts/bsc-loan-revenue/bsc-loan-revenue.component';
+import { NoIceCreamHoldersComponent } from './ice-cream/charts/no-ice-cream-holders/no-ice-cream-holders.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { BscLoanRevenueComponent } from './binance-smart-chain/charts/bsc-loan-r
     BscUtilizationRateComponent,
     BscLoanOriginationComponent,
     BscLoanRevenueComponent,
+    NoIceCreamHoldersComponent,
   ],
   imports: [
     NgbModule,
