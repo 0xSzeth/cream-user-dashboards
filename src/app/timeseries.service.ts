@@ -128,50 +128,42 @@ export class TimeseriesService {
 
       count += limit;
     }
-
-    // // generate a query string
-    // let queryString = `query GetBlocks {`;
-    // for (let i = 0; i < timeStamps.length; i++) {
-    //   queryString += `t${i}: blocks(
-    //     first: 1,
-    //     orderBy: timestamp,
-    //     orderDirection: asc,
-    //     where: {
-    //       timestamp_gt: ${timeStamps[i]},
-    //       timestamp_lt: ${timeStamps[i] + 600}
-    //     }
-    //   ) {
-    //     id
-    //     number
-    //     timestamp
-    //   }`;
-    // }
-    // queryString += `}`;
-    // const blocksQuery = gql`
-    //   ${queryString}
-    // `;
-    //
-    // // run the query and create array of blocks
-    // await request(
-    //   this.constants.GRAPHQL_BLOCKS[networkID],
-    //   blocksQuery,
-    //   {
-    //     'Cache-Control': `max-age=60`,
-    //     'Access-Control-Allow-Origin': '*'
-    //   }
-    // ).then((data) => {
-    //   for (let block in data) {
-    //     blocks.push(parseInt(data[block][0].number));
-    //     blocks.sort(function (a, b) {
-    //       return a - b;
-    //     });
-    //   }
-    // });
-
-    // return data
     data.push(timeStamps);
     data.push(blocks);
     return data;
+  }
+
+  async getBlock(timestamp: number, networkID: number): Promise<number> {
+    let blockNumber: number = 0;
+    let blocksQueryString = `query BlocksQuery {`;
+    blocksQueryString += `blocks (
+      first: 1,
+      where: {
+        timestamp_gt: ${timestamp},
+        timestamp_lt: ${timestamp + 600}
+      }
+    ) {
+      id
+      number
+      timestamp
+    }`;
+    blocksQueryString += `}`;
+    const blocksQuery = gql`
+      ${blocksQueryString}
+    `;
+
+    // run the query and create array of blocks
+    blockNumber = await request(
+      this.constants.GRAPHQL_BLOCKS[networkID],
+      blocksQuery,
+      {
+        'Cache-Control': `max-age=60`,
+        'Access-Control-Allow-Origin': '*'
+      }
+    ).then((data) => {
+      return parseInt(data.blocks[0].number);
+    });
+    return blockNumber;
   }
 
 }

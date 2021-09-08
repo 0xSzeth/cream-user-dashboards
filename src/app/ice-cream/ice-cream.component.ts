@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HelpersService } from '../helpers.service';
 import { ConstantsService } from '../constants.service';
+import { TimeseriesService } from '../timeseries.service';
 import { ethers } from 'ethers';
 import { request, gql } from 'graphql-request';
 import { Chart } from 'chart.js';
@@ -18,6 +19,8 @@ export class IceCREAMComponent implements OnInit {
 
   totalLoanOrigination: BigNumber = new BigNumber(0);
   totalLoanRevenue: BigNumber = new BigNumber(0);
+  oneDayLoanRevenue: BigNumber = new BigNumber(0);
+  iceCreamMarketCap: number = 0;
 
   activeUsersMainnet: number = 0;
   activeUsersIronBank: number = 0;
@@ -28,6 +31,7 @@ export class IceCREAMComponent implements OnInit {
   constructor(
     public helpers: HelpersService,
     public constants: ConstantsService,
+    public timeseries: TimeseriesService,
   ) { }
 
   async ngOnInit() {
@@ -36,6 +40,7 @@ export class IceCREAMComponent implements OnInit {
 
   async loadData() {
     const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.MAINNET]);
+    const currentBlock = await ethereum.getBlockNumber();
 
     this.creamPriceUSD = await this.helpers.getTokenPriceUSD(this.constants.CREAM[this.constants.CHAIN_ID.MAINNET], this.constants.CHAIN_ID.MAINNET, 0);
 
@@ -43,8 +48,11 @@ export class IceCREAMComponent implements OnInit {
     const iceCreamAbi = require(`src/assets/abis/iceCREAM.json`);
     const iceCreamAddress = this.constants.ICE_CREAM;
     const iceCreamContract = new ethers.Contract(iceCreamAddress, iceCreamAbi, ethereum);
-    const iceCreamTotalSupply = ethers.utils.formatUnits(await iceCreamContract.supply({gasLimit: 100000}), 'ether');
+    const iceCreamTotalSupply = ethers.utils.formatUnits(await iceCreamContract.totalSupplyAt(currentBlock, {gasLimit: 100000}), 'ether');
     this.iceCreamTotalSupply = parseFloat(iceCreamTotalSupply);
+
+    const iceCreamUnderlyingCream = parseFloat(ethers.utils.formatUnits(await iceCreamContract.supply({gasLimit: 100000}), 'ether'));
+    this.iceCreamMarketCap = iceCreamUnderlyingCream * this.creamPriceUSD;
 
     let creamHolders: number = 0;
     let skip: boolean = true;
@@ -99,8 +107,27 @@ export class IceCREAMComponent implements OnInit {
     const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.MAINNET]);
     let activeUsersMainnet: number = 0;
 
+    let index = Math.trunc(Date.now()/1e3) - this.constants.DAY_IN_SEC;
+    let block = await this.timeseries.getBlock(index, this.constants.CHAIN_ID.MAINNET);
+
     let marketQueryString = `query MarketStats {`;
     marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `block: markets (
+      block: {
+        number: ${block}
+      }
+    ) {
       id
       symbol
       underlyingAddress
@@ -122,9 +149,23 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
+      const block = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
+      let blockLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        block.map(async (block) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, block.id, false);
+          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
+
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
+      });
 
       Promise.all(
         markets.map(async (market) => {
@@ -138,6 +179,7 @@ export class IceCREAMComponent implements OnInit {
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
       });
     });
 
@@ -181,8 +223,27 @@ export class IceCREAMComponent implements OnInit {
     const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.MAINNET]);
     let activeUsersIronBank: number = 0;
 
+    let index = Math.trunc(Date.now()/1e3) - this.constants.DAY_IN_SEC;
+    let block = await this.timeseries.getBlock(index, this.constants.CHAIN_ID.MAINNET);
+
     let marketQueryString = `query MarketStats {`;
     marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `block: markets (
+      block: {
+        number: ${block}
+      }
+    ) {
       id
       symbol
       underlyingAddress
@@ -204,9 +265,23 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
+      const block = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
+      let blockLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        block.map(async (block) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, block.id, true);
+          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
+
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
+      });
 
       Promise.all(
         markets.map(async (market) => {
@@ -220,6 +295,7 @@ export class IceCREAMComponent implements OnInit {
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
       });
     });
 
@@ -263,8 +339,27 @@ export class IceCREAMComponent implements OnInit {
     const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.POLYGON]);
     let activeUsersPolygon: number = 0;
 
+    let index = Math.trunc(Date.now()/1e3) - this.constants.DAY_IN_SEC;
+    let block = await this.timeseries.getBlock(index, this.constants.CHAIN_ID.POLYGON);
+
     let marketQueryString = `query MarketStats {`;
     marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `block: markets (
+      block: {
+        number: ${block}
+      }
+    ) {
       id
       symbol
       underlyingAddress
@@ -286,9 +381,23 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
+      const block = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
+      let blockLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        block.map(async (block) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.POLYGON, 0, block.id, false);
+          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
+
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
+      });
 
       Promise.all(
         markets.map(async (market) => {
@@ -302,6 +411,7 @@ export class IceCREAMComponent implements OnInit {
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
       });
     });
 
@@ -345,8 +455,27 @@ export class IceCREAMComponent implements OnInit {
     const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.FANTOM]);
     let activeUsersFantom: number = 0;
 
+    let index = Math.trunc(Date.now()/1e3) - this.constants.DAY_IN_SEC;
+    let block = await this.timeseries.getBlock(index, this.constants.CHAIN_ID.FANTOM);
+
     let marketQueryString = `query MarketStats {`;
     marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `block: markets (
+      block: {
+        number: ${block}
+      }
+    ) {
       id
       symbol
       underlyingAddress
@@ -368,9 +497,24 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
+      const block = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
+
+      let blockLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        block.map(async (block) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.FANTOM, 0, block.id, false);
+          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
+
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
+      });
 
       Promise.all(
         markets.map(async (market) => {
@@ -384,6 +528,7 @@ export class IceCREAMComponent implements OnInit {
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
       });
     });
 
@@ -427,8 +572,27 @@ export class IceCREAMComponent implements OnInit {
     const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.BSC]);
     let activeUsersBSC: number = 0;
 
+    let index = Math.trunc(Date.now()/1e3) - this.constants.DAY_IN_SEC;
+    let block = await this.timeseries.getBlock(index, this.constants.CHAIN_ID.BSC);
+
     let marketQueryString = `query MarketStats {`;
     marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `block: markets (
+      block: {
+        number: ${block}
+      }
+    ) {
       id
       symbol
       underlyingAddress
@@ -450,9 +614,24 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
+      const block = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
+
+      let blockLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        block.map(async (block) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.BSC, 0, block.id, false);
+          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
+
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
+      });
 
       Promise.all(
         markets.map(async (market) => {
@@ -466,6 +645,7 @@ export class IceCREAMComponent implements OnInit {
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
       });
     });
 
@@ -522,6 +702,18 @@ interface QueryResult {
     creamBalance: string;
   }[];
   markets: {
+    id: string;
+    symbol: string;
+    underlyingAddress: string;
+    underlyingSymbol: string;
+    cash: string;
+    totalSupply: string;
+    exchangeRate: string;
+    totalBorrows: string;
+    totalInterestAccumulated: string;
+    reserveFactor: string;
+  }[];
+  block: {
     id: string;
     symbol: string;
     underlyingAddress: string;
