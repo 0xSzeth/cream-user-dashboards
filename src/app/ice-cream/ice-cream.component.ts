@@ -20,7 +20,7 @@ export class IceCREAMComponent implements OnInit {
   totalLoanOrigination: BigNumber = new BigNumber(0);
   totalLoanRevenue: BigNumber = new BigNumber(0);
   oneDayLoanRevenue: BigNumber = new BigNumber(0);
-  iceCreamMarketCap: number = 0;
+  iceCreamMarketCap: BigNumber = new BigNumber(0);
 
   activeUsersMainnet: number = 0;
   activeUsersIronBank: number = 0;
@@ -52,7 +52,7 @@ export class IceCREAMComponent implements OnInit {
     this.iceCreamTotalSupply = parseFloat(iceCreamTotalSupply);
 
     const iceCreamUnderlyingCream = parseFloat(ethers.utils.formatUnits(await iceCreamContract.supply({gasLimit: 100000}), 'ether'));
-    this.iceCreamMarketCap = iceCreamUnderlyingCream * this.creamPriceUSD;
+    this.iceCreamMarketCap = new BigNumber(iceCreamUnderlyingCream).times(this.creamPriceUSD);
 
     let creamHolders: number = 0;
     let skip: boolean = true;
