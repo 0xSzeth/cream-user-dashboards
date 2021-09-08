@@ -177,7 +177,7 @@ export class PolygonLoanRevenueComponent implements OnInit {
         data: [],
         dataRevenue: [],
         dataPeriodic: [],
-        dataCumulative: [],
+        dataReserveRate: [],
         backgroundColor:
           'rgba(' + this.COLORS[parseInt(market) % this.COLORS.length] + ', 0.5)',
         hoverBackgroundColor:
@@ -192,25 +192,15 @@ export class PolygonLoanRevenueComponent implements OnInit {
         for (let m in result[t]) {
           let market = result[t][m];
           let entry = this.assetRevenue.find((m) => m.address === market.underlyingAddress);
-          let totalRevenue = parseFloat(market.totalInterestAccumulated) * parseFloat(market.reserveFactor) / 1e18;
+          let totalRevenue = parseFloat(market.totalInterestAccumulated);
+          let reserveRate = parseFloat(market.reserveFactor);
           if (isNaN(totalRevenue)) {
             totalRevenue = 0;
           }
           if (entry) {
             entry.dataRevenue[parseInt(t.substring(1))] = totalRevenue;
+            entry.dataReserveRate[parseInt(t.substring(1))] = reserveRate;
           }
-
-        }
-      }
-    }
-
-    // populate the dataCumulative array
-    for (let m in this.assetRevenue) {
-      if (this.assetRevenue[m].label) {
-        let market = this.assetRevenue[m];
-        let price = this.assetPricesUSD.find((m) => m.address === market.address).price;
-        for (let t in this.timestamps) {
-          market.dataCumulative[t] = market.dataRevenue[t] * price;
         }
       }
     }
@@ -224,11 +214,11 @@ export class PolygonLoanRevenueComponent implements OnInit {
         for (let t in this.timestamps) {
           let delta = parseInt(t) - 1;
           if (parseInt(t) == 0) {
-            market.dataPeriodic[t] = market.dataRevenue[t] * price;
-            market.data[t] = market.dataRevenue[t] * price;
+            market.dataPeriodic[t] = market.dataRevenue[t] * market.dataReserveRate[t] / 1e18 * price;
+            market.data[t] = market.dataRevenue[t] * market.dataReserveRate[t] / 1e18 * price;
           } else {
-            market.dataPeriodic[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * price;
-            market.data[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * price;
+            market.dataPeriodic[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * market.dataReserveRate[t] / 1e18 * price;
+            market.data[t] = (market.dataRevenue[t] - market.dataRevenue[delta]) * market.dataReserveRate[t] / 1e18 * price;
           }
         }
       }
@@ -273,7 +263,7 @@ interface DataObject {
   data: number[];
   dataRevenue: number[];
   dataPeriodic: number[];
-  dataCumulative: number[];
+  dataReserveRate: number[];
   backgroundColor: string;
   hoverBackgroundColor: string;
 }
