@@ -914,7 +914,9 @@ export class ConstantsService {
 
   // rpc urls
   RPC_URL = {
-    [this.CHAIN_ID.MAINNET]: "https://mainnet.infura.io/v3/a92d4eb2cfcc4c91b5cbf49d088d7c7f",
+    // [this.CHAIN_ID.MAINNET]: "https://mainnet.infura.io/v3/a92d4eb2cfcc4c91b5cbf49d088d7c7f",
+    // [this.CHAIN_ID.MAINNET]: "https://main-light.eth.linkpool.io",
+    [this.CHAIN_ID.MAINNET]: "https://eth-mainnet.alchemyapi.io/v2/zMM9F7-u89E6RKlZwQ_XafTDvQxXCIpi",
     [this.CHAIN_ID.POLYGON]: "https://polygon-rpc.com",
     [this.CHAIN_ID.FANTOM]: "https://rpcapi.fantom.network",
     [this.CHAIN_ID.BSC]: "https://bsc-dataseed.binance.org"
