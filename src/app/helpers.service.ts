@@ -465,14 +465,7 @@ export class HelpersService {
         return await this.getChainlinkPriceUSD('MATIC', chainID);
       }
       return await this.getChainlinkPriceUSD('ETH', chainID);
-    } else {
-      console.log("TOKEN NOT FOUND " + address.toLowerCase());
-      //return 0;
     }
-    // return 0;
-    // console.log(address);
-    // console.log(ironBank);
-    // return 0;
     return this.getOraclePriceUSD(address.toLowerCase(), chainID, ironBank);
   }
 

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HelpersService } from '../helpers.service';
 import { ConstantsService } from '../constants.service';
 import { ethers } from 'ethers';
-import detectEthereumProvider from '@metamask/detect-provider';
 import { request, gql } from 'graphql-request';
 import { Chart } from 'chart.js';
+import BigNumber from 'bignumber.js';
 
 @Component({
   selector: 'app-ice-cream',
@@ -16,8 +16,8 @@ export class IceCREAMComponent implements OnInit {
   iceCreamTotalSupply: number = 0;
   creamHolders: number = 0;
 
-  totalLoanOrigination: number = 0;
-  totalLoanRevenue: number = 0;
+  totalLoanOrigination: BigNumber = new BigNumber(0);
+  totalLoanRevenue: BigNumber = new BigNumber(0);
 
   activeUsersMainnet: number = 0;
   activeUsersIronBank: number = 0;
@@ -35,11 +35,9 @@ export class IceCREAMComponent implements OnInit {
   }
 
   async loadData() {
-    this.creamPriceUSD = await this.helpers.getTokenPriceUSD(this.constants.CREAM[this.constants.CHAIN_ID.MAINNET], this.constants.CHAIN_ID.MAINNET, 0);
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.MAINNET]);
 
-    // provider @dev make a service for this
-    const provider = (await detectEthereumProvider()) as any;
-    const ethereum = new ethers.providers.Web3Provider(provider);
+    this.creamPriceUSD = await this.helpers.getTokenPriceUSD(this.constants.CREAM[this.constants.CHAIN_ID.MAINNET], this.constants.CHAIN_ID.MAINNET, 0);
 
     // fetch total iceCREAM supply
     const iceCreamAbi = require(`src/assets/abis/iceCREAM.json`);
@@ -98,7 +96,50 @@ export class IceCREAMComponent implements OnInit {
   }
 
   async loadMainnet() {
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.MAINNET]);
     let activeUsersMainnet: number = 0;
+
+    let marketQueryString = `query MarketStats {`;
+    marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `}`;
+    const marketQuery = gql`
+      ${marketQueryString}
+    `;
+
+    request(
+      this.constants.GRAPHQL_MAINNET,
+      marketQuery
+    ).then((data: QueryResult) => {
+      const markets = data.markets;
+
+      let totalLoanOriginationUSD = new BigNumber(0);
+      let totalLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        markets.map(async (market) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, market.id, false);
+          const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
+
+          totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
+          totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
+        this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+      });
+    });
 
     let skip: boolean = true;
     let lastID: string = "";
@@ -137,7 +178,50 @@ export class IceCREAMComponent implements OnInit {
   }
 
   async loadIronBank() {
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.MAINNET]);
     let activeUsersIronBank: number = 0;
+
+    let marketQueryString = `query MarketStats {`;
+    marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `}`;
+    const marketQuery = gql`
+      ${marketQueryString}
+    `;
+
+    request(
+      this.constants.GRAPHQL_IRONBANK,
+      marketQuery
+    ).then((data: QueryResult) => {
+      const markets = data.markets;
+
+      let totalLoanOriginationUSD = new BigNumber(0);
+      let totalLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        markets.map(async (market) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, market.id, true);
+          const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
+
+          totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
+          totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
+        this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+      });
+    });
 
     let skip: boolean = true;
     let lastID: string = "";
@@ -176,9 +260,50 @@ export class IceCREAMComponent implements OnInit {
   }
 
   async loadPolygon() {
-    let loanOriginationPolygon: number = 0;
-    let loanRevenuePolygon: number = 0;
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.POLYGON]);
     let activeUsersPolygon: number = 0;
+
+    let marketQueryString = `query MarketStats {`;
+    marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `}`;
+    const marketQuery = gql`
+      ${marketQueryString}
+    `;
+
+    request(
+      this.constants.GRAPHQL_POLYGON,
+      marketQuery
+    ).then((data: QueryResult) => {
+      const markets = data.markets;
+
+      let totalLoanOriginationUSD = new BigNumber(0);
+      let totalLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        markets.map(async (market) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON, 0, market.id, false);
+          const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
+
+          totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
+          totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
+        this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+      });
+    });
 
     let skip: boolean = true;
     let lastID: string = "";
@@ -214,36 +339,53 @@ export class IceCREAMComponent implements OnInit {
     }
 
     this.activeUsersPolygon = activeUsersPolygon;
-
-    let queryString = `query InterestData {`;
-    queryString += `markets {
-        id
-        symbol
-        underlyingAddress
-        underlyingSymbol
-        cash
-        totalSupply
-        exchangeRate
-        totalBorrows
-        totalInterestAccumulated
-        reserveFactor
-      }`;
-    queryString += `}`;
-    const query = gql`
-      ${queryString}
-    `;
-
-    request(
-      this.constants.GRAPHQL_POLYGON,
-      queryString
-    ).then((data: QueryResult) => {
-      console.log(data);
-    });
-
   }
 
   async loadFantom() {
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.FANTOM]);
     let activeUsersFantom: number = 0;
+
+    let marketQueryString = `query MarketStats {`;
+    marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `}`;
+    const marketQuery = gql`
+      ${marketQueryString}
+    `;
+
+    request(
+      this.constants.GRAPHQL_FANTOM,
+      marketQuery
+    ).then((data: QueryResult) => {
+      const markets = data.markets;
+
+      let totalLoanOriginationUSD = new BigNumber(0);
+      let totalLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        markets.map(async (market) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.FANTOM, 0, market.id, false);
+          const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
+
+          totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
+          totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
+        this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+      });
+    });
 
     let skip: boolean = true;
     let lastID: string = "";
@@ -282,7 +424,50 @@ export class IceCREAMComponent implements OnInit {
   }
 
   async loadBSC() {
+    const ethereum = new ethers.providers.JsonRpcProvider(this.constants.RPC_URL[this.constants.CHAIN_ID.BSC]);
     let activeUsersBSC: number = 0;
+
+    let marketQueryString = `query MarketStats {`;
+    marketQueryString += `markets {
+      id
+      symbol
+      underlyingAddress
+      underlyingSymbol
+      cash
+      totalSupply
+      exchangeRate
+      totalBorrows
+      totalInterestAccumulated
+      reserveFactor
+    }`;
+    marketQueryString += `}`;
+    const marketQuery = gql`
+      ${marketQueryString}
+    `;
+
+    request(
+      this.constants.GRAPHQL_BSC,
+      marketQuery
+    ).then((data: QueryResult) => {
+      const markets = data.markets;
+
+      let totalLoanOriginationUSD = new BigNumber(0);
+      let totalLoanRevenueUSD = new BigNumber(0);
+
+      Promise.all(
+        markets.map(async (market) => {
+          const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.BSC, 0, market.id, false);
+          const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
+          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
+
+          totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
+          totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+        })
+      ).then(() => {
+        this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
+        this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
+      });
+    });
 
     let skip: boolean = true;
     let lastID: string = "";
@@ -320,6 +505,11 @@ export class IceCREAMComponent implements OnInit {
     this.activeUsersBSC = activeUsersBSC;
   }
 
+  numberWithCommas(x: number | BigNumber) {
+    let y = x.toFixed(2);
+    let number = y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return number;
+  }
 }
 
 interface QueryResult {
