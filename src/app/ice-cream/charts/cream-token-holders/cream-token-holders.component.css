@@ -114,13 +114,30 @@
 
 .card-label {
   margin-top: 0;
+  color: white;
 }
 
 .card-content {
   text-align: center;
   margin-top: 0;
+  color: white;
 }
 
 .mb-5 {
   margin-bottom: 2.25rem !important;
+}
+
+.chart-label {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.custom-select {
+  background-color: #68E1DC;
+  border-radius: 36px;
+  border: 1px solid #68E1DC;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-right: 3px;
+  padding-left: 3px;
 }

@@ -149,37 +149,33 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
-      const block = data.block;
+      const blocks = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
       let blockLoanRevenueUSD = new BigNumber(0);
 
       Promise.all(
-        block.map(async (block) => {
-          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, block.id, false);
-          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
-          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
-
-          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
-        })
-      ).then(() => {
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
-      });
-
-      Promise.all(
         markets.map(async (market) => {
+          const block = blocks.find((block) => block.id === market.id);
+
           const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, market.id, false);
           const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
           const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
 
+          let assetHistoricalLoanRevenueUSD = new BigNumber(0);
+          if (block) {
+            assetHistoricalLoanRevenueUSD = new BigNumber(block.totalInterestAccumulated).times(block.reserveFactor).times(assetPriceUSD).div(1e18);
+          }
+
           totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
           totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD.minus(assetHistoricalLoanRevenueUSD));
         })
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(blockLoanRevenueUSD);
       });
     });
 
@@ -265,37 +261,33 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
-      const block = data.block;
+      const blocks = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
       let blockLoanRevenueUSD = new BigNumber(0);
 
       Promise.all(
-        block.map(async (block) => {
-          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, block.id, true);
-          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
-          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
-
-          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
-        })
-      ).then(() => {
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
-      });
-
-      Promise.all(
         markets.map(async (market) => {
+          const block = blocks.find((block) => block.id === market.id);
+
           const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.MAINNET, 0, market.id, true);
           const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
           const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
 
+          let assetHistoricalLoanRevenueUSD = new BigNumber(0);
+          if (block) {
+            assetHistoricalLoanRevenueUSD = new BigNumber(block.totalInterestAccumulated).times(block.reserveFactor).times(assetPriceUSD).div(1e18);
+          }
+
           totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
           totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD.minus(assetHistoricalLoanRevenueUSD));
         })
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(blockLoanRevenueUSD);
       });
     });
 
@@ -381,37 +373,33 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
-      const block = data.block;
+      const blocks = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
       let blockLoanRevenueUSD = new BigNumber(0);
 
       Promise.all(
-        block.map(async (block) => {
-          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.POLYGON, 0, block.id, false);
-          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
-          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
-
-          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
-        })
-      ).then(() => {
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
-      });
-
-      Promise.all(
         markets.map(async (market) => {
+          const block = blocks.find((block) => block.id === market.id);
+
           const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.POLYGON, 0, market.id, false);
           const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
           const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
 
+          let assetHistoricalLoanRevenueUSD = new BigNumber(0);
+          if (block) {
+            assetHistoricalLoanRevenueUSD = new BigNumber(block.totalInterestAccumulated).times(block.reserveFactor).times(assetPriceUSD).div(1e18);
+          }
+
           totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
           totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD.minus(assetHistoricalLoanRevenueUSD));
         })
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(blockLoanRevenueUSD);
       });
     });
 
@@ -497,38 +485,33 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
-      const block = data.block;
+      const blocks = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
-
       let blockLoanRevenueUSD = new BigNumber(0);
 
       Promise.all(
-        block.map(async (block) => {
-          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.FANTOM, 0, block.id, false);
-          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
-          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
-
-          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
-        })
-      ).then(() => {
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
-      });
-
-      Promise.all(
         markets.map(async (market) => {
+          const block = blocks.find((block) => block.id === market.id);
+
           const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.FANTOM, 0, market.id, false);
           const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
           const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
 
+          let assetHistoricalLoanRevenueUSD = new BigNumber(0);
+          if (block) {
+            assetHistoricalLoanRevenueUSD = new BigNumber(block.totalInterestAccumulated).times(block.reserveFactor).times(assetPriceUSD).div(1e18);
+          }
+
           totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
           totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD.minus(assetHistoricalLoanRevenueUSD));
         })
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(blockLoanRevenueUSD);
       });
     });
 
@@ -614,38 +597,33 @@ export class IceCREAMComponent implements OnInit {
       marketQuery
     ).then((data: QueryResult) => {
       const markets = data.markets;
-      const block = data.block;
+      const blocks = data.block;
 
       let totalLoanOriginationUSD = new BigNumber(0);
       let totalLoanRevenueUSD = new BigNumber(0);
-
       let blockLoanRevenueUSD = new BigNumber(0);
 
       Promise.all(
-        block.map(async (block) => {
-          const assetPriceUSD = await this.helpers.getTokenPriceUSD(block.underlyingAddress, this.constants.CHAIN_ID.BSC, 0, block.id, false);
-          const assetTotalLoanOriginationUSD = new BigNumber(block.totalInterestAccumulated).times(assetPriceUSD);
-          const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(block.reserveFactor).div(1e18);
-
-          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
-        })
-      ).then(() => {
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.minus(blockLoanRevenueUSD);
-      });
-
-      Promise.all(
         markets.map(async (market) => {
+          const block = blocks.find((block) => block.id === market.id);
+
           const assetPriceUSD = await this.helpers.getTokenPriceUSD(market.underlyingAddress, this.constants.CHAIN_ID.BSC, 0, market.id, false);
           const assetTotalLoanOriginationUSD = new BigNumber(market.totalInterestAccumulated).times(assetPriceUSD);
           const assetTotalLoanRevenueUSD = assetTotalLoanOriginationUSD.times(market.reserveFactor).div(1e18);
 
+          let assetHistoricalLoanRevenueUSD = new BigNumber(0);
+          if (block) {
+            assetHistoricalLoanRevenueUSD = new BigNumber(block.totalInterestAccumulated).times(block.reserveFactor).times(assetPriceUSD).div(1e18);
+          }
+
           totalLoanOriginationUSD = totalLoanOriginationUSD.plus(assetTotalLoanOriginationUSD);
           totalLoanRevenueUSD = totalLoanRevenueUSD.plus(assetTotalLoanRevenueUSD);
+          blockLoanRevenueUSD = blockLoanRevenueUSD.plus(assetTotalLoanRevenueUSD.minus(assetHistoricalLoanRevenueUSD));
         })
       ).then(() => {
         this.totalLoanOrigination = this.totalLoanOrigination.plus(totalLoanOriginationUSD);
         this.totalLoanRevenue = this.totalLoanRevenue.plus(totalLoanRevenueUSD);
-        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(totalLoanRevenueUSD);
+        this.oneDayLoanRevenue = this.oneDayLoanRevenue.plus(blockLoanRevenueUSD);
       });
     });
 
